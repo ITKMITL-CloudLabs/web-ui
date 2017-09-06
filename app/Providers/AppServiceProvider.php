@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Extensions\OpenStackApi;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton('OpenStackApi', function () {
+            return new OpenStackApi();
+        });
     }
 }
