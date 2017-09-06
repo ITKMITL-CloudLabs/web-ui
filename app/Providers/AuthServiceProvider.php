@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Authentication\KeystoneGuard;
+use App\Authentication\KeystoneUserProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -25,6 +28,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Auth::extend('keystone', function($app) {
+            return new KeystoneGuard(
+                'keystone',
+                new KeystoneUserProvider(),
+                $app->make('session.store'),
+                $app->make('request')
+            );
+        });
     }
 }
