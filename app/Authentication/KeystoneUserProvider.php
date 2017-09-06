@@ -5,6 +5,7 @@ namespace App\Authentication;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
+use OpenStack\Common\Error\BadResponseError;
 use OpenStack\OpenStack;
 
 class KeystoneUserProvider implements UserProvider
@@ -38,20 +39,25 @@ class KeystoneUserProvider implements UserProvider
             ]
         ]);
 
-        $token = $openstack->identityV3()->generateToken([
-            'user' => [
-                'name'     => $credentials['username'],
-                'password' => $credentials['password'],
-                'domain'   => [
-                    'id' => env('OS_AUTH_DOMAIN')
+        try {
+            $token = $openstack->identityV3()->generateToken([
+                'user' => [
+                    'name'     => $credentials['username'],
+                    'password' => $credentials['password'],
+                    'domain'   => [
+                        'id' => env('OS_AUTH_DOMAIN')
+                    ]
+                ],
+                'scope' => [
+                    'project' => [
+                        'id' => env('OS_AUTH_SCOPE_PROJECT_ID')
+                    ]
                 ]
-            ],
-            'scope' => [
-                'project' => [
-                    'id' => env('OS_AUTH_SCOPE_PROJECT_ID')
-                ]
-            ]
-        ]);
+            ]);
+        } catch (BadResponseError $exception) {
+            return null;
+        }
+
 
         $user = new KeystoneAuthenticatableUser();
         $user->setToken($token);
