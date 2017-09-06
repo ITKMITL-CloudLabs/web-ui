@@ -1,0 +1,39 @@
+/*@import url('https://fonts.googleapis.com/css?family=Prompt:400&subset=thai');*/
+
+body {
+    color: #555;
+    background: #f8f8f8;
+    /*background-image: -webkit-radial-gradient(100% 100%,ellipse farthest-side,#dbf6c8 20%,#1cafc6 50%,#012690 110%);*/
+    /*background-image: radial-gradient(ellipse farthest-side at 100% 100%,#dbf6c8 20%,#1cafc6 50%,#012690 110%);*/
+}
+
+/*h1, h2, h3, h4, h5, h6 {*/
+    /*font-family: 'Prompt', sans-serif;*/
+    /*font-weight: 400;*/
+/*}*/
+
+.login-box {
+    margin-top: 50px;
+    padding: 20px;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .13);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .13);
+}
+
+.form-control {
+    border-radius: 0;
+    background: #fbfbfb;
+    border: 1px solid #ddd;
+}
+
+.btn-login {
+    font-family: 'Prompt', sans-serif;
+    font-weight: 400;
+    border-radius: 0;
+    background: #00c0ef;
+    border: 0;
+}
+
+.btn-login:hover {
+    background: #0793b5;
+}
