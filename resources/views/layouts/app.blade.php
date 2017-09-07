@@ -1,73 +1,129 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title') | CloudLabs</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/AdminLTE/css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/AdminLTE/css/skin-blue.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/cloudlabs/css/app.css') }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+<body class="hold-transition skin-blue fixed sidebar-mini">
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+<div class="wrapper">
+<header class="main-header">
+    <a href="../../index2.html" class="logo">
+        <span class="logo-mini"><b>C</b>L</span>
+        <span class="logo-lg"><b>Cloud</b>Labs</span>
+    </a>
+    <nav class="navbar navbar-static-top">
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="http://www.marketaccessbd.com/wp-content/uploads/2014/08/avatar-1.png"
+                             class="user-image" alt="User Image">
+                        <span class="hidden-xs">{{ auth()->user()->name }}</span>
                     </a>
-                </div>
+                    <ul class="dropdown-menu">
+                        <li class="user-header">
+                            <img src="http://www.marketaccessbd.com/wp-content/uploads/2014/08/avatar-1.png"
+                                 class="img-circle" alt="User Image">
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
+                            <p>
+                                {{ auth()->user()->name }}
+                                <small>Member since Nov. 2012</small>
+                            </p>
+                        </li>
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="#" class="btn btn-default btn-flat">โปรไฟล์</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="#" class="btn btn-default btn-flat">ออกจากระบบ</a>
+                            </div>
+                        </li>
                     </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}">
-                                            Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="http://www.marketaccessbd.com/wp-content/uploads/2014/08/avatar-1.png" class="img-circle"
+                     alt="User Image">
             </div>
-        </nav>
+            <div class="pull-left info">
+                <p>{{ auth()->user()->name }}</p>
+                <a href="#"><i class="fa fa-circle text-success"></i> ออนไลน์</a>
+            </div>
+        </div>
 
-        @yield('content')
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">เมนูหลัก</li>
+            <li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>ภาพรวม</span></a></li>
+            <li><a href="#"><i class="fa fa-flask"></i> <span>ห้องแล็บ</span></a></li>
+
+            <li class="header">เมนูผู้ดูแลระบบ</li>
+            <li><a href="#"><i class="fa fa-dashboard"></i> <span>ภาพรวมของระบบ</span></a></li>
+            <li><a href="#"><i class="fa fa-flask"></i> <span>จัดการแล็บ</span></a></li>
+            <li><a href="#"><i class="fa fa-users"></i> <span>จัดการผู้ใช้</span></a></li>
+        </ul>
+    </section>
+</aside>
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            @yield('title')
+            <small>@yield('subtitle')</small>
+        </h1>
+        {{--<ol class="breadcrumb">--}}
+            {{--<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>--}}
+            {{--<li><a href="#">Layout</a></li>--}}
+            {{--<li class="active">Fixed</li>--}}
+        {{--</ol>--}}
+    </section>
+</div>
+
+<footer class="main-footer">
+    <div class="pull-right hidden-xs">
+        <b>Version</b> 0.1
     </div>
+    <strong>Copyright &copy; {{ date('Y') }} <a href="{{ config('app.url') }}">{{  config('app.name') }}</a>.</strong> All rights reserved.
+</footer>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+<script src="{{ asset('assets/fastclick/fastclick.js') }}"></script>
+<script src="{{ asset('assets/AdminLTE/js/adminlte.min.js') }}"></script>
+
 </body>
 </html>
