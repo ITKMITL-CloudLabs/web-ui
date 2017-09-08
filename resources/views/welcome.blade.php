@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Fixed Layout</title>
+    <title>Login | CloudLabs</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/cloudlabs/css/welcome.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/cloudlabs/css/login.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,20 +23,23 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-box">
-                    <form method="post" action="{{ route('login') }}">
-                        {{ csrf_field() }}
-                        <div class="form-group">
-                            <label>ชื่อผู้ใช้</label>
-                            <input type="text" class="form-control input-lg" name="username">
-                        </div>
-                        <div class="form-group">
-                            <label>รหัสผ่าน</label>
-                            <input type="password" class="form-control input-lg" name="password">
-                        </div>
-                        <button class="btn btn-block btn-primary btn-login btn-lg">เข้าสู่ระบบ</button>
-                    </form>
+            <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-6 col-md-offset-3">
+                    <h1 class="text-center"><strong>Cloud</strong>Labs</h1>
+                    <div class="login-left">
+                        <form class="login-form" method="post" action="{{ route('login') }}">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <h1>Login</h1>
+                                <label>Please fill in your basic info</label>
+                                <input type="text" class="form-control" placeholder="Username" name="username">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Password" name="password">
+                            </div>
+                            <button class="btn btn-primary btn-block btn-login">Login</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
