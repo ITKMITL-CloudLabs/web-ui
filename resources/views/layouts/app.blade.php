@@ -110,6 +110,10 @@
             {{--<li class="active">Fixed</li>--}}
         {{--</ol>--}}
     </section>
+
+    <section class="content">
+        @yield('content')
+    </section>
 </div>
 
 <footer class="main-footer">
