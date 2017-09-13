@@ -10,7 +10,7 @@
                 <div class="modal-body">
                     <div class="form-group required">
                         <label>ชื่อการทดลอง</label>
-                        <input type="text" name="title" class="form-control">
+                        <input type="text" name="title" class="form-control" autofocus>
                     </div>
                 </div>
                 <div class="modal-footer">
