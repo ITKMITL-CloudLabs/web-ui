@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Prompt&subset=thai');
+
 .skin-blue .sidebar-menu li.header {
     padding-bottom: 5px;
 }
@@ -10,6 +12,26 @@
     border-bottom: 1px solid #e5e5e5;
 }
 
+.box-body.no-padding > ul.list-group {
+    margin-bottom: 0;
+}
+
+.box-body.no-padding > ul.list-group li.list-group-item {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    border-color: #f1f1f1;
+    padding: 8px 15px 8px 15px;
+}
+
+.box-body.no-padding > ul.list-group li.list-group-item:first-child {
+    border-top: 0;
+}
+
+.box-body.no-padding > ul.list-group li.list-group-item:last-child {
+    border-bottom: 0;
+}
+
 .sidebar-menu .fa {
     margin-right: 0;
 }
@@ -20,10 +42,21 @@
     font-size: 11px;
 }
 
+.btn-box-tool .fa {
+    margin-right: 4px;
+}
+
+.btn-xs .fa {
+    margin-right: 3px;
+}
+
+.btn-app .fa {
+    margin-right: 0;
+}
+
 .fa {
     margin-right: 8px;
 }
-
 
 .wizard-container {
     padding-top: 0;
@@ -64,4 +97,25 @@
 }
 .wizard-card[data-color="blue"] .wizard-navigation .progress-bar {
     background-color: #3bafda;
+}
+
+.admin-lab-title {
+    font-family: 'Prompt', sans-serif;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.lab-detail-list-title {
+    font-weight: bold;
+    display: inline-block;
+    width: 80px;
+}
+
+.actions-box .btn-app {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.actions-box .btn-app:first-child {
+    margin-left: 0;
 }
