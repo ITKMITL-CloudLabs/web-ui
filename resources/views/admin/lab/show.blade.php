@@ -25,7 +25,7 @@
                     <form class="inline" action="{{ route('admin.lab.destroy', $lab->id) }}" method="post">
                         {{ csrf_field() }}
                         {{ method_field('delete') }}
-                        <button id="delete" class="btn btn-app">
+                        <button id="deleteBtn" class="btn btn-app">
                             <i class="fa fa-trash"></i> ลบ
                         </button>
                     </form>
@@ -116,7 +116,7 @@
 @endsection
 @section('script')
     <script>
-        $('#delete').on('click',function(e){
+        $('#deleteBtn').on('click',function(e){
             e.preventDefault();
             var form = $(this).parents('form');
             swal({
@@ -126,11 +126,20 @@
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "ยืนยัน",
-                cancelButtonText: 'ยกเลิก',
-                closeOnConfirm: false
-            }, function(isConfirm){
-                if (isConfirm) form.submit();
-            });
+                cancelButtonText: 'ยกเลิก'
+            }).then(function () {
+                form.submit();
+            }, function (dismiss) {
+                // dismiss can be 'cancel', 'overlay',
+                // 'close', and 'timer'
+                if (dismiss === 'cancel') {
+                    swal(
+                        'Cancelled',
+                        'Your imaginary file is safe :)',
+                        'error'
+                    )
+                }
+            })
         });
     </script>
 @endsection
