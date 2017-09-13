@@ -131,12 +131,21 @@
 <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ asset('assets/fastclick/fastclick.js') }}"></script>
+<script src="{{ asset('assets/AdminLTE/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/AdminLTE/js/dataTables.bootstrap.min.js') }}"></script>
+
 <script src="{{ asset('assets/AdminLTE/js/adminlte.min.js') }}"></script>
 <script src="{{ asset('assets/AdminLTE/js/sweetalert2.min.js') }}"></script>
 <script>
     $('.modal').on('shown.bs.modal', function() {
         $(this).find('[autofocus]').focus();
     });
+
+    $('.datatable').dataTable({
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.10.16/i18n/Thai.json'
+        }
+    })
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 

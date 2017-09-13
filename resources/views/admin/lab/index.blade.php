@@ -23,7 +23,7 @@
             <h3 class="box-title">รายการการทดลองทั้งหมด</h3>
         </div>
         <div class="box-body">
-            <table id="labs" class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover datatable">
                     <thead>
                         <tr>
                             <th style="width: 10px">#</th>
@@ -58,13 +58,4 @@
     </div>
 
     @include('admin.lab.create')
-@endsection
-@section('script')
-    <script src="{{ asset('assets/AdminLTE/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/AdminLTE/js/dataTables.bootstrap.min.js') }}"></script>
-    <script>
-        $(document).ready( function () {
-            $('#labs').DataTable();
-        } );
-    </script>
 @endsection
