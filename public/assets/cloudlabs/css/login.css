@@ -1,18 +1,17 @@
 body {
     background-image: linear-gradient(to right, #243949 0%, #517fa4 100%);
-    color: #e3e3e3;
+    color: #fff;
     margin-top: 40px;
 }
 
 .login-form {
     width: 100%;
     padding: 13px;
-    color: #848389;
+    color: #fff;
 }
 
 .login-left {
-    background: #2d292a;
-    height: 270px;
+    background: #222d32;
     box-shadow: 5px 4px 15px rgba(0, 0, 0, 0.30);
     -moz-box-shadow: 5px 4px 15px rgba(0, 0, 0, 0.30);
     -webkit-box-shadow: 5px 4px 15px rgba(0, 0, 0, 0.30);
@@ -21,18 +20,18 @@ body {
 .login-form label {
     font-size: 16px;
     text-align: c;
-    color: #848389;
+    color: #fff;
     margin-bottom: 20px;
  }
 
 .login-form h1 {
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .login-form input {
-    background: #525053;
+    background: #374850;
     font-size: 16px;
-    color: #d7d7d7;
+    color: #8aa4af;
     padding: 10px;
     margin-bottom: 20px;
     border: 0px;
@@ -69,6 +68,10 @@ body {
     width: 13px;
     height: 13px;
     float:left
+}
+
+.btn-primary {
+    border-radius: 0px;
 }
 
 

@@ -33,9 +33,19 @@
                                 <h1>Login</h1>
                                 <label>Please fill in your basic info</label>
                                 <input type="text" class="form-control" placeholder="Username" name="username">
+                                @if ($errors->has('username'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('username') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" placeholder="Password" name="password">
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                             <button class="btn btn-primary btn-block btn-login">Login</button>
                         </form>
