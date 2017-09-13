@@ -50,9 +50,8 @@ class LabController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Lab $lab)
     {
-        $lab = Lab::findOrFail($id);
         return view('admin.lab.show', compact('lab'));
     }
 
@@ -85,9 +84,8 @@ class LabController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Lab $lab)
     {
-        $lab = Lab::findOrFail($id);
         $lab->delete();
         return redirect(route('admin.lab.index'));
     }
