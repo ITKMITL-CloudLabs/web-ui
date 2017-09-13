@@ -131,6 +131,11 @@
 <script src="{{ asset('assets/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ asset('assets/fastclick/fastclick.js') }}"></script>
 <script src="{{ asset('assets/AdminLTE/js/adminlte.min.js') }}"></script>
+<script>
+    $('.modal').on('shown.bs.modal', function() {
+        $(this).find('[autofocus]').focus();
+    });
+</script>
 
 @yield('script')
 
