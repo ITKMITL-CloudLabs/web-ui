@@ -25,7 +25,7 @@
                     <form class="inline" action="{{ route('admin.lab.destroy', $lab->id) }}" method="post">
                         {{ csrf_field() }}
                         {{ method_field('delete') }}
-                        <button class="btn btn-app">
+                        <button id="delete" class="btn btn-app">
                             <i class="fa fa-trash"></i> ลบ
                         </button>
                     </form>
@@ -113,4 +113,24 @@
     </div>
 
     @include('admin.lab.create')
+@endsection
+@section('script')
+    <script>
+        $('#delete').on('click',function(e){
+            e.preventDefault();
+            var form = $(this).parents('form');
+            swal({
+                title: "ยืนยันการลบ",
+                text: "คุณต้องการที่จะลบการทดลองนี้ ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "ยืนยัน",
+                cancelButtonText: 'ยกเลิก',
+                closeOnConfirm: false
+            }, function(isConfirm){
+                if (isConfirm) form.submit();
+            });
+        });
+    </script>
 @endsection

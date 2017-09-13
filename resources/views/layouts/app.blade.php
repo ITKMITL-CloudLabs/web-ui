@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/AdminLTE/css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/AdminLTE/css/skin-blue.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/AdminLTE/css/sweetalert2.min.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -131,11 +132,13 @@
 <script src="{{ asset('assets/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ asset('assets/fastclick/fastclick.js') }}"></script>
 <script src="{{ asset('assets/AdminLTE/js/adminlte.min.js') }}"></script>
+<script src="{{ asset('assets/AdminLTE/js/sweetalert2.min.js') }}"></script>
 <script>
     $('.modal').on('shown.bs.modal', function() {
         $(this).find('[autofocus]').focus();
     });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 
 @yield('script')
 
