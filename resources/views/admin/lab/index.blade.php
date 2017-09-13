@@ -38,7 +38,7 @@
                     @forelse($labs as $lab)
                         <tr>
                             <td>{{ $i++ }}</td>
-                            <td>{{ $lab->title }}</td>
+                            <td><a href="{{ route('admin.lab.show', $lab->id) }}">{{ $lab->title }}</a></td>
                             <td>
                                 <div class="progress progress-xs">
                                     <div class="progress-bar progress-bar-danger" style="width: 80%"></div>
@@ -49,7 +49,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5">ไม่มีการทดลอง</td>
+                            <td class="text-center text-muted" colspan="5">ไม่มีการทดลอง</td>
                         </tr>
                     @endforelse
                     </tbody>

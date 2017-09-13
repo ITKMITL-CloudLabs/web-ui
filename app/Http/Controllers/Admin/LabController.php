@@ -52,7 +52,8 @@ class LabController extends Controller
      */
     public function show($id)
     {
-        //
+        $lab = Lab::findOrFail($id);
+        return view('admin.lab.show', compact('lab'));
     }
 
     /**
@@ -86,6 +87,8 @@ class LabController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $lab = Lab::findOrFail($id);
+        $lab->delete();
+        return redirect(route('admin.lab.index'));
     }
 }
