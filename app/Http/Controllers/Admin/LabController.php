@@ -15,7 +15,8 @@ class LabController extends Controller
      */
     public function index()
     {
-        return view('admin.lab.index');
+        $labs = Lab::all();
+        return view('admin.lab.index', compact('labs'));
     }
 
     /**

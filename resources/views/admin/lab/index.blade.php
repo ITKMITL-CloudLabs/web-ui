@@ -3,10 +3,14 @@
 @section('title', 'จัดการการทดลอง')
 @section('subtitle', 'สร้างและแก้ไขการทดลองในระบบ')
 
+@section('style')
+    <link rel="stylesheet" href="{{ asset('assets/AdminLTE/css/dataTables.bootstrap.min.css') }}">
+@endsection
+
 @section('content')
     <div class="box box-success">
         <div class="box-header with-border">
-            <h3 class="box-title">Removable</h3>
+            <h3 class="box-title">การกระทำ</h3>
         </div>
         <div class="box-body">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createLabModal">
@@ -14,6 +18,53 @@
             </button>
         </div>
     </div>
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <h3 class="box-title">รายการการทดลองทั้งหมด</h3>
+        </div>
+        <div class="box-body">
+            <table id="labs" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>ชื่อการทดลอง</th>
+                            <th style="width: 160px">ระดับความยาก</th>
+                            <th style="width: 160px">สร้างโดย</th>
+                            <th style="width: 160px">สร้างเมื่อ</th>
+                        </tr>
+                    </thead>
+                <?php $i = 1; ?>
+                    <tbody>
+                    @forelse($labs as $lab)
+                        <tr>
+                            <td>{{ $i++ }}</td>
+                            <td>{{ $lab->title }}</td>
+                            <td>
+                                <div class="progress progress-xs">
+                                    <div class="progress-bar progress-bar-danger" style="width: 80%"></div>
+                                </div>
+                            </td>
+                            <td>John Doe</td>
+                            <td>{{ $lab->created_at }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5">ไม่มีการทดลอง</td>
+                        </tr>
+                    @endforelse
+                    </tbody>
+            </table>
+        </div>
+    </div>
 
     @include('admin.lab.create')
+@endsection
+@section('script')
+    <script src="{{ asset('assets/AdminLTE/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/AdminLTE/js/dataTables.bootstrap.min.js') }}"></script>
+    <script>
+        $(document).ready( function () {
+            $('#labs').DataTable();
+        } );
+    </script>
 @endsection
