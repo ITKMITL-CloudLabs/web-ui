@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Lab;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,7 +25,7 @@ class LabController extends Controller
      */
     public function create()
     {
-        return view('admin.lab.index');
+        return view('admin.lab.create');
     }
 
     /**
@@ -35,7 +36,11 @@ class LabController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $lab = Lab::create($request->validate([
+            'title' => 'required'
+        ]));
+
+        return redirect(route('admin.lab.show', $lab->id));
     }
 
     /**

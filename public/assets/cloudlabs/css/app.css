@@ -9,3 +9,59 @@
 .box-body {
     border-bottom: 1px solid #e5e5e5;
 }
+
+.sidebar-menu .fa {
+    margin-right: 0;
+}
+
+.form-group.required label:after {
+    content: ' *';
+    color: #E9573F;
+    font-size: 11px;
+}
+
+.fa {
+    margin-right: 8px;
+}
+
+
+.wizard-container {
+    padding-top: 0;
+}
+
+.wizard-card {
+    box-shadow: none;
+}
+
+.wizard-navigation .nav-pills > li.active > a,
+.wizard-navigation .nav-pills > li.active > a:hover,
+.wizard-navigation .nav-pills > li.active > a:focus {
+    border-top: none;
+}
+
+.wizard-card .icon-circle {
+    margin-bottom: 3px;
+}
+
+.wizard-card .tab-content {
+    padding-top: 120px;
+}
+
+.wizard-card[data-color="blue"] .picture:hover {
+    border-color: #3bafda;
+}
+.wizard-card[data-color="blue"] .nav-pills > li.active > a:after {
+    background-color: #3bafda;
+}
+.wizard-card[data-color="blue"] .nav-pills > li.active > a {
+    color: #3bafda;
+}
+.wizard-card[data-color="blue"] .nav-pills .icon-circle.checked {
+    border-color: #3bafda;
+}
+.wizard-card[data-color="blue"] .choice.active .card-checkboxes {
+    color: #3bafda;
+}
+.wizard-card[data-color="blue"] .wizard-navigation .progress-bar {
+    background-color: #3bafda;
+}

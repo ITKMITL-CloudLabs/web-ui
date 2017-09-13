@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/AdminLTE/css/AdminLTE.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/AdminLTE/css/skin-blue.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/cloudlabs/css/app.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,6 +20,10 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,300italic,400italic,600italic">
+
+    @yield('style')
+
+    <link rel="stylesheet" href="{{ asset('assets/cloudlabs/css/app.css') }}">
 </head>
 
 <body class="hold-transition skin-blue fixed sidebar-mini">
@@ -128,6 +131,8 @@
 <script src="{{ asset('assets/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ asset('assets/fastclick/fastclick.js') }}"></script>
 <script src="{{ asset('assets/AdminLTE/js/adminlte.min.js') }}"></script>
+
+@yield('script')
 
 </body>
 </html>
