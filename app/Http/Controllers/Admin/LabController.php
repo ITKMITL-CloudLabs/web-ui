@@ -65,7 +65,6 @@ class LabController extends Controller
     {
         return view('admin.lab.edit', compact('lab'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -75,9 +74,10 @@ class LabController extends Controller
      */
     public function update(Request $request, Lab $lab)
     {
+        $lab->fill($request->all())->save();
+
         return redirect(route('admin.lab.show', $lab->id));
     }
-
     /**
      * Remove the specified resource from storage.
      *

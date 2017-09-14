@@ -19,7 +19,7 @@
         <div class="col-md-3">
             <div class="box actions-box text-center">
                 <div class="box-body">
-                    <a class="btn btn-app">
+                    <a href="{{ route('admin.lab.edit', $lab->id) }}" class="btn btn-app">
                         <i class="fa fa-edit"></i> แก้ไข
                     </a>
                     <form class="inline" action="{{ route('admin.lab.destroy', $lab->id) }}" method="post">
@@ -44,7 +44,11 @@
                             <h3 class="box-title"><i class="fa fa-file"></i>รายละเอียดย่อ</h3>
                         </div>
                         <div class="box-body">
+                            @if($lab->description)
                             {!! $lab->description !!}
+                            @else
+                                <p class="text-center text-muted">ไม่มีรายละเอียดย่อ</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -54,7 +58,11 @@
                             <h3 class="box-title"><i class="fa fa-crosshairs"></i>วัตถุประสงค์</h3>
                         </div>
                         <div class="box-body">
-                            {!! $lab->objective !!}
+                            @if($lab->objective)
+                                {!! $lab->objective !!}
+                            @else
+                                <p class="text-center text-muted">ไม่มีวัตถุประสงค์</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -67,7 +75,11 @@
                             <h3 class="box-title"><i class="fa fa-map-signs"></i>ขั้นตอนการทดลอง</h3>
                         </div>
                         <div class="box-body">
-                            {!! $lab->instruction !!}
+                            @if($lab->instruction)
+                                {!! $lab->instruction !!}
+                            @else
+                                <p class="text-center text-muted">ไม่มีขั้นตอนการทดลอง</p>
+                            @endif
                         </div>
                     </div>
                 </div>
