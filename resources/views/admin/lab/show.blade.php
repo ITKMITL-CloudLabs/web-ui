@@ -13,12 +13,20 @@
                 <div class="box-body">
                     <h3 class="admin-lab-title">{{ $lab->title }}</h3>
                 </div>
+                <div class="box-footer clearfix">
+                    <div class="pull-right">
+                        สร้างโดย {{ auth()->user()->name }}
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="col-md-3">
-            <div class="box actions-box text-center">
-                <div class="box-body">
+            <div class="box actions-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-gears"></i>การจัดการของผู้ดูแลระบบ</h3>
+                </div>
+                <div class="box-body text-center">
                     <a href="{{ route('admin.lab.edit', $lab->id) }}" class="btn btn-app">
                         <i class="fa fa-edit"></i> แก้ไข
                     </a>
@@ -118,7 +126,7 @@
                     <h3 class="box-title"><i class="fa fa-file"></i>ไฟล์ประกอบ</h3>
                 </div>
                 <div class="box-body">
-
+                    <p class="text-center text-muted">ไม่มีไฟล์ประกอบ</p>
                 </div>
             </div>
         </div>

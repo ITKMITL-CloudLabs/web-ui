@@ -20,7 +20,10 @@
         </div>
 
         <div class="col-md-3">
-            <div class="box actions-box text-center">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-gears"></i>การกระทำ</h3>
+                </div>
                 <div class="box-body">
                     <button type="submit" class="btn btn-block btn-success btn-flat"><i class="fa fa-save"></i>บันทึก</button>
                 </div>
@@ -105,7 +108,7 @@
                     <h3 class="box-title"><i class="fa fa-file"></i>ไฟล์ประกอบ</h3>
                 </div>
                 <div class="box-body">
-
+                    <input type="file" id="file" name="file" class="form-control file">
                 </div>
             </div>
         </div>
