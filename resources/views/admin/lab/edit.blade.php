@@ -4,6 +4,9 @@
 @section('subtitle', 'ข้อมูลการทดลองที่เลือก')
 
 @section('content')
+    <form class="inline" action="{{ route('admin.lab.update', $lab->id) }}" method="post">
+        {{ csrf_field() }}
+        {{ method_field('patch') }}
     <div class="row">
         <div class="col-md-9">
             <div class="box">
@@ -11,7 +14,7 @@
                     <h3 class="box-title"><i class="fa fa-flask"></i>ชื่อการทดลอง</h3>
                 </div>
                 <div class="box-body">
-                    <h3 class="admin-lab-title">{{ $lab->title }}</h3>
+                    <input class="form-control input-lg" name="title" type="text" value="{{ $lab->title }}">
                 </div>
             </div>
         </div>
@@ -19,17 +22,7 @@
         <div class="col-md-3">
             <div class="box actions-box text-center">
                 <div class="box-body">
-                    <a href="{{ route('admin.lab.edit', $lab->id) }}" class="btn btn-app">
-                        <i class="fa fa-edit"></i> แก้ไข
-                    </a>
-                    <form class="inline" action="{{ route('admin.lab.destroy', $lab->id) }}" method="post">
-                        {{ csrf_field() }}
-                        {{ method_field('delete') }}
-                        <button id="deleteBtn" class="btn btn-app">
-                            <i class="fa fa-trash"></i> ลบ
-                        </button>
-                    </form>
-
+                    <button type="submit" class="btn btn-block btn-success btn-flat"><i class="fa fa-save"></i>บันทึก</button>
                 </div>
             </div>
         </div>
@@ -44,11 +37,9 @@
                             <h3 class="box-title"><i class="fa fa-file"></i>รายละเอียดย่อ</h3>
                         </div>
                         <div class="box-body">
-                            @if($lab->description)
-                            {!! $lab->description !!}
-                            @else
-                                <p class="text-center text-muted">ไม่มีรายละเอียดย่อ</p>
-                            @endif
+                            <textarea name="description" id="description" rows="10" cols="80">
+                                {!! $lab->description !!}
+                            </textarea>
                         </div>
                     </div>
                 </div>
@@ -58,11 +49,9 @@
                             <h3 class="box-title"><i class="fa fa-crosshairs"></i>วัตถุประสงค์</h3>
                         </div>
                         <div class="box-body">
-                            @if($lab->objective)
+                            <textarea name="objective" id="objective" rows="10" cols="80">
                                 {!! $lab->objective !!}
-                            @else
-                                <p class="text-center text-muted">ไม่มีวัตถุประสงค์</p>
-                            @endif
+                            </textarea>
                         </div>
                     </div>
                 </div>
@@ -75,11 +64,10 @@
                             <h3 class="box-title"><i class="fa fa-map-signs"></i>ขั้นตอนการทดลอง</h3>
                         </div>
                         <div class="box-body">
-                            @if($lab->instruction)
+                            <textarea name="instruction" id="instruction" rows="10" cols="80">
                                 {!! $lab->instruction !!}
-                            @else
-                                <p class="text-center text-muted">ไม่มีขั้นตอนการทดลอง</p>
-                            @endif
+                            </textarea>
+
                         </div>
                     </div>
                 </div>
@@ -123,35 +111,36 @@
             </div>
         </div>
     </div>
+    </form>
 
     @include('admin.lab.create')
 @endsection
 @section('script')
+    <script src="{{ asset('assets/AdminLTE/js/ckeditor/ckeditor.js') }}"></script>
     <script>
-        $('#deleteBtn').on('click',function(e){
-            e.preventDefault();
-            var form = $(this).parents('form');
-            swal({
-                title: "ยืนยันการลบ",
-                text: "คุณต้องการที่จะลบการทดลองนี้ ?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "ยืนยัน",
-                cancelButtonText: 'ยกเลิก'
-            }).then(function () {
-                form.submit();
-            }, function (dismiss) {
-                // dismiss can be 'cancel', 'overlay',
-                // 'close', and 'timer'
-                if (dismiss === 'cancel') {
-                    swal(
-                        'Cancelled',
-                        'Your imaginary file is safe :)',
-                        'error'
-                    )
-                }
-            })
-        });
+        CKEDITOR.replace( 'description' );
+        CKEDITOR.replace( 'objective' );
+        CKEDITOR.replace( 'instruction' );
+
+        CKEDITOR.editorConfig = function( config ) {
+            config.toolbarGroups = [
+                { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                { name: 'links', groups: [ 'links' ] },
+                { name: 'insert', groups: [ 'insert' ] },
+                { name: 'forms', groups: [ 'forms' ] },
+                { name: 'tools', groups: [ 'tools' ] },
+                { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                { name: 'others', groups: [ 'others' ] },
+                '/',
+                { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                { name: 'styles', groups: [ 'styles' ] },
+                { name: 'colors', groups: [ 'colors' ] },
+                { name: 'about', groups: [ 'about' ] }
+            ];
+
+            config.removeButtons = 'Underline,Subscript,Superscript,Cut,Copy,Paste,PasteText,PasteFromWord';
+        };
     </script>
 @endsection
