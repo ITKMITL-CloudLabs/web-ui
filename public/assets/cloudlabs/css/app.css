@@ -119,3 +119,11 @@
 .actions-box .btn-app:first-child {
     margin-left: 0;
 }
+
+.raty {
+    display: inline-block;
+}
+
+.raty .fa {
+    margin-right: 0;
+}

@@ -39,11 +39,7 @@
                         <tr>
                             <td>{{ $i++ }}</td>
                             <td><a href="{{ route('admin.lab.show', $lab->id) }}">{{ $lab->title }}</a></td>
-                            <td>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar progress-bar-danger" style="width: 80%"></div>
-                                </div>
-                            </td>
+                            <td><div class="raty" data-score="{{ $lab->difficulty }}" data-name="difficulty" data-readonly="true"></div></td>
                             <td>John Doe</td>
                             <td>{{ $lab->created_at }}</td>
                         </tr>

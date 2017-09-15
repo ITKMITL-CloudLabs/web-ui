@@ -103,7 +103,7 @@
                     <ul class="list-group">
                         <li class="list-group-item">
                             <div class="lab-detail-list-title">ความยาก</div>
-                            {{ $lab->difficulty }}
+                            <div class="raty" data-score="{{ $lab->difficulty }}" data-name="difficulty" data-readonly="true"></div>
                         </li>
                         <li class="list-group-item">
                             <div class="lab-detail-list-title">สร้างโดย</div>
