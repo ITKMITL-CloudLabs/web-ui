@@ -111,6 +111,10 @@
     width: 80px;
 }
 
+.lab-card {
+    padding-left: 10px;
+}
+
 .actions-box .btn-app {
     margin-top: 5px;
     margin-bottom: 5px;
