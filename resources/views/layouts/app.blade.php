@@ -66,7 +66,7 @@
                                 <a href="#" class="btn btn-default btn-flat">โปรไฟล์</a>
                             </div>
                             <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat">ออกจากระบบ</a>
+                                <a href="{{ route('logout') }}" class="btn btn-default btn-flat">ออกจากระบบ</a>
                             </div>
                         </li>
                     </ul>
@@ -92,7 +92,7 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">เมนูหลัก</li>
             <li @if(request()->is('dashboard*')) class="active" @endif><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> <span>ภาพรวม</span></a></li>
-            <li><a href="#"><i class="fa fa-flask"></i> <span>ห้องแล็บ</span></a></li>
+            <li @if(request()->is('lab*')) class="active" @endif><a href="{{ route('lab.index') }}"><i class="fa fa-flask"></i> <span>ห้องแล็บ</span></a></li>
 
             <li class="header">เมนูผู้ดูแลระบบ</li>
             <li><a href="#"><i class="fa fa-dashboard"></i> <span>ภาพรวมของระบบ</span></a></li>
