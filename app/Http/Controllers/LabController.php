@@ -47,7 +47,9 @@ class LabController extends Controller
      */
     public function show($id)
     {
-        //
+        $lab = Lab::findOrFail($id);
+
+        return view('lab.show', compact('lab'));
     }
 
     /**
