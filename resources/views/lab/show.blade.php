@@ -67,6 +67,16 @@
             </div>
         </div>
         <div class="col-md-3">
+            <div class="box actions-box">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-sign-in"></i>เริ่มการทดลอง</h3>
+                </div>
+                <div class="box-body text-center">
+                    <a href="{{ route('admin.lab.edit', $lab->id) }}" class="btn btn-app bg-green btn-flat">
+                        <i class="fa fa-desktop" aria-hidden="true"></i>เข้าสู่การทดลอง
+                    </a>
+                </div>
+            </div>
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title"><i class="fa fa-info-circle"></i>ข้อมูลทั่วไป</h3>
@@ -92,7 +102,6 @@
                     </ul>
                 </div>
             </div>
-
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title"><i class="fa fa-file"></i>ไฟล์ประกอบ</h3>
