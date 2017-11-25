@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{ asset('assets/AdminLTE/css/skin-blue.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/AdminLTE/css/sweetalert2.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -98,6 +100,7 @@
             <li><a href="#"><i class="fa fa-dashboard"></i> <span>ภาพรวมของระบบ</span></a></li>
             <li @if(request()->is('admin/lab*')) class="active" @endif><a href="{{ route('admin.lab.index') }}"><i class="fa fa-flask"></i> <span>จัดการแล็บ</span></a></li>
             <li><a href="#"><i class="fa fa-users"></i> <span>จัดการผู้ใช้</span></a></li>
+            <li @if(request()->is('admin/image*')) class="active" @endif><a href="{{ route('admin.image.index') }}"><i class="fa fa-hdd-o"></i> <span>จัดการอิมเมจ (Images)</span></a></li>
         </ul>
     </section>
 </aside>

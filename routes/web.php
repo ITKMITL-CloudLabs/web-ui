@@ -28,5 +28,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
         Route::resource('lab', 'LabController');
+        Route::resource('image', 'ImageController', ['only' => ['index', 'destroy']]);
     });
 });
