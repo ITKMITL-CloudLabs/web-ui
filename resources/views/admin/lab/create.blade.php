@@ -12,6 +12,14 @@
                         <label>ชื่อการทดลอง</label>
                         <input type="text" name="title" class="form-control" autofocus>
                     </div>
+                    <div class="form-group required">
+                        <label>ประเภทการทดลอง</label>
+                        <select class="form-control" name="predefined_lab">
+                            <option value="" disabled selected>เลือกประเภทการทดลอง</option>
+                            <option value="1">เตรียมสภาพแวดล้อมให้</option>
+                            <option value="0">ไม่เตรียมสภาพแวดล้อมให้</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>ยกเลิก</button>

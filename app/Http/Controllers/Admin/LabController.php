@@ -38,7 +38,8 @@ class LabController extends Controller
     public function store(Request $request)
     {
         $lab = Lab::create($request->validate([
-            'title' => 'required'
+            'title' => 'required',
+            'predefined_lab' => 'required'
         ]));
 
         return redirect(route('admin.lab.show', $lab->id));

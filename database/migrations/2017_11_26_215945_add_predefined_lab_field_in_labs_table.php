@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddQuotaFieldInLabsTable extends Migration
+class AddPredefinedLabFieldInLabsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddQuotaFieldInLabsTable extends Migration
     public function up()
     {
         Schema::table('labs', function (Blueprint $table) {
-            $table->text('quota')->default('{}')->after('instruction');
+            $table->boolean('predefined_lab')->after('quota');
         });
     }
 
@@ -26,7 +26,7 @@ class AddQuotaFieldInLabsTable extends Migration
     public function down()
     {
         Schema::table('labs', function (Blueprint $table) {
-            $table->dropColumn('quota');
+            $table->dropColumn('predefined_lab');
         });
     }
 }

@@ -56,8 +56,15 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-default"><i class="fa fa-plus"></i>Create Network</button>
-                            <button type="button" class="btn btn-default"><i class="fa fa-plus"></i>Create Router</button>
+                            <button type="button" class="btn btn-default"><i class="fa fa-cloud-upload"></i>สร้าง Virtual machine</button>
+                            <button type="button" class="btn btn-default"><i class="fa fa-plus"></i>สร้าง Router</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <img src="{{ asset('assets/topologies-1.jpg') }}" width="70%">
+                            </div>
                         </div>
                     </div>
                 </div>
