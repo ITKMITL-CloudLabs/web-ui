@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/test', function () {
+   return view('lab.lab');
+});
+
 Route::get('/', function () {
     return view('auth.login');
 });
