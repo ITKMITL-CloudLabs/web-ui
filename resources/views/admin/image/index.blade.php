@@ -28,8 +28,8 @@
                         <tr>
                             <th class="text-center" style="width: 10px">#</th>
                             <th>ชื่อ</th>
-                            <th style="width: 160px">ประเภท</th>
-                            <th style="width: 160px">ขนาด</th>
+                            <th style="width: 80px">ประเภท</th>
+                            <th style="width: 80px">ขนาด</th>
                             <th style="width: 160px">สร้างเมื่อ</th>
                             <th style="width: 160px">ลบ</th>
                         </tr>
