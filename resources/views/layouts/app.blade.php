@@ -35,7 +35,7 @@
 <header class="main-header">
     <a href="../../index2.html" class="logo">
         <span class="logo-mini"><b>C</b>L</span>
-        <span class="logo-lg"><b>Cloud</b>Labs</span>
+        <span class="logo-lg"><b>Cloud</b>Lab</span>
     </a>
     <nav class="navbar navbar-static-top">
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -100,7 +100,8 @@
             <li><a href="#"><i class="fa fa-dashboard"></i> <span>ภาพรวมของระบบ</span></a></li>
             <li @if(request()->is('admin/lab*')) class="active" @endif><a href="{{ route('admin.lab.index') }}"><i class="fa fa-flask"></i> <span>จัดการแล็บ</span></a></li>
             <li><a href="#"><i class="fa fa-users"></i> <span>จัดการผู้ใช้</span></a></li>
-            <li @if(request()->is('admin/image*')) class="active" @endif><a href="{{ route('admin.image.index') }}"><i class="fa fa-hdd-o"></i> <span>จัดการอิมเมจ (Images)</span></a></li>
+            <li @if(request()->is('admin/image*')) class="active" @endif><a href="{{ route('admin.image.index') }}"><i class="fa fa-hdd-o"></i> <span>จัดการ Images</span></a></li>
+            <li @if(request()->is('admin/flavor*')) class="active" @endif><a href="{{ route('admin.flavor.index') }}"><i class="fa fa-hdd-o"></i> <span>จัดการ Flavor</span></a></li>
         </ul>
     </section>
 </aside>
