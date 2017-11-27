@@ -20,7 +20,7 @@
     </div>
     <div class="box box-success">
         <div class="box-header with-border">
-            <h3 class="box-title">รายการการทดลองทั้งหมด</h3>
+            <h3 class="box-title">รายการอิมเมจทั้งหมด</h3>
         </div>
         <div class="box-body">
             <table class="table table-bordered table-hover datatable">

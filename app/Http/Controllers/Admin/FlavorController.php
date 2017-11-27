@@ -15,11 +15,12 @@ class FlavorController extends Controller
      */
     public function index()
     {
+        Cache::Forget('os.flavors');
         $flavors = Cache::rememberForever('os.flavors', function() {
-            return json_decode(json_encode(iterator_to_array(resolve('OpenStackApi')->computeV2()->listFlavors())));
+            return json_decode(json_encode(iterator_to_array(resolve('OpenStackApi')->computeV2(['region' => 'RegionOne'])->listFlavors([], function ($flavor) {
+                return $flavor;
+            }, true))));
         });
-
-        dd($flavors);
 
         return view('admin.flavor.index', compact('flavors'));
     }
@@ -76,10 +77,10 @@ class FlavorController extends Controller
      */
     public function destroy($id)
     {
-        resolve('OpenStackApi')->imagesV2()->getImage($id)->delete();
+        resolve('OpenStackApi')->computeV2()->getFlavor(['id' => $id])->delete();
 
-        Cache::forget('os.images');
+        Cache::Forget('os.flavors');
 
-        return redirect(route('admin.image.index'));
+        return redirect(route('admin.flavor.index'));
     }
 }

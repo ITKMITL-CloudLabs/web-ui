@@ -20,7 +20,7 @@
     </div>
     <div class="box box-success">
         <div class="box-header with-border">
-            <h3 class="box-title">รายการการทดลองทั้งหมด</h3>
+            <h3 class="box-title">รายการ Flavor ทั้งหมด</h3>
         </div>
         <div class="box-body">
             <table class="table table-bordered table-hover datatable">
@@ -28,25 +28,27 @@
                         <tr>
                             <th class="text-center" style="width: 10px">#</th>
                             <th>ชื่อ</th>
-                            <th style="width: 160px">ประเภท</th>
-                            <th style="width: 160px">ขนาด</th>
-                            <th style="width: 160px">สร้างเมื่อ</th>
+                            <th style="width: 160px">RAM</th>
+                            <th style="width: 160px">SWAP</th>
+                            <th style="width: 160px">Root Disk</th>
+                            <th style="width: 160px">vCPUs</th>
                             <th style="width: 160px">ลบ</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @forelse($images as $image)
+                    @forelse($flavors as $flavor)
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
-                            <td>{{ $image->name }}</td>
-                            <td>{{ $image->diskFormat }}</td>
-                            <td>{{ number_format(($image->size / 1024) / 1024, 2) }} MB</td>
-                            <td>{{ \Carbon\Carbon::parse($image->createdAt->date)->setTimezone(0) }}</td>
+                            <td>{{ $flavor->name }}</td>
+                            <td>{{ $flavor->ram | 0}} MB</td>
+                            <td>{{ $flavor->swap | 0 }} MB</td>
+                            <td>{{ $flavor->disk | 0 }} GB</td>
+                            <td>{{ $flavor->vcpus }}</td>
                             <td>
-                                <form action="{{ route('admin.image.destroy', $image->id) }}" method="post">
+                                <form action="{{ route('admin.flavor.destroy', $flavor->id) }}" method="post">
                                     {{ csrf_field() }}
                                     {{ method_field('delete') }}
-                                    <button class="btn btn-xs btn-danger" onclick="return confirm('ยืนยันการลบอิมเมจนี้?')"><i class="fa fa-trash"></i> ลบอิมเมจ</button>
+                                    <button class="btn btn-xs btn-danger" onclick="return confirm('ยืนยันการลบ Flavor นี้?')"><i class="fa fa-trash"></i> ลบอิมเมจ</button>
                                 </form>
                             </td>
                         </tr>
