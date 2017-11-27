@@ -27,7 +27,7 @@
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 10px">#</th>
-                            <th>ชื่อ</th>
+                            <th width="200px">ชื่อ</th>
                             <th style="width: 160px">RAM</th>
                             <th style="width: 160px">SWAP</th>
                             <th style="width: 160px">Root Disk</th>
@@ -48,7 +48,7 @@
                                 <form action="{{ route('admin.flavor.destroy', $flavor->id) }}" method="post">
                                     {{ csrf_field() }}
                                     {{ method_field('delete') }}
-                                    <button class="btn btn-xs btn-danger" onclick="return confirm('ยืนยันการลบ Flavor นี้?')"><i class="fa fa-trash"></i> ลบอิมเมจ</button>
+                                    <button class="btn btn-xs btn-danger" onclick="return confirm('ยืนยันการลบ Flavor นี้?')"><i class="fa fa-trash"></i> ลบ Flavor</button>
                                 </form>
                             </td>
                         </tr>
