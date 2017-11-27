@@ -14,7 +14,7 @@ class LabController extends Controller
      */
     public function index()
     {
-        $labs = Lab::all();
+        $labs = Lab::where('publish', '1')->get();
         return view('lab.index', compact('labs'));
     }
 
