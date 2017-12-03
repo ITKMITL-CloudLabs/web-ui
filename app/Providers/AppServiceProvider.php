@@ -27,5 +27,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('OpenStackApi', function () {
             return new OpenStackApi();
         });
+
+        if ($this->app->environment() !== 'production') {
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+        }
     }
 }
