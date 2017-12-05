@@ -15,12 +15,9 @@ class FlavorController extends Controller
      */
     public function index()
     {
-        Cache::Forget('os.flavors');
-        $flavors = Cache::rememberForever('os.flavors', function() {
-            return json_decode(json_encode(iterator_to_array(resolve('OpenStackApi')->computeV2(['region' => 'RegionOne'])->listFlavors([], function ($flavor) {
+        $flavors = resolve('OpenStackApi')->computeV2()->listFlavors([], function ($flavor) {
                 return $flavor;
-            }, true))));
-        });
+            }, true);
 
         return view('admin.flavor.index', compact('flavors'));
     }
@@ -32,18 +29,27 @@ class FlavorController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $option = [
+            "name" => $request->name,
+            "ram" => (int) $request->ram,
+            "vcpus" => (int) $request->vcpus,
+            "disk" => (int) $request->disk
+        ];
+
+        resolve('OpenStackApi')->computeV2()->createFlavor($option);
+
+        return redirect(route('admin.flavor.index'));
     }
 
     /**
@@ -60,7 +66,7 @@ class FlavorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  string Image ID
      * @return \Illuminate\Http\Response
      */
