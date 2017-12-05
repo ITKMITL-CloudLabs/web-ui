@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'จัดการ Flavor')
-@section('subtitle', 'จัดการรายการ Flavor ประกอบการสร้าง Instance')
+@section('title', 'จัดการเทมเพลต')
+@section('subtitle', 'จัดการรายการเทมเพลต ประกอบการสร้าง Instance')
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/AdminLTE/css/dataTables.bootstrap.min.css') }}">
@@ -14,13 +14,13 @@
         </div>
         <div class="box-body">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createFlavorModal">
-                <i class="fa fa-plus-square"></i>สร้าง Flavor ใหม่
+                <i class="fa fa-plus-square"></i>สร้างเทมเพลต ใหม่
             </button>
         </div>
     </div>
     <div class="box box-success">
         <div class="box-header with-border">
-            <h3 class="box-title">รายการ Flavor ทั้งหมด</h3>
+            <h3 class="box-title">รายการเทมเพลต ทั้งหมด</h3>
         </div>
         <div class="box-body">
             <table class="table table-bordered table-hover datatable">
@@ -62,5 +62,5 @@
         </div>
     </div>
 
-    @include('admin.lab.create')
+    @include('admin.flavor.create')
 @endsection
