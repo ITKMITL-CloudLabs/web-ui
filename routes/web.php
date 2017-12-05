@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
         Route::resource('lab', 'LabController');
+        Route::get('lab/{lab}/prepare', 'LabController@prepare')->name('lab.prepare');
+
         Route::resource('image', 'ImageController', ['only' => ['index', 'destroy']]);
         Route::resource('flavor', 'FlavorController', ['only' => ['index', 'destroy']]);
     });

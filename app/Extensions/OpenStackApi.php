@@ -11,8 +11,10 @@ class OpenStackApi
      */
     public $instance;
 
-    function __construct()
+    function __construct($projectId = '')
     {
+        $projectId = $projectId ? $projectId : env('OS_AUTH_SCOPE_PROJECT_ID');
+
         $this->instance = new OpenStack([
             'authUrl'        => env('OS_AUTH_URL'),
             'region'         => env('OS_AUTH_REGION'),
@@ -21,11 +23,16 @@ class OpenStackApi
             ],
             'scope' => [
                 'project' => [
-                    'id' => env('OS_AUTH_SCOPE_PROJECT_ID')
+                    'id' => $projectId
                 ]
             ],
             'tokenId'        => auth()->user()->token
         ]);
+    }
+
+    public function setProjectScope($projectId)
+    {
+        $this->__construct($projectId);
     }
 
     function __call($name, $arguments)

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Lab;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use OpenStack\OpenStack;
 
 class LabController extends Controller
 {
@@ -89,5 +91,49 @@ class LabController extends Controller
     {
         $lab->delete();
         return redirect(route('admin.lab.index'));
+    }
+
+    public function prepare(Lab $lab)
+    {
+        $openStackIdentityService = resolve('OpenStackApi')->identityV3();
+
+        if (is_null($projectId = $lab->project_id)) {
+            $project = $openStackIdentityService->createProject([
+                'name' => "{$lab->id}_" . Carbon::now()->format('Y_m_d_His') . "_template",
+                'description' => "A Lab Template of ID #{$lab->id}",
+                'enabled' => true
+            ]);
+
+            $project->grantGroupRole([
+                'groupId' => 'ff05a50769b948578cf8fba4aebd8d12',
+                'roleId'  => 'b030568b5b074e6ba37a105bca3975b0'
+            ]);
+
+            $lab->project_id = $project->id;
+            $lab->save();
+        } else {
+            $project = $openStackIdentityService->getProject($projectId);
+            $project->retrieve();
+        }
+
+        $openStack = clone resolve('OpenStackApi');
+        $openStack->setProjectScope('d173591370ea405c9a88a6f410fffaf5');
+
+        // VM Lists
+        $servers = collect($openStack->computeV2()->listServers(true));
+
+        // Networking Lists (Network, Router)
+        $networks = collect(resolve('OpenStackApi')->networkingV2()->listNetworks([
+            'tenantId' => $project->id
+        ]));
+        $routers = collect($openStack->networkingV2ExtLayer3()->listRouters([
+            'tenantId' => $project->id
+        ]));
+
+        // Resource Quota
+        $quota = $openStack->computeV2()->getQuotaSet($project->id, true);
+        $storageQuota = $openStack->blockStorageV2()->getQuotaSet($project->id, true);
+
+        return view('admin.lab.lab', compact('project', 'servers', 'networks', 'quota', 'storageQuota', 'routers'));
     }
 }
