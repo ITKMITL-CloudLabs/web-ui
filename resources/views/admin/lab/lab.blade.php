@@ -57,19 +57,24 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-default"><i class="fa fa-cloud-upload"></i>สร้าง Virtual machine</button>
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createInstanceModal"><i class="fa fa-cloud-upload"></i>สร้าง Instance</button>
                             <button type="button" class="btn btn-default"><i class="fa fa-plus"></i>สร้าง Router</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            {{ var_dump($servers) }}
+                            <?php $i = 1; ?>
+                            @foreach($servers as $server)
+                                {{$i++}}. {{ $server->name }}
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    @include('admin.lab.createInstance')
 @endsection
 
 @section('script')

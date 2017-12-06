@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
 
 class FlavorController extends Controller
 {
@@ -84,8 +83,6 @@ class FlavorController extends Controller
     public function destroy($id)
     {
         resolve('OpenStackApi')->computeV2()->getFlavor(['id' => $id])->delete();
-
-        Cache::Forget('os.flavors');
 
         return redirect(route('admin.flavor.index'));
     }
