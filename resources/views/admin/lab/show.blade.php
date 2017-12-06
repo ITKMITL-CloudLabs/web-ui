@@ -6,18 +6,16 @@
 @section('content')
     <div class="row">
         <div class="col-md-9">
-            <div class="col-md-12">
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title"><i class="fa fa-flask"></i>ชื่อการทดลอง</h3>
-                    </div>
-                    <div class="box-body">
-                        <h3 class="admin-lab-title">{{ $lab->title }}</h3>
-                    </div>
-                    <div class="box-footer clearfix">
-                        <div class="pull-right">
-                            สร้างโดย {{ auth()->user()->name }}
-                        </div>
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-flask"></i>ชื่อการทดลอง</h3>
+                </div>
+                <div class="box-body">
+                    <h3 class="admin-lab-title">{{ $lab->title }}</h3>
+                </div>
+                <div class="box-footer clearfix">
+                    <div class="pull-right">
+                        สร้างโดย {{ auth()->user()->name }}
                     </div>
                 </div>
             </div>
@@ -76,12 +74,9 @@
                 <div class="col-xs-12">
                     <div class="box actions-box">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-gears"></i>การจัดการของผู้ดูแลระบบ</h3>
+                            <h3 class="box-title"><i class="fa fa-gears"></i>การกระทำ</h3>
                         </div>
                         <div class="box-body text-center">
-                            <a href="{{ route('admin.lab.prepare', $lab->id) }}" class="btn btn-app">
-                                <i class="fa fa-flask"></i> เตรียมแล็บ
-                            </a>
                             <a href="{{ route('admin.lab.edit', $lab->id) }}" class="btn btn-app">
                                 <i class="fa fa-edit"></i> แก้ไข
                             </a>
@@ -93,6 +88,20 @@
                                 </button>
                             </form>
 
+                        </div>
+                    </div>
+
+                    <div class="box actions-box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-gears"></i>การเตรียมการทดลอง</h3>
+                        </div>
+                        <div class="box-body text-center">
+                            <a href="{{ route('admin.lab.prepare', $lab->id) }}" class="btn btn-app">
+                                <i class="fa fa-flask"></i> เตรียมแล็บ
+                            </a>
+                            <a href="#" data-toggle="modal" data-target="#resourceAdjustModal" class="btn btn-app">
+                                <i class="fa fa-pie-chart"></i> กำหนด Resource
+                            </a>
                         </div>
                     </div>
 
@@ -136,6 +145,7 @@
     </div>
 
     @include('admin.lab.create')
+    @include('admin.lab.resourceAdjustModal')
 
 @endsection
 

@@ -22,16 +22,6 @@ class LabController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('admin.lab.create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -39,10 +29,19 @@ class LabController extends Controller
      */
     public function store(Request $request)
     {
-        $lab = Lab::create($request->validate([
+        $lab = $request->validate([
             'title' => 'required',
-            'predefined_lab' => 'required'
-        ]));
+            'predefined_lab' => 'required',
+        ]);
+
+        $lab['quota'] = [
+            'instances' => 0,
+            'vcpus' => 0,
+            'memory' => 0,
+            'disk' => 0
+        ];
+
+        $lab = Lab::create($lab);
 
         return redirect(route('admin.lab.show', $lab->id));
     }
@@ -163,5 +162,37 @@ class LabController extends Controller
         $compute->createServer($options);
 
         return redirect(route('admin.lab.lab', $lab->id));
+    }
+
+    public function updateQuota(Lab $lab, Request $request)
+    {
+        $openStack = clone resolve('OpenStackApi');
+        $openStack->setProjectScope($lab->project_id);
+
+        if ($lab->predefined_lab) {
+            $quota = $openStack->computeV2()->getQuotaSet($lab->project_id, true);
+            $quota->retrieve();
+            $storageQuota = $openStack->blockStorageV2()->getQuotaSet($lab->project_id, true);
+            $storageQuota->retrieve();
+
+            $quota->instances = (int) $request->instances;
+            $quota->cores = (int) $request->vcpus;
+            $quota->ram = (int) $request->memory;
+            $storageQuota->gigabytes = (int) $request->disk;
+
+            $quota->update();
+            $storageQuota->update();
+        }
+
+        $lab->quota = [
+            'instances' => $request->instances,
+            'vcpus' => $request->vcpus,
+            'memory' => $request->memory,
+            'disk' => $request->disk
+        ];
+
+        $lab->save();
+
+        return redirect(route('admin.lab.show', $lab->id));
     }
 }

@@ -14,7 +14,7 @@ class AddObjectiveFieldInLabsTable extends Migration
     public function up()
     {
         Schema::table('labs', function (Blueprint $table) {
-            $table->mediumText('objective')->after('description');
+            $table->mediumText('objective')->after('description')->default(null)->nullable();
         });
     }
 
