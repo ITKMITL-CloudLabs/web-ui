@@ -10,9 +10,8 @@
                 <div class="box-header with-border">
                     <h3 class="box-title"><i class="fa fa-map-signs"></i>ขั้นตอนการทดลอง</h3>
                 </div>
-                <div class="box-body">
-                    {{ var_dump($quota) }}
-                    {{ var_dump($storageQuota) }}
+                <div class="box-body" style="height: 500px">
+                    {!! $lab->instruction !!}
                 </div>
             </div>
         </div>

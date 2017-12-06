@@ -27,9 +27,11 @@
                     <h3 class="box-title"><i class="fa fa-gears"></i>การจัดการของผู้ดูแลระบบ</h3>
                 </div>
                 <div class="box-body text-center">
+                    @if($lab->predefined_lab == 1)
                     <a href="{{ route('admin.lab.prepare', $lab->id) }}" class="btn btn-app">
                         <i class="fa fa-flask"></i> เตรียมแล็บ
                     </a>
+                    @endif
                     <a href="{{ route('admin.lab.edit', $lab->id) }}" class="btn btn-app">
                         <i class="fa fa-edit"></i> แก้ไข
                     </a>
@@ -152,16 +154,6 @@
                 cancelButtonText: 'ยกเลิก'
             }).then(function () {
                 form.submit();
-            }, function (dismiss) {
-                // dismiss can be 'cancel', 'overlay',
-                // 'close', and 'timer'
-                if (dismiss === 'cancel') {
-                    swal(
-                        'Cancelled',
-                        'Your imaginary file is safe :)',
-                        'error'
-                    )
-                }
             })
         });
     </script>
