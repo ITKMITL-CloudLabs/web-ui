@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
         Route::resource('lab', 'LabController');
         Route::get('lab/{lab}/prepare', 'LabController@prepare')->name('lab.prepare');
+        Route::post('lab/{lab}/createInstance', 'LabController@createInstance')->name('lab.createInstance');
 
         Route::resource('image', 'ImageController', ['only' => ['index', 'destroy']]);
         Route::resource('flavor', 'FlavorController', ['only' => ['index', 'store', 'destroy']]);

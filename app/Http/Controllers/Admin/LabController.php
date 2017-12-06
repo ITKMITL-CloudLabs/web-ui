@@ -117,7 +117,7 @@ class LabController extends Controller
         }
 
         $openStack = clone resolve('OpenStackApi');
-        $openStack->setProjectScope('d173591370ea405c9a88a6f410fffaf5');
+        $openStack->setProjectScope($lab->project_id);
 
         // VM Lists
         $servers = collect($openStack->computeV2()->listServers(true));
@@ -134,6 +134,34 @@ class LabController extends Controller
         $quota = $openStack->computeV2()->getQuotaSet($project->id, true);
         $storageQuota = $openStack->blockStorageV2()->getQuotaSet($project->id, true);
 
-        return view('admin.lab.lab', compact('project', 'servers', 'networks', 'quota', 'storageQuota', 'routers'));
+        //Images List
+        $images = collect($openStack->imagesV2()->listImages());
+
+        //Flavor List
+        $flavors = collect($openStack->computeV2()->listFlavors([], function ($flavor) {
+            return $flavor;
+        }, true));
+
+        return view('admin.lab.lab', compact('lab','project', 'servers', 'networks', 'quota', 'storageQuota', 'routers', 'images', 'flavors'));
+    }
+
+    public function createInstance(Lab $lab, Request $request)
+    {
+        $openStack = clone resolve('OpenStackApi');
+        $openStack->setProjectScope($lab->project_id);
+
+        $compute = $openStack->computeV2();
+
+        $options = [
+            // Required
+            'name'     => $request->name,
+            'imageId'  => $request->imageId,
+            'flavorId' => $request->flavorId,
+        ];
+
+        // Create the server
+        $compute->createServer($options);
+
+        return redirect(route('admin.lab.lab', $lab->id));
     }
 }
