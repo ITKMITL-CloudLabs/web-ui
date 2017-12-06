@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'จัดการเทมเพลต')
-@section('subtitle', 'จัดการรายการเทมเพลต ประกอบการสร้าง Instance')
+@section('title', 'จัดการเทมเพลต VM')
+@section('subtitle', 'จัดการรายการเทมเพลต VM สำหรับประกอบการสร้าง Instance')
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/AdminLTE/css/dataTables.bootstrap.min.css') }}">
@@ -14,7 +14,7 @@
         </div>
         <div class="box-body">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createFlavorModal">
-                <i class="fa fa-plus-square"></i>สร้างเทมเพลต ใหม่
+                <i class="fa fa-plus-square"></i>สร้างเทมเพลตใหม่
             </button>
         </div>
     </div>
