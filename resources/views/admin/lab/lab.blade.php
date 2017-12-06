@@ -19,32 +19,44 @@
         <div class="col-md-6">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-desktop"></i>Limit Summary</h3>
+                    <h3 class="box-title"><i class="fa fa-desktop"></i>ทรัพยากร</h3>
                 </div>
-                <div class="box-body">
+                <div class="box-body" style="padding: 20px;">
                     <div class="row">
                         <div class="col-xs-6 col-md-3 text-center">
                             <div style="display:inline;width:90px;height:90px;"><input type="text" class="knob" value="{{ $quota->instances['in_use'] }}" data-max="{{ $quota->instances['limit'] }}" data-width="90" data-height="90" data-fgcolor="#3c8dbc" data-readonly="true" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 18px; line-height: normal; font-family: Arial; text-align: center; color: rgb(60, 141, 188); padding: 0px; -webkit-appearance: none;"></div>
 
-                            <div class="knob-label">VMs</div>
+                            <div class="knob-label">
+                                <strong>Instances (เครื่อง)</strong><br>
+                                <small>จำกัด {{ $quota->instances['limit'] }} เครื่อง</small>
+                            </div>
                         </div>
                         <!-- ./col -->
                         <div class="col-xs-6 col-md-3 text-center">
                             <div style="display:inline;width:90px;height:90px;"><input type="text" class="knob" value="{{ $quota->cores['in_use'] }}" data-max="{{ $quota->cores['limit'] }}" data-width="90" data-height="90" data-fgcolor="#f56954" data-readonly="true" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 18px; line-height: normal; font-family: Arial; text-align: center; color: rgb(245, 105, 84); padding: 0px; -webkit-appearance: none;"></div>
 
-                            <div class="knob-label">vCPUs</div>
+                            <div class="knob-label">
+                                <strong>vCPUs (Core)</strong><br>
+                                <small>จำกัด {{ $quota->cores['limit'] }} Cores</small>
+                            </div>
                         </div>
                         <!-- ./col -->
                         <div class="col-xs-6 col-md-3 text-center">
                             <div style="display:inline;width:90px;height:90px;"><input type="text" class="knob" value="{{ $quota->ram['in_use'] }}" data-max="{{ $quota->ram['limit'] }}" data-width="90" data-height="90" data-fgcolor="#00a65a" data-readonly="true" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 18px; line-height: normal; font-family: Arial; text-align: center; color: rgb(0, 166, 90); padding: 0px; -webkit-appearance: none;"></div>
 
-                            <div class="knob-label">Memory</div>
+                            <div class="knob-label">
+                                <strong>Memory (MB)</strong><br>
+                                <small>จำกัด {{ $quota->ram['limit'] }} MB</small>
+                            </div>
                         </div>
                         <!-- ./col -->
                         <div class="col-xs-6 col-md-3 text-center">
                             <div style="display:inline;width:90px;height:90px;"><input type="text" class="knob" value="0" data-max="{{ $storageQuota->gigabytes }}" data-width="90" data-height="90" data-fgcolor="#00c0ef" data-readonly="true" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 18px; line-height: normal; font-family: Arial; text-align: center; color: rgb(0, 192, 239); padding: 0px; -webkit-appearance: none;"></div>
 
-                            <div class="knob-label">Disk Space</div>
+                            <div class="knob-label">
+                                <strong>Disk Space (GB)</strong><br>
+                                <small>จำกัด {{ $storageQuota->gigabytes }} GB</small>
+                            </div>
                         </div>
                         <!-- ./col -->
                     </div>

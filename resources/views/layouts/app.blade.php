@@ -96,12 +96,11 @@
             <li @if(request()->is('dashboard*')) class="active" @endif><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> <span>ภาพรวม</span></a></li>
             <li @if(request()->is('lab*')) class="active" @endif><a href="{{ route('lab.index') }}"><i class="fa fa-flask"></i> <span>ห้องแล็บ</span></a></li>
 
-            <li class="header">เมนูผู้ดูแลระบบ</li>
+            <li class="header">เมนูอาจารย์</li>
             <li><a href="#"><i class="fa fa-dashboard"></i> <span>ภาพรวมของระบบ</span></a></li>
             <li @if(request()->is('admin/lab*')) class="active" @endif><a href="{{ route('admin.lab.index') }}"><i class="fa fa-flask"></i> <span>จัดการแล็บ</span></a></li>
-            <li><a href="#"><i class="fa fa-users"></i> <span>จัดการผู้ใช้</span></a></li>
             <li @if(request()->is('admin/image*')) class="active" @endif><a href="{{ route('admin.image.index') }}"><i class="fa fa-hdd-o"></i> <span>จัดการ Images</span></a></li>
-            <li @if(request()->is('admin/flavor*')) class="active" @endif><a href="{{ route('admin.flavor.index') }}"><i class="fa fa-hdd-o"></i> <span>จัดการ Flavor</span></a></li>
+            <li @if(request()->is('admin/flavor*')) class="active" @endif><a href="{{ route('admin.flavor.index') }}"><i class="fa fa-hdd-o"></i> <span>จัดการเทมเพลท VM</span></a></li>
         </ul>
     </section>
 </aside>
