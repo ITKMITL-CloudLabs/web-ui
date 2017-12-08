@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('assets/AdminLTE/css/sweetalert2.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/animate.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -119,6 +120,7 @@
     </section>
 
     <section class="content">
+        @include('layouts.alert')
         @yield('content')
     </section>
 </div>

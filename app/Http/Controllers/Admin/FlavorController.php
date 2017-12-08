@@ -48,7 +48,7 @@ class FlavorController extends Controller
 
         resolve('OpenStackApi')->computeV2()->createFlavor($option);
 
-        return redirect(route('admin.flavor.index'));
+        return redirect(route('admin.flavor.index'))->with('alert_success', 'สร้างเทมเพลตสำเร็จ');
     }
 
     /**
@@ -84,6 +84,6 @@ class FlavorController extends Controller
     {
         resolve('OpenStackApi')->computeV2()->getFlavor(['id' => $id])->delete();
 
-        return redirect(route('admin.flavor.index'));
+        return redirect(route('admin.flavor.index'))->with('alert_success', 'เทมเพลตถูกลบแล้ว');
     }
 }

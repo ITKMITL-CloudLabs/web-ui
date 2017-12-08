@@ -1,3 +1,11 @@
 .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
     vertical-align: middle;
 }
+
+.alert {
+    position: absolute;
+    z-index: 999999;
+    width: 800px;
+    margin-left: 300px;
+    margin-top: -60px;
+}
