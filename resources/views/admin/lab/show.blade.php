@@ -154,7 +154,7 @@
                 </div>
                 <div class="box-body">
                     <ul class="lab-material-file-list">
-                        @forelse($lab->material_files as $file)
+                        @forelse($lab->formatted_material_files as $file)
                             <li><a href="{{ $file['url'] }}">{{ $file['name'] }} ({{ number_format(($file['size'] / 1024) / 1024, 2) }} MB)</a></li>
                         @empty
                             <li class="empty text-center text-muted">ไม่มีไฟล์ประกอบ</li>

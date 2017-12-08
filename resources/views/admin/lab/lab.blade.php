@@ -68,8 +68,11 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createInstanceModal"><i class="fa fa-cloud-upload"></i>สร้าง Instance</button>
-                            <button type="button" class="btn btn-default"><i class="fa fa-plus"></i>สร้าง Router</button>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createInstanceModal"><i class="fa fa-hdd-o"></i>สร้าง Instance</button>
+                                <button type="button" class="btn btn-default"><i class="fa fa-plus"></i>สร้าง Router</button>
+                                <button type="button" class="btn btn-default"><i class="fa fa-plus"></i>สร้าง Subnet</button>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

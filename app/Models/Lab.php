@@ -21,16 +21,15 @@ class Lab extends Model
         return $query->where('is_published', true);
     }
 
-    public function getMaterialFilesAttribute($fileList)
+    public function getFormattedMaterialFilesAttribute()
     {
-        $fileList = json_decode($fileList);
         $formattedFileList = [];
-
-        foreach ($fileList as $file) {
+        
+        foreach ($this->material_files as $file) {
             $formattedFileList[] = [
-                'name' => $file->name,
-                'url' => Storage::url($file->path),
-                'size' => Storage::size($file->path)
+                'name' => $file['name'],
+                'url' => Storage::url($file['path']),
+                'size' => Storage::size($file['path'])
             ];
         }
 
