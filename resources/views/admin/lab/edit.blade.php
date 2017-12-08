@@ -102,35 +102,6 @@
                     </ul>
                 </div>
             </div>
-
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-file"></i>ไฟล์ประกอบ</h3>
-                </div>
-                <div class="box-body">
-                    <input type="file" id="file" name="file" class="form-control file">
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-file"></i>สถานะการเผยแพร่</h3>
-                </div>
-                <div class="box-body">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="publish" id="options1" value="1">
-                            เผยแพร่
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="publish" id="options0" value="0">
-                            ไม่เผยแพร่
-                        </label>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     </form>

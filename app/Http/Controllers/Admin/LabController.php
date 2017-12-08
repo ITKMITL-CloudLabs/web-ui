@@ -92,6 +92,14 @@ class LabController extends Controller
         return redirect(route('admin.lab.index'));
     }
 
+    public function togglePublishStatus(Lab $lab)
+    {
+        $lab->is_published = !$lab->is_published;
+        $lab->save();
+
+        return redirect(route('admin.lab.show', $lab->id));
+    }
+
     public function prepare(Lab $lab)
     {
         $openStackIdentityService = resolve('OpenStackApi')->identityV3();

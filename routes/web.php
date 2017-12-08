@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
         Route::resource('lab', 'LabController');
+        Route::post('lab/{lab}/togglePublishStatus', 'LabController@togglePublishStatus')->name('lab.togglePublishStatus');
         Route::get('lab/{lab}/prepare', 'LabController@prepare')->name('lab.prepare');
         Route::post('lab/{lab}/createInstance', 'LabController@createInstance')->name('lab.createInstance');
         Route::patch('lab/{lab}/updateQuota', 'LabController@updateQuota')->name('lab.updateQuota');

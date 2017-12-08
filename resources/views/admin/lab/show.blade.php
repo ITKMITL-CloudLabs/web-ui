@@ -79,13 +79,26 @@
                     <h3 class="box-title"><i class="fa fa-gears"></i>การกระทำ</h3>
                 </div>
                 <div class="box-body text-center">
+                    <form class="inline" action="{{ route('admin.lab.togglePublishStatus', $lab->id) }}" method="post">
+                        {{ csrf_field() }}
+                        {{ method_field('post') }}
+                        @if(!$lab->is_published)
+                        <button class="btn btn-app bg-green">
+                            <i class="fa fa-check-circle"></i> เผยแพร่
+                        </button>
+                        @else
+                        <button class="btn btn-app bg-yellow">
+                            <i class="fa fa-times-circle"></i> เลิกเผยแพร่
+                        </button>
+                        @endif
+                    </form>
                     <a href="{{ route('admin.lab.edit', $lab->id) }}" class="btn btn-app">
                         <i class="fa fa-edit"></i> แก้ไข
                     </a>
                     <form class="inline" action="{{ route('admin.lab.destroy', $lab->id) }}" method="post">
                         {{ csrf_field() }}
                         {{ method_field('delete') }}
-                        <button id="deleteBtn" class="btn btn-app">
+                        <button id="deleteBtn" class="btn btn-app bg-red">
                             <i class="fa fa-trash"></i> ลบ
                         </button>
                     </form>
@@ -98,7 +111,7 @@
                     <h3 class="box-title"><i class="fa fa-gears"></i>การเตรียมการทดลอง</h3>
                 </div>
                 <div class="box-body text-center">
-                    @if($lab->predefined_lab == 1)
+                    @if($lab->is_predefined_lab == 1)
                         <a href="{{ route('admin.lab.prepare', $lab->id) }}" class="btn btn-app">
                             <i class="fa fa-flask"></i> เตรียมแล็บ
                         </a>

@@ -13,4 +13,9 @@ class Lab extends Model
     protected $casts = [
         'quota' => 'object'
     ];
+
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', true);
+    }
 }
