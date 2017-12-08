@@ -203,4 +203,20 @@ class LabController extends Controller
 
         return redirect(route('admin.lab.show', $lab->id));
     }
+
+    public function uploadMaterial(Lab $lab, Request $request)
+    {
+        $filePath = $request->file('file')->store("public/materials/{$lab->id}");
+
+        $fileList = $lab->material_files;
+        $fileList[] = [
+            'path' => $filePath,
+            'name' => $request->name
+        ];
+
+        $lab->material_files = $fileList;
+        $lab->save();
+
+        return redirect(route('admin.lab.show', $lab->id));
+    }
 }

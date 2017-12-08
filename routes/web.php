@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('lab/{lab}/prepare', 'LabController@prepare')->name('lab.prepare');
         Route::post('lab/{lab}/createInstance', 'LabController@createInstance')->name('lab.createInstance');
         Route::patch('lab/{lab}/updateQuota', 'LabController@updateQuota')->name('lab.updateQuota');
+        Route::post('lab/{lab}/uploadMaterial', 'LabController@uploadMaterial')->name('lab.uploadMaterial');
 
         Route::resource('image', 'ImageController', ['only' => ['index', 'destroy']]);
         Route::resource('flavor', 'FlavorController', ['only' => ['index', 'store', 'destroy']]);
