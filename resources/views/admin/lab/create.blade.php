@@ -14,7 +14,7 @@
                     </div>
                     <div class="form-group required">
                         <label>ประเภทการทดลอง</label>
-                        <select class="form-control" name="predefined_lab">
+                        <select class="form-control" name="is_predefined_lab">
                             <option value="" disabled selected>เลือกประเภทการทดลอง</option>
                             <option value="1">เตรียมสภาพแวดล้อมให้</option>
                             <option value="0">ไม่เตรียมสภาพแวดล้อมให้</option>

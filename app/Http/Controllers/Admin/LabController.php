@@ -31,7 +31,7 @@ class LabController extends Controller
     {
         $lab = $request->validate([
             'title' => 'required',
-            'predefined_lab' => 'required',
+            'is_predefined_lab' => 'required',
         ]);
 
         $lab['quota'] = [
