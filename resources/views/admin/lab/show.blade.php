@@ -113,7 +113,7 @@
                 <div class="box-body text-center">
                     @if($lab->is_predefined_lab == 1)
                         <a href="{{ route('admin.lab.prepare', $lab->id) }}" class="btn btn-app">
-                            <i class="fa fa-flask"></i> เตรียมแล็บ
+                            <i class="fa fa-flask"></i> เตรียมการทดลอง
                         </a>
                     @endif
                     <a href="#" data-toggle="modal" data-target="#resourceAdjustModal" class="btn btn-app">
