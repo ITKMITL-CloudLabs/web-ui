@@ -9,3 +9,17 @@
     margin-left: 300px;
     margin-top: -60px;
 }
+
+.lab-material-file-list {
+    margin-left: 0;
+    padding-left: 15px;
+}
+
+.lab-material-file-list li {
+    margin-bottom: 8px;
+}
+
+.lab-material-file-list .empty {
+    list-style: none;
+    padding-left: 0;
+}

@@ -153,7 +153,28 @@
                     <h3 class="box-title"><i class="fa fa-file"></i>ไฟล์ประกอบ</h3>
                 </div>
                 <div class="box-body">
-                    <p class="text-center text-muted">ไม่มีไฟล์ประกอบ</p>
+                    <ul class="lab-material-file-list">
+                        @forelse($lab->formatted_material_files as $file)
+                            <li><a href="{{ $file['url'] }}">{{ $file['name'] }} ({{ number_format(($file['size'] / 1024) / 1024, 2) }} MB)</a></li>
+                        @empty
+                            <li class="empty text-center text-muted">ไม่มีไฟล์ประกอบ</li>
+                        @endforelse
+                    </ul>
+
+                    <hr>
+
+                    <form action="{{ route('admin.lab.uploadMaterial', $lab->id) }}" enctype="multipart/form-data" method="post" class="text-center">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <input type="input" class="form-control" name="name" placeholder="ชื่อไฟล์ (สำหรับแสดงในรายการไฟล์)">
+                        </div>
+                        <div class="form-group">
+                            <input type="file" class="form-control" name="file">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-upload"></i>อัพโหลด</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
