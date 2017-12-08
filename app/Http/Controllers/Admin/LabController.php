@@ -43,7 +43,7 @@ class LabController extends Controller
 
         $lab = Lab::create($lab);
 
-        return redirect(route('admin.lab.show', $lab->id));
+        return redirect(route('admin.lab.show', $lab->id))->with('alert_success', 'ห้องทดลองได้ถูกสร้างแล้ว');
     }
 
     /**
@@ -97,7 +97,7 @@ class LabController extends Controller
         $lab->is_published = !$lab->is_published;
         $lab->save();
 
-        return redirect(route('admin.lab.show', $lab->id));
+        return redirect(route('admin.lab.show', $lab->id))->with('alert_success', 'แก้ไขการเผยแพร่สำเร็จ');
     }
 
     public function prepare(Lab $lab)

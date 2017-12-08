@@ -2,6 +2,14 @@
     vertical-align: middle;
 }
 
+.alert {
+    position: absolute;
+    z-index: 999999;
+    width: 800px;
+    margin-left: 300px;
+    margin-top: -60px;
+}
+
 .lab-material-file-list {
     margin-left: 0;
     padding-left: 15px;

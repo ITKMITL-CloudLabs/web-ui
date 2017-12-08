@@ -45,10 +45,12 @@
                             <td>{{ $flavor->disk | 0 }} GB</td>
                             <td>{{ $flavor->vcpus }}</td>
                             <td>
-                                <form action="{{ route('admin.flavor.destroy', $flavor->id) }}" method="post">
+                                <form class="inline" action="{{ route('admin.flavor.destroy', $flavor->id) }}" method="post">
                                     {{ csrf_field() }}
                                     {{ method_field('delete') }}
-                                    <button class="btn btn-xs btn-danger" onclick="return confirm('ยืนยันการลบ Flavor นี้?')"><i class="fa fa-trash"></i> ลบ Flavor</button>
+                                    <button id="deleteFlavorBtn" class="btn btn-xs btn-danger">
+                                        <i class="fa fa-trash"></i> ลบ Flavor
+                                    </button>
                                 </form>
                             </td>
                         </tr>
@@ -63,4 +65,24 @@
     </div>
 
     @include('admin.flavor.create')
+@endsection
+
+@section('script')
+    <script>
+        $('#deleteFlavorBtn').on('click',function(e){
+            e.preventDefault();
+            var form = $(this).parents('form');
+            swal({
+                title: "ยืนยันการลบ",
+                text: "คุณต้องการที่จะลบเทมเพลตนี้ ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "ยืนยัน",
+                cancelButtonText: 'ยกเลิก'
+            }).then(function () {
+                form.submit();
+            })
+        });
+    </script>
 @endsection
