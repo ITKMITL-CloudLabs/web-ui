@@ -26,7 +26,7 @@
                         <select class="form-control" name="flavorId">
                             <option value="" disabled selected>เลือกเทมเพลตสำหรับสร้าง Instance</option>
                             @foreach($flavors as $flavor)
-                                <option value="{{ $flavor->id }}">{{ $flavor->name }} (vCPUs {{ $flavor->vcpus }}, Disk {{ $flavor->disk }} GB., RAM {{ $flavor->ram }} MB., SWAP {{ $flavor->swap | 0 }} MB.)</option>
+                                <option value="{{ $flavor->id }}">{{ $flavor->name }} (vCPUs {{ $flavor->vcpus }} / Disk {{ $flavor->disk }} GB. / RAM {{ $flavor->ram }} MB. / SWAP {{ $flavor->swap | 0 }} MB.)</option>
                             @endforeach
                         </select>
                     </div>

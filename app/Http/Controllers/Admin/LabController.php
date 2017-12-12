@@ -169,7 +169,52 @@ class LabController extends Controller
         // Create the server
         $compute->createServer($options);
 
-        return redirect(route('admin.lab.lab', $lab->id));
+        return redirect(route('admin.lab.prepare', $lab->id));
+    }
+
+    public function createSubnet(Lab $lab, Request $request)
+    {
+        $openStack = clone resolve('OpenStackApi');
+        $openStack->setProjectScope($lab->project_id);
+
+        $networking = $openStack->networkingV2();
+
+        $options = [
+            'name'         => $request->networkname,
+            'adminStateUp' => true,
+        ];
+
+        // Create the network
+        $network = $networking->createNetwork($options);
+
+        $optionSubnet = [
+            'name'      => $request->subnetname,
+            'networkId' => $network->id,
+            'ipVersion' => 4,
+            'cidr'      => $request->networkaddress,
+            'gateway_ip' => $request->gateway
+        ];
+
+        // Create the subnet
+        $networking->createSubnet($optionSubnet);
+
+
+        return redirect(route('admin.lab.prepare', $lab->id));
+    }
+
+    public function createRouter(Lab $lab, Request $request)
+    {
+        $openStack = clone resolve('OpenStackApi');
+        $openStack->setProjectScope($lab->project_id);
+
+        $options = [
+            'name' => $request->name,
+            'netword_id' => $request->networkId
+        ];
+
+        $openStack->networkingV2ExtLayer3()->createRouter($options);
+
+        return redirect(route('admin.lab.prepare', $lab->id));
     }
 
     public function updateQuota(Lab $lab, Request $request)

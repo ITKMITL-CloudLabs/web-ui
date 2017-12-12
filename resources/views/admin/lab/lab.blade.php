@@ -70,8 +70,8 @@
                         <div class="col-md-12">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createInstanceModal"><i class="fa fa-hdd-o"></i>สร้าง Instance</button>
-                                <button type="button" class="btn btn-default"><i class="fa fa-plus"></i>สร้าง Router</button>
-                                <button type="button" class="btn btn-default"><i class="fa fa-plus"></i>สร้าง Subnet</button>
+                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createSubnetModal"><i class="fa fa-plus"></i>สร้าง Subnet</button>
+                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createRouterModal"><i class="fa fa-plus"></i>สร้าง Router</button>
                             </div>
                         </div>
                     </div>
@@ -188,6 +188,8 @@
     </div>
 
     @include('admin.lab.createInstance')
+    @include('admin.lab.createSubnet')
+    @include('admin.lab.createRouter')
 @endsection
 
 @section('script')
