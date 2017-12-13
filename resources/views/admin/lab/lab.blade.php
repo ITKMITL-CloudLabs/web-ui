@@ -197,6 +197,10 @@
       $('.sidebar-toggle').click()
     </script>
 
+    <script>
+        var graph = {!! json_encode($graph) !!}
+    </script>
+
     <script type="text/plain" id="balloon_container">
   <div class="topologyBalloon" id="@{{balloon_id}}">
     <a href="#close" class="closeTopologyBalloon">&times;</a>

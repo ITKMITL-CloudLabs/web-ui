@@ -129,13 +129,58 @@ class LabController extends Controller
         // VM Lists
         $servers = collect($openStack->computeV2()->listServers(true));
 
+
+        $servers = $servers->map(function ($server) {
+           $server = (array) $server;
+           $server["task"] = $server["taskState"];
+           return $server;
+        });
+
+        //Get Public Network
+        $publicNetwork = $openStack->networkingV2()->getNetwork('e3bac3f3-1fec-4e59-993c-7b0d1a1964e0');
+        $publicNetwork->retrieve();
+
+        $publicNetwork = (array) $publicNetwork;
+
         // Networking Lists (Network, Router)
         $networks = collect(resolve('OpenStackApi')->networkingV2()->listNetworks([
             'tenantId' => $project->id
         ]));
+
+        $networksGraph = $networks->map(function ($network) {
+           $network = (array) $network;
+           return $network;
+        });
+
         $routers = collect($openStack->networkingV2ExtLayer3()->listRouters([
             'tenantId' => $project->id
         ]));
+
+        $routers = $routers->map(function ($router){
+           $router = (array) $router;
+           $router["external_gateway_info"] = $router["externalGatewayInfo"];
+           $router["url"] = "/horizon/project/routers/".$router["id"]."/";
+           return $router;
+        });
+
+        $ports = collect($openStack->networkingV2()->listPorts());
+
+        $ports = $ports->map(function ($port){
+            $port = (array) $port;
+            $port["url"] = "/horizon/project/networks/ports/".$port["id"]."/detail";
+            $port["device_id"] = $port["deviceId"];
+            $port["fixed_ips"] = $port["fixedIps"];
+            $port["network_id"] = $port["networkId"];
+            return $port;
+        });
+
+        $graph = [
+            "ports" => $ports->toArray(),
+            "routers" => $routers->toArray(),
+            "networks" => array_merge([$publicNetwork], $networksGraph->toArray()),
+            "servers" => $servers->toArray()
+
+        ];
 
         // Resource Quota
         $quota = $openStack->computeV2()->getQuotaSet($project->id, true);
@@ -149,7 +194,7 @@ class LabController extends Controller
             return $flavor;
         }, true));
 
-        return view('admin.lab.lab', compact('lab','project', 'servers', 'networks', 'quota', 'storageQuota', 'routers', 'images', 'flavors'));
+        return view('admin.lab.lab', compact('lab','project', 'servers', 'networks', 'quota', 'storageQuota', 'routers', 'images', 'flavors', 'graph'));
     }
 
     public function createInstance(Lab $lab, Request $request)
