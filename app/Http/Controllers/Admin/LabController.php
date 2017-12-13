@@ -177,7 +177,7 @@ class LabController extends Controller
         $openStack = clone resolve('OpenStackApi');
         $openStack->setProjectScope($lab->project_id);
 
-        if ($lab->predefined_lab) {
+        if ($lab->is_predefined_lab) {
             $quota = $openStack->computeV2()->getQuotaSet($lab->project_id, true);
             $quota->retrieve();
             $storageQuota = $openStack->blockStorageV2()->getQuotaSet($lab->project_id, true);
