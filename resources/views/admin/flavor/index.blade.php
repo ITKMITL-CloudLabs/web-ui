@@ -49,7 +49,7 @@
                                     {{ csrf_field() }}
                                     {{ method_field('delete') }}
                                     <button id="deleteFlavorBtn" class="btn btn-xs btn-danger">
-                                        <i class="fa fa-trash"></i> ลบ Flavor
+                                        <i class="fa fa-trash"></i> ลบเทมเพลตนี้
                                     </button>
                                 </form>
                             </td>

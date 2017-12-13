@@ -35,6 +35,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('lab/{lab}/togglePublishStatus', 'LabController@togglePublishStatus')->name('lab.togglePublishStatus');
         Route::get('lab/{lab}/prepare', 'LabController@prepare')->name('lab.prepare');
         Route::post('lab/{lab}/createInstance', 'LabController@createInstance')->name('lab.createInstance');
+        Route::post('lab/{lab}/createSubnet', 'LabController@createSubnet')->name('lab.createSubnet');
+        Route::post('lab/{lab}/createRouter', 'LabController@createRouter')->name('lab.createRouter');
         Route::patch('lab/{lab}/updateQuota', 'LabController@updateQuota')->name('lab.updateQuota');
         Route::post('lab/{lab}/uploadMaterial', 'LabController@uploadMaterial')->name('lab.uploadMaterial');
 
