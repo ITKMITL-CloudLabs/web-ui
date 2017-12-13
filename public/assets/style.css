@@ -152,7 +152,7 @@
     min-height: 400px;
     cursor: grab;
     cursor: -webkit-grab;
-    overflow-y: scroll;
+    overflow-x: scroll;
 }
 #topologyCanvasContainer div.nodata, #flatTopologyCanvasContainer div.nodata {
     font-size: 150%;
