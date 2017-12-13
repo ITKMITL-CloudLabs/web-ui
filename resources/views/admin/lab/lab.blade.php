@@ -67,12 +67,31 @@
                 </div>
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createInstanceModal"><i class="fa fa-hdd-o"></i>สร้าง Instance</button>
                                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createSubnetModal"><i class="fa fa-plus"></i>สร้าง Subnet</button>
                                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createRouterModal"><i class="fa fa-plus"></i>สร้าง Router</button>
                             </div>
+                        </div>
+                        <div class="col-md-6">
+                            <form action="" target="_blank">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <select class="form-control">
+                                                <option value="" disabled selected>เลือก VM</option>
+                                                @foreach($servers as $server)
+                                                    <option value="{{ $server->id }}">{{ $server->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-block btn-primary">Open console</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="row">
