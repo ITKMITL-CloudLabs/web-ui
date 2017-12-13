@@ -158,7 +158,7 @@
                                         <rect class="frame" x="0" y="0" rx="6" ry="6" width="90" height="50"></rect>
                                         <g class="texts">
                                             <rect class="texts_bg" x="1.5" y="32" width="87" height="17"></rect>
-                                            <text x="45" y="46" class="type">实例</text>
+                                            <text x="45" y="46" class="type">VM</text>
                                             <text x="45" y="22" class="name">instance</text>
                                         </g>
                                         <g class="icon" transform="translate(6,6)">
