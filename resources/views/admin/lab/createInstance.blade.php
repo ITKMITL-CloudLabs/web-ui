@@ -30,6 +30,15 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group required">
+                        <label>เลือก Network</label>
+                        <select class="form-control" name="networkId">
+                            <option value="" disabled selected>เลือก Network</option>
+                            @foreach($networks as $network)
+                                <option value="{{ $network->id }}">{{ $network->name  }}</option>
+                             @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>ยกเลิก</button>

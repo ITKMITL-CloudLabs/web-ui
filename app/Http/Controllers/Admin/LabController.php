@@ -209,6 +209,11 @@ class LabController extends Controller
             'name'     => $request->name,
             'imageId'  => $request->imageId,
             'flavorId' => $request->flavorId,
+
+            // Required if multiple network is defined
+            'networks'  => [
+                ['uuid' => $request->networkId]
+            ],
         ];
 
         // Create the server
