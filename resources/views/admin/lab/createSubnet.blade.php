@@ -17,10 +17,6 @@
                         <input type="text" name="subnetname" class="form-control">
                     </div>
                     <div class="form-group required">
-                        <label>IP Version</label>
-                        <input type="text" name="ipversion" class="form-control">
-                    </div>
-                    <div class="form-group required">
                         <label>Network Address (ex. 192.168.1.0/24)</label>
                         <input type="text" name="networkaddress" class="form-control">
                     </div>

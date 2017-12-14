@@ -78,7 +78,7 @@ class LabController extends Controller
     {
         $lab->fill($request->all())->save();
 
-        return redirect(route('admin.lab.show', $lab->id));
+        return redirect(route('admin.lab.show', $lab->id))->with('alert_success', 'แก้ไขห้องทดลองสำเร็จ');
     }
     /**
      * Remove the specified resource from storage.
@@ -89,7 +89,7 @@ class LabController extends Controller
     public function destroy(Lab $lab)
     {
         $lab->delete();
-        return redirect(route('admin.lab.index'));
+        return redirect(route('admin.lab.index'))->with('alert_success', 'ห้องทดลองได้ถูกลบแล้ว');
     }
 
     public function togglePublishStatus(Lab $lab)
@@ -130,7 +130,7 @@ class LabController extends Controller
         $servers = collect($openStack->computeV2()->listServers(true));
 
 
-        $servers = $servers->map(function ($server) {
+        $serversGraph = $servers->map(function ($server) {
            $server = (array) $server;
            $server["task"] = $server["taskState"];
            return $server;
@@ -178,7 +178,7 @@ class LabController extends Controller
             "ports" => $ports->toArray(),
             "routers" => $routers->toArray(),
             "networks" => array_merge([$publicNetwork], $networksGraph->toArray()),
-            "servers" => $servers->toArray()
+            "servers" => $serversGraph->toArray()
 
         ];
 
@@ -219,7 +219,7 @@ class LabController extends Controller
         // Create the server
         $compute->createServer($options);
 
-        return redirect(route('admin.lab.prepare', $lab->id));
+        return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'สร้าง Instance สำเร็จ');
     }
 
     public function createSubnet(Lab $lab, Request $request)
@@ -249,7 +249,7 @@ class LabController extends Controller
         $networking->createSubnet($optionSubnet);
 
 
-        return redirect(route('admin.lab.prepare', $lab->id));
+        return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'สร้าง Subnet สำเร็จ');
     }
 
     public function createRouter(Lab $lab, Request $request)
@@ -264,7 +264,7 @@ class LabController extends Controller
 
         $openStack->networkingV2ExtLayer3()->createRouter($options);
 
-        return redirect(route('admin.lab.prepare', $lab->id));
+        return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'สร้าง Router สำเร็จ');
     }
 
     public function updateQuota(Lab $lab, Request $request)
@@ -296,7 +296,7 @@ class LabController extends Controller
 
         $lab->save();
 
-        return redirect(route('admin.lab.show', $lab->id));
+        return redirect(route('admin.lab.show', $lab->id))->with('alert_success','กำหนด Resource สำเร็จ');
     }
 
     public function uploadMaterial(Lab $lab, Request $request)
@@ -312,6 +312,6 @@ class LabController extends Controller
         $lab->material_files = $fileList;
         $lab->save();
 
-        return redirect(route('admin.lab.show', $lab->id));
+        return redirect(route('admin.lab.show', $lab->id))->with('alert_success', 'อัพโหลดเอกสารสำเร็จ');
     }
 }
