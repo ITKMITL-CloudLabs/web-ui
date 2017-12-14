@@ -75,11 +75,11 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <form action="" target="_blank">
+                            <form action="{{ route('admin.lab.openConsole', $lab->id) }}" target="_blank">
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <select class="form-control">
+                                            <select class="form-control" name="server_id">
                                                 <option value="" disabled selected>เลือก VM</option>
                                                 @foreach($servers as $server)
                                                     <option value="{{ $server->id }}">{{ $server->name }}</option>
@@ -88,7 +88,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <button type="submit" class="btn btn-block btn-primary">Open console</button>
+                                        <button type="submit" class="btn btn-block btn-primary">Open Console</button>
                                     </div>
                                 </div>
                             </form>

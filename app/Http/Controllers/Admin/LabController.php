@@ -314,4 +314,18 @@ class LabController extends Controller
 
         return redirect(route('admin.lab.show', $lab->id))->with('alert_success', 'อัพโหลดเอกสารสำเร็จ');
     }
+
+    public function openConsole(Request $request, Lab $lab)
+    {
+        $openStack = clone resolve('OpenStackApi');
+        $openStack->setProjectScope($lab->project_id);
+
+        $server = $openStack->computeV2()->getServer([
+            'id' => $request->server_id
+        ]);
+
+        $console = $server->getSpiceConsole();
+
+        return redirect($console['url']);
+    }
 }
