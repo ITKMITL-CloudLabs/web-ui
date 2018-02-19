@@ -18,6 +18,7 @@
             </button>
         </div>
     </div>
+
     <div class="box box-success">
         <div class="box-header with-border">
             <h3 class="box-title">รายการเทมเพลต ทั้งหมด</h3>
@@ -41,7 +42,7 @@
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td>{{ $flavor->name }}</td>
                             <td>{{ $flavor->ram | 0}} MB</td>
-                            <td>{{ $flavor->swap | 0 }} MB</td>
+                            <td>{{ $flavor->swap | "0" }} MB</td>
                             <td>{{ $flavor->disk | 0 }} GB</td>
                             <td>{{ $flavor->vcpus }}</td>
                             <td>

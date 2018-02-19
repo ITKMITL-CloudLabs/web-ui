@@ -112,8 +112,8 @@ class LabController extends Controller
             ]);
 
             $project->grantGroupRole([
-                'groupId' => 'ff05a50769b948578cf8fba4aebd8d12',
-                'roleId'  => 'b030568b5b074e6ba37a105bca3975b0'
+                'groupId' => env('OS_ADMIN_GROUP_ID'),
+                'roleId'  => env('OS_ADMIN_ROLE_ID')
             ]);
 
             $lab->project_id = $project->id;
@@ -137,7 +137,7 @@ class LabController extends Controller
         });
 
         //Get Public Network
-        $publicNetwork = $openStack->networkingV2()->getNetwork('e3bac3f3-1fec-4e59-993c-7b0d1a1964e0');
+        $publicNetwork = $openStack->networkingV2()->getNetwork('082cfeef-e08c-43e0-b603-d8144d820766');
         $publicNetwork->retrieve();
 
         $publicNetwork = (array) $publicNetwork;
