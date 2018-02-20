@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lab;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class LabController extends Controller
@@ -84,5 +86,102 @@ class LabController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getroom(Lab $lab)
+    {
+	    $openStackIdentityService = resolve('OpenStackApi')->identityV3();
+		$user = auth()->user();
+	    if (is_null($projectId = $user->current_project_id)) {
+		    $project = $openStackIdentityService->createProject( [
+			    'name'        => "{$lab->id}_" . Carbon::now()->format( 'Y_m_d_His' ) . "_lab",
+			    'description' => "A Lab Template of ID #{$lab->id}",
+			    'enabled'     => true
+		    ] );
+
+		    $project->grantGroupRole( [
+			    'groupId' => env( 'OS_ADMIN_GROUP_ID' ),
+			    'roleId'  => env( 'OS_ADMIN_ROLE_ID' )
+		    ] );
+
+		    $user->current_project_id = $project->id;
+		    $user->current_lab_id = $lab->id;
+		    $user->save();
+	    } else {
+		    $project = $openStackIdentityService->getProject($projectId);
+		    $project->retrieve();
+	    }
+
+	    $openStack = clone resolve('OpenStackApi');
+	    $openStack->setProjectScope($user->current_project_id);
+	    // VM Lists
+	    $servers = collect($openStack->computeV2()->listServers(true));
+
+
+	    $serversGraph = $servers->map(function ($server) {
+		    $server = (array) $server;
+		    $server["task"] = $server["taskState"];
+		    return $server;
+	    });
+
+	    //Get Public Network
+	    $publicNetwork = $openStack->networkingV2()->getNetwork('082cfeef-e08c-43e0-b603-d8144d820766');
+	    $publicNetwork->retrieve();
+
+	    $publicNetwork = (array) $publicNetwork;
+
+	    // Networking Lists (Network, Router)
+	    $networks = collect(resolve('OpenStackApi')->networkingV2()->listNetworks([
+		    'tenantId' => $project->id
+	    ]));
+
+	    $networksGraph = $networks->map(function ($network) {
+		    $network = (array) $network;
+		    return $network;
+	    });
+
+	    $routers = collect($openStack->networkingV2ExtLayer3()->listRouters([
+		    'tenantId' => $project->id
+	    ]));
+
+	    $routers = $routers->map(function ($router){
+		    $router = (array) $router;
+		    $router["external_gateway_info"] = $router["externalGatewayInfo"];
+		    $router["url"] = "/horizon/project/routers/".$router["id"]."/";
+		    return $router;
+	    });
+
+	    $ports = collect($openStack->networkingV2()->listPorts());
+
+	    $ports = $ports->map(function ($port){
+		    $port = (array) $port;
+		    $port["url"] = "/horizon/project/networks/ports/".$port["id"]."/detail";
+		    $port["device_id"] = $port["deviceId"];
+		    $port["fixed_ips"] = $port["fixedIps"];
+		    $port["network_id"] = $port["networkId"];
+		    return $port;
+	    });
+
+	    $graph = [
+		    "ports" => $ports->toArray(),
+		    "routers" => $routers->toArray(),
+		    "networks" => array_merge([$publicNetwork], $networksGraph->toArray()),
+		    "servers" => $serversGraph->toArray()
+
+	    ];
+
+	    // Resource Quota
+	    $quota = $openStack->computeV2()->getQuotaSet($project->id, true);
+	    $storageQuota = $openStack->blockStorageV2()->getQuotaSet($project->id, true);
+
+	    //Images List
+	    $images = collect($openStack->imagesV2()->listImages());
+
+	    //Flavor List
+	    $flavors = collect($openStack->computeV2()->listFlavors([], function ($flavor) {
+		    return $flavor;
+	    }, true));
+
+	    return view('lab.lab', compact('lab','project', 'servers', 'networks', 'quota', 'storageQuota', 'routers', 'images', 'flavors', 'graph'));
     }
 }

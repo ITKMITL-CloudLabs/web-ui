@@ -72,7 +72,7 @@
                     <h3 class="box-title"><i class="fa fa-sign-in"></i>เริ่มการทดลอง</h3>
                 </div>
                 <div class="box-body text-center">
-                    <a href="{{ route('admin.lab.edit', $lab->id) }}" class="btn btn-app bg-green btn-flat">
+                    <a href="{{ route('lab.room', $lab->id) }}" class="btn btn-app bg-green btn-flat">
                         <i class="fa fa-desktop" aria-hidden="true"></i>เข้าสู่การทดลอง
                     </a>
                 </div>

@@ -9,7 +9,7 @@
             <div class="callout callout-info">
                 <h4>ประกาศ!</h4>
 
-                <p>Add the layout-top-nav class to the body tag to get this layout. This feature can also be used with a
+                <p>_labsAdd the layout-top-nav class to the body tag to get this layout. This feature can also be used with a
                     sidebar! So use this class if you want to remove the custom dropdown menus from the navbar and use regular
                     links instead.</p>
             </div>
@@ -30,7 +30,7 @@
                                     </a>
                                 </p>
                                 <h4 style="margin-top: 0">รายละเอียดของการทดลอง</h4>
-                                <p>{!! $lab->description!!}</p>
+                                <p>{!! $lab->description !!}</p>
                             </div>
                         </div>
                     </div>
@@ -38,6 +38,9 @@
             </div>
         </div>
         @empty
+            <div class="text-center">
+                <h1 class="text-muted">ไม่มีการทดลอง</h1>
+            </div>
         @endforelse
     </div>
 @endsection

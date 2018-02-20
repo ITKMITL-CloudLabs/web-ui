@@ -29,6 +29,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     Route::resource('/lab', 'LabController');
+    Route::get('/lab/{lab}/room', 'LabController@getroom')->name('lab.room');
 
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
         Route::resource('lab', 'LabController');
