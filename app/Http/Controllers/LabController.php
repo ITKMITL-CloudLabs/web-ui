@@ -184,4 +184,76 @@ class LabController extends Controller
 
 	    return view('lab.lab', compact('lab','project', 'servers', 'networks', 'quota', 'storageQuota', 'routers', 'images', 'flavors', 'graph'));
     }
+
+	public function createInstance(Lab $lab, Request $request)
+	{
+		$user = auth()->user();
+		$openStack = clone resolve('OpenStackApi');
+		$openStack->setProjectScope($user->current_project_id);
+
+		$compute = $openStack->computeV2();
+
+		$options = [
+			// Required
+			'name'     => $request->name,
+			'imageId'  => $request->imageId,
+			'flavorId' => $request->flavorId,
+
+			// Required if multiple network is defined
+			'networks'  => [
+				['uuid' => $request->networkId]
+			],
+		];
+
+		// Create the server
+		$compute->createServer($options);
+
+		return redirect(route('lab.room', $lab->id))->with('alert_success', 'สร้าง Instance สำเร็จ');
+	}
+
+	public function createSubnet(Lab $lab, Request $request)
+	{
+		$user = auth()->user();
+		$openStack = clone resolve('OpenStackApi');
+		$openStack->setProjectScope($user->current_project_id);
+
+		$networking = $openStack->networkingV2();
+
+		$options = [
+			'name'         => $request->networkname
+		];
+
+		// Create the network
+		$network = $networking->createNetwork($options);
+
+		$optionSubnet = [
+			'name'      => $request->subnetname,
+			'networkId' => $network->id,
+			'ipVersion' => 4,
+			'cidr'      => $request->networkaddress,
+			'gateway_ip' => $request->gateway
+		];
+
+		// Create the subnet
+		$networking->createSubnet($optionSubnet);
+
+
+		return redirect(route('lab.room', $lab->id))->with('alert_success', 'สร้าง Subnet สำเร็จ');
+	}
+
+	public function createRouter(Lab $lab, Request $request)
+	{
+		$user = auth()->user();
+		$openStack = clone resolve('OpenStackApi');
+		$openStack->setProjectScope($user->current_project_id);
+
+		$options = [
+			'name' => $request->name,
+			'netword_id' => $request->networkId
+		];
+
+		$openStack->networkingV2ExtLayer3()->createRouter($options);
+
+		return redirect(route('lab.room', $lab->id))->with('alert_success', 'สร้าง Router สำเร็จ');
+	}
 }

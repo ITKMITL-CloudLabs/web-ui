@@ -30,6 +30,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
     Route::resource('/lab', 'LabController');
     Route::get('/lab/{lab}/room', 'LabController@getroom')->name('lab.room');
+	Route::post('lab/{lab}/createInstance', 'LabController@createInstance')->name('lab.createInstance');
+	Route::post('lab/{lab}/createSubnet', 'LabController@createSubnet')->name('lab.createSubnet');
+	Route::post('lab/{lab}/createRouter', 'LabController@createRouter')->name('lab.createRouter');
 
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
         Route::resource('lab', 'LabController');

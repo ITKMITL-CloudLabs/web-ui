@@ -206,9 +206,9 @@
         </div>
     </div>
 
-    @include('admin.lab.createInstance')
-    @include('admin.lab.createSubnet')
-    @include('admin.lab.createRouter')
+    @include('lab.createInstance')
+    @include('lab.createSubnet')
+    @include('lab.createRouter')
 @endsection
 
 @section('script')
