@@ -107,9 +107,16 @@
                     <h3 class="box-title"><i class="fa fa-file"></i>ไฟล์ประกอบ</h3>
                 </div>
                 <div class="box-body">
-                    <p class="text-center text-muted">ไม่มีไฟล์ประกอบ</p>
+                    <ul class="lab-material-file-list">
+                        @forelse($lab->formatted_material_files as $file)
+                            <li><a href="{{ $file['url'] }}">{{ $file['name'] }} ({{ number_format(($file['size'] / 1024) / 1024, 2) }} MB)</a></li>
+                        @empty
+                            <li class="empty text-center text-muted">ไม่มีไฟล์ประกอบ</li>
+                        @endforelse
+                    </ul>
                 </div>
             </div>
+
         </div>
     </div>
 @endsection

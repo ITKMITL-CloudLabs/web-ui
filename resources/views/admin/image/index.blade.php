@@ -13,7 +13,7 @@
             <h3 class="box-title">การกระทำ</h3>
         </div>
         <div class="box-body">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadImageModal">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadNewImageModal">
                 <i class="fa fa-plus-square"></i>อัพโหลดอิมเมจใหม่
             </button>
         </div>
@@ -41,7 +41,7 @@
                             <td>{{ $image->name }}</td>
                             <td>{{ $image->diskFormat }}</td>
                             <td>{{ number_format(($image->size / 1024) / 1024, 2) }} MB</td>
-                            <td>{{ \Carbon\Carbon::parse($image->createdAt->date)->setTimezone(0) }}</td>
+                            <td>{{ $image->createdAt->format('Y-m-d H:i:s') }}</td>
                             <td>
                                 <form action="{{ route('admin.image.destroy', $image->id) }}" method="post">
                                     {{ csrf_field() }}
@@ -60,5 +60,5 @@
         </div>
     </div>
 
-    @include('admin.lab.create')
+    @include('admin.image.create')
 @endsection
