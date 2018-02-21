@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('lab/{lab}/uploadMaterial', 'LabController@uploadMaterial')->name('lab.uploadMaterial');
         Route::get('lab/{lab}/openConsole', 'LabController@openConsole')->name('lab.openConsole');
 
-        Route::resource('image', 'ImageController', ['only' => ['index', 'destroy']]);
+        Route::resource('image', 'ImageController', ['only' => ['index', 'store', 'destroy']]);
         Route::resource('flavor', 'FlavorController', ['only' => ['index', 'store', 'destroy']]);
     });
 });

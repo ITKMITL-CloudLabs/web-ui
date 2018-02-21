@@ -16,9 +16,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $images = Cache::rememberForever('os.images', function() {
-            return json_decode(json_encode(iterator_to_array(resolve('OpenStackApi')->imagesV2()->listImages())));
-        });
+        $images = resolve('OpenStackApi')->imagesV2()->listImages();
 
         return view('admin.image.index', compact('images'));
     }
@@ -41,7 +39,26 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        dd($request->file('image_file'));
+
+        $openStack = resolve('OpenStackApi');
+        $imageService = $openStack->imagesV2();
+
+        $image = $imageService->createImage([
+            'name'            => $request->name,
+            'diskFormat'      => $request->disk_format,
+            'containerFormat' => 'bare',
+            'visibility'      => 'public',
+            'minDisk'         => 0,
+            'protected'       => false,
+            'minRam'          => 0,
+        ]);
+
+        $image  = $imageService->getImage($image->id);
+        $stream = \GuzzleHttp\Psr7\stream_for(fopen($request->file('image_file'), 'r'));
+        $image->uploadData($stream);
+
+        return redirect(route('admin.image.index'))->with('alert_success', 'อัพโหลดอิมเมจสำเร็จ');
     }
 
     /**
