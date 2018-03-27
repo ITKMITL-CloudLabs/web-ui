@@ -11,6 +11,11 @@ class Lab extends Model
         'title', 'difficulty', 'description', 'objective', 'instruction', 'is_predefined_lab', 'is_published', 'quota'
     ];
 
+    protected $attributes = [
+        'material_files' => '[]',
+        'quota' => '{"instances":0,"vcpus":0,"memory":0,"disk":0}'
+    ];
+
     protected $casts = [
         'quota' => 'object',
         'material_files' => 'array'
