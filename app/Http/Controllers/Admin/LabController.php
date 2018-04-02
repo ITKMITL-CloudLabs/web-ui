@@ -259,7 +259,11 @@ class LabController extends Controller
 
         $options = [
             'name' => $request->name,
-            'netword_id' => $request->networkId
+            'networkId' => $request->networkId,
+            'externalGatewayInfo' => [
+                'networkId' => $request->networkId,
+                'enableSnat' => true
+            ]
         ];
 
         $openStack->networkingV2ExtLayer3()->createRouter($options);

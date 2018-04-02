@@ -5,15 +5,6 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-12">
-            <div class="callout callout-info">
-                <h4>ประกาศ!</h4>
-
-                <p>_labsAdd the layout-top-nav class to the body tag to get this layout. This feature can also be used with a
-                    sidebar! So use this class if you want to remove the custom dropdown menus from the navbar and use regular
-                    links instead.</p>
-            </div>
-        </div>
         @forelse($labs as $lab)
         <div class="col-md-12">
             <div class="box box-solid">

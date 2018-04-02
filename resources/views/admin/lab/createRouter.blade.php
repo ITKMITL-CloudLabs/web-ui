@@ -16,7 +16,7 @@
                         <label>เลือก Network</label>
                         <select class="form-control" name="networkId">
                             <option value="" disabled selected>เลือก Network</option>
-                            <option value="e3bac3f3-1fec-4e59-993c-7b0d1a1964e0">Public</option>
+                            <option value="{{ env('OS_PUBLIC_NETWORK_ID') }}">Public</option>
                             @foreach($networks as $network)
                                 <option value="{{ $network->id }}">{{ $network->name }}</option>
                             @endforeach
