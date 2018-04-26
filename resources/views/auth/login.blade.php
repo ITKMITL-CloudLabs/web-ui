@@ -1,69 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Login | CloudLabs</title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+@extends('layouts.head')
 
-    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/cloudlabs/css/login.css') }}">
+@section('title', 'Sign In')
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,300italic,400italic,600italic">
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="col-md-6 col-md-offset-3">
-                    <h1 class="text-center"><strong>Cloud</strong>Labs</h1>
-                    <div class="login-left">
-                        <form class="login-form" method="post" action="{{ route('login') }}">
+@section('content')
+    <div class="page">
+        <div class="page-single">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-login mx-auto">
+                        <div class="text-center mb-6">
+                            <img src="./assets/brand/tabler.svg" class="h-6" alt="">
+                        </div>
+                        <form class="card" action="{{ route('login') }}" method="post">
                             {{ csrf_field() }}
-                            <div class="form-group">
-                                <h1>Login</h1>
-                                <label>Please fill in your basic info</label>
-                                <input type="text" class="form-control" placeholder="Username" name="username">
-                                @if ($errors->has('username'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('username') }}</strong>
-                                    </span>
-                                @endif
+                            <div class="card-body p-6">
+                                <div class="card-title">Login to your account</div>
+                                <div class="form-group">
+                                    <label class="form-label">Username</label>
+                                    <input type="text" name="username" class="form-control" placeholder="Enter Username">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Password
+                                        <a href="./forgot-password.html" class="float-right small">I forgot password</a>
+                                    </label>
+                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" />
+                                        <span class="custom-control-label">Remember me</span>
+                                    </label>
+                                </div>
+                                <div class="form-footer">
+                                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Password" name="password">
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                            <button class="btn btn-primary btn-block btn-login">Login</button>
                         </form>
+                        <div class="text-center text-muted">
+                            Don't have account yet? <a href="./register.html">Sign up</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-<!-- jQuery 3 -->
-<script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
-<!-- SlimScroll -->
-<script src="{{ asset('assets/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
-<!-- FastClick -->
-<script src="{{ asset('assets/fastclick/fastclick.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('assets/AdminLTE/js/adminlte.min.js') }}"></script>
-</body>
-</html>
+@endsection
