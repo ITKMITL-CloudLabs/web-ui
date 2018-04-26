@@ -1,4 +1,4 @@
-@extends('layouts.head')
+@extends('layouts.login')
 
 @section('title', 'Sign In')
 
@@ -14,7 +14,7 @@
                         <form class="card" action="{{ route('login') }}" method="post">
                             {{ csrf_field() }}
                             <div class="card-body p-6">
-                                <div class="card-title">Login to your account</div>
+                                <div class="card-title">Login to your CloudLabs account</div>
                                 <div class="form-group">
                                     <label class="form-label">Username</label>
                                     <input type="text" name="username" class="form-control" placeholder="Enter Username">
@@ -38,7 +38,8 @@
                             </div>
                         </form>
                         <div class="text-center text-muted">
-                            Don't have account yet? <a href="./register.html">Sign up</a>
+                            <strong>Copyright &copy; {{ date('Y') }} <a href="{{ config('app.url') }}">{{  config('app.name') }}</a>.</strong>
+                            <br>All rights reserved.
                         </div>
                     </div>
                 </div>

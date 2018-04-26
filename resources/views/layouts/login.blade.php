@@ -12,6 +12,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <title>@yield('title') | CloudLabs</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
     <script src="{{ asset('assets/tabler/js/require.min.js') }}"></script>
     <script>
         requirejs.config({
