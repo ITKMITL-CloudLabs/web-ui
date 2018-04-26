@@ -10,7 +10,54 @@
         </h1>
     </div>
     <div class="row">
-        <div class="col-lg-3 order-lg-1">
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="h2 mb-1">{{ $lab->title }}</div>
+                    <div class="text-muted mb-4">สร้างโดย {{ auth()->user()->name }}</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-2">
+                        <div class="h2 mb-1">รายละเอียด</div>
+                        <hr>
+                        @if($lab->description)
+                            {!! $lab->description !!}
+                        @else
+                            <p class="text-center text-muted">ไม่มีรายละเอียดย่อ</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-2">
+                        <div class="h2 mb-1">วัตถุประสงค์</div>
+                        <hr>
+                        @if($lab->objective)
+                            {!! $lab->objective !!}
+                        @else
+                            <p class="text-center text-muted">ไม่มีวัตถุประสงค์</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-2">
+                        <div class="h2 mb-1">ขั้นตอนการทดลอง</div>
+                        <hr>
+                        @if($lab->instruction)
+                            {!! $lab->instruction !!}
+                        @else
+                            <p class="text-center text-muted">ไม่มีขั้นตอนการทดลอง</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 ">
             <div class="card p-3">
                 <form class="inline" action="{{ route('admin.lab.togglePublishStatus', $lab->id) }}" method="post">
                     {{ csrf_field() }}
@@ -91,53 +138,6 @@
                         <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-upload"></i>อัพโหลด</button>
                     </div>
                 </form>
-            </div>
-        </div>
-        <div class="col-lg-9">
-            <div class="card">
-                <div class="card-body">
-                    <div class="h2 mb-1">{{ $lab->title }}</div>
-                    <div class="text-muted mb-4">สร้างโดย {{ auth()->user()->name }}</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="mb-2">
-                        <div class="h2 mb-1">รายละเอียด</div>
-                        <hr>
-                        @if($lab->description)
-                            {!! $lab->description !!}
-                        @else
-                            <p class="text-center text-muted">ไม่มีรายละเอียดย่อ</p>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="mb-2">
-                        <div class="h2 mb-1">วัตถุประสงค์</div>
-                        <hr>
-                        @if($lab->objective)
-                            {!! $lab->objective !!}
-                        @else
-                            <p class="text-center text-muted">ไม่มีวัตถุประสงค์</p>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="mb-2">
-                        <div class="h2 mb-1">ขั้นตอนการทดลอง</div>
-                        <hr>
-                        @if($lab->instruction)
-                            {!! $lab->instruction !!}
-                        @else
-                            <p class="text-center text-muted">ไม่มีขั้นตอนการทดลอง</p>
-                        @endif
-                    </div>
-                </div>
             </div>
         </div>
     </div>

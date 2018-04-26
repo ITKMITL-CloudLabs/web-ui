@@ -29,6 +29,8 @@
     <!-- Input Mask Plugin -->
     <script src="{{ asset('assets/tabler/plugins/input-mask/plugin.js') }}"></script>
 
+    <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
+
     <!-- Font awesome -->
     <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}">
 
@@ -273,6 +275,8 @@
         }
     })
 </script>
+
+@yield('script')
 
 </body>
 </html>
