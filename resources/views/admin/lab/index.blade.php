@@ -4,7 +4,6 @@
 @section('subtitle', 'สร้างและแก้ไขการทดลองในระบบ')
 
 @section('style')
-    <link rel="stylesheet" href="{{ asset('assets/AdminLTE/css/dataTables.bootstrap.min.css') }}">
 @endsection
 
 @section('content')
@@ -68,7 +67,7 @@
                     <h3 class="card-title">รายการการทดลองทั้งหมด</h3>
                 </div>
                 <div class="table-responsive">
-                    <table class="table card-table table-vcenter text-nowrap">
+                    <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
                         <thead>
                         <tr>
                             <th style="width: 10px">#</th>

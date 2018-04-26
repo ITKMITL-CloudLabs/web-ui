@@ -34,6 +34,8 @@
 
     @yield('style')
 
+    <link rel="stylesheet" href="{{ asset('assets/cloudlabs/css/app.css') }}">
+
 </head>
 <body class="">
 <div class="page">
@@ -42,6 +44,7 @@
             <div class="container">
                 <div class="d-flex">
                     <a class="header-brand" href="./index.html">
+                        <img src="{{ asset('assets/tabler/images/logo/logo.png') }}" class="header-brand-img" alt="tabler logo">
                         CloudLabs
                     </a>
                     <div class="d-flex order-lg-2 ml-auto">
@@ -249,5 +252,27 @@
         </div>
     </footer>
 </div>
+
+<script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
+
+<script src="{{ asset('assets/raty/jquery.raty-fa.js') }}"></script>
+<script>
+    $('.modal').on('shown.bs.modal', function() {
+        $(this).find('[autofocus]').focus();
+    });
+
+    $('.raty').raty({
+        score: function() {
+            return $(this).attr('data-score');
+        },
+        scoreName: function() {
+            return $(this).attr('data-name');
+        },
+        readOnly: function() {
+            return $(this).attr('data-readonly') == 'true';
+        }
+    })
+</script>
+
 </body>
 </html>

@@ -68,7 +68,7 @@
                     <h3 class="card-title">รายการอิมเมจทั้งหมด</h3>
                 </div>
                 <div class="table-responsive">
-                    <table class="table card-table table-vcenter text-nowrap">
+                    <table class="table table-hover table-outline table-vcenter text-nowrap card-tabl">
                         <thead>
                         <tr>
                             <th class="text-center" style="width: 10px">#</th>
