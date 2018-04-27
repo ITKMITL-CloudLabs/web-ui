@@ -14,7 +14,7 @@
                         <form class="card" action="{{ route('login') }}" method="post">
                             {{ csrf_field() }}
                             <div class="card-body p-6">
-                                <div class="card-title">Login to your CloudLabs account</div>
+                                <div class="card-title">Sign in to your CloudLabs account</div>
                                 <div class="form-group">
                                     <label class="form-label">Username</label>
                                     <input type="text" name="username" class="form-control" placeholder="Enter Username">
@@ -22,7 +22,6 @@
                                 <div class="form-group">
                                     <label class="form-label">
                                         Password
-                                        <a href="./forgot-password.html" class="float-right small">I forgot password</a>
                                     </label>
                                     <input type="password" name="password" class="form-control" placeholder="Password">
                                 </div>
