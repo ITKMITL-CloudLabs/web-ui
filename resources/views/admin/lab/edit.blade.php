@@ -16,6 +16,7 @@
             <div class="col-lg-9">
                 <div class="card">
                     <div class="card-body">
+                        <h4>ชื่อการทดลอง</h4>
                         <input class="form-control input-lg mb-2" name="title" type="text" value="{{ $lab->title }}">
                         <div class="text-muted mb-4">สร้างโดย {{ auth()->user()->name }}</div>
                     </div>
@@ -54,14 +55,15 @@
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-body">
-                        <button type="submit" class="btn btn-success btn-block">บันทึก</button>
+                    <div class="card-body text-center">
+                        <a href="javascript:void(0)" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-success ml-auto"><i class="fa fa-save"></i>บันทึก</button>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="card p-3">
-                    <button type="submit" class="btn btn-success btn-block">บันทึก</button>
+                    <button type="submit" class="btn btn-success btn-block"><i class="fa fa-save"></i>บันทึก</button>
                 </div>
                 <div class="card p-3">
                     <ul class="list-group">
