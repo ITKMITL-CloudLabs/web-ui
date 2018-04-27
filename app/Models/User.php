@@ -26,6 +26,14 @@ class User extends Authenticatable
         'enabled' => 'boolean'
     ];
 
+    protected $fillable = [
+        'username', 'password', 'role'
+    ];
+
+    protected $appends = [
+        'role_text'
+    ];
+
     public static function createFromKeystoneAuthenticatableUser($unserializedUser)
     {
         $user = self::findOrNew($unserializedUser->id);
@@ -33,12 +41,11 @@ class User extends Authenticatable
         $user->id = $unserializedUser->id;
         $user->token = $unserializedUser->getTokenId();
         $user->token_expired_at = $unserializedUser->tokenExpiredAt;
-        $user->email = $unserializedUser->email;
         $user->enabled = $unserializedUser->enabled;
         $user->description = $unserializedUser->description;
         $user->name = $unserializedUser->name;
         $user->domain_id = $unserializedUser->domainId;
-        $user->default_project_id = $unserializedUser->defaultProjectId;
+        $user->os_default_project_id = $unserializedUser->defaultProjectId;
 
         $user->save();
 
@@ -48,6 +55,33 @@ class User extends Authenticatable
     public function isAdmin()
     {
     	return $this->is_admin;
+    }
+
+    public function scopeOnlyInstructor($query)
+    {
+        return $query->where('role', 'instructor');
+    }
+
+    public function scopeOnlyStudent($query)
+    {
+        return $query->where('role', 'student');
+    }
+
+    public function scopeOnlyTA($query)
+    {
+        return $query->where('role', 'ta');
+    }
+
+    public function getRoleTextAttribute()
+    {
+        switch ($this->role) {
+            case 'student':
+                return 'นักเรียน';
+            case 'instructor':
+                return 'อาจารย์';
+            case 'ta':
+                return 'ผู้ช่วยสอน';
+        }
     }
 
 }
