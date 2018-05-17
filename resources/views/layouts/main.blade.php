@@ -45,7 +45,7 @@
         <div class="header py-4">
             <div class="container">
                 <div class="d-flex">
-                    <a class="header-brand" href="./index.html">
+                    <a class="header-brand" href="/">
                         <img src="{{ asset('assets/tabler/images/logo/logo.png') }}" class="header-brand-img" alt="tabler logo">
                         CloudLabs
                     </a>

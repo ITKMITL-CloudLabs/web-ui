@@ -40,4 +40,9 @@ class Lab extends Model
 
         return collect($formattedFileList);
     }
+
+    public function users()
+    {
+    	return $this->hasMany(User::class);
+    }
 }

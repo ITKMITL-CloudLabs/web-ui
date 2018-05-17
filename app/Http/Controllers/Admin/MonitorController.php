@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +17,9 @@ class MonitorController extends Controller
     {
 	    $monitor = resolve('OpenStackApi')->computeV2()->getHypervisorStatistics();
 
-        return view('admin.monitor.index', compact('monitor'));
+	    $labs = User::whereNotNull('current_lab_id')->with('currentLab')->get();
+
+        return view('admin.monitor.index', compact('monitor', 'labs'));
     }
 
     /**

@@ -52,10 +52,25 @@
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
-                        <tbody>
+                        <thead>
                             <tr>
-                                <td class="text-muted text-center">ไม่มีการทดลองที่ดำเนินอยู่</td>
+                                <th>#</th>
+                                <th>ชื่อการทดลอง</th>
+                                <th width="30px">การกระทำ</th>
                             </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($labs as $lab)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $lab->currentLab->title }}</td>
+                                <td>เร็วๆ นี้</td>
+                            </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="2">ไม่มีการทดลองที่กำลังดำเนินการอยู่</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

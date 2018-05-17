@@ -84,4 +84,9 @@ class User extends Authenticatable
         }
     }
 
+    public function currentLab()
+    {
+    	return $this->belongsTo(Lab::class, 'current_lab_id');
+    }
+
 }
