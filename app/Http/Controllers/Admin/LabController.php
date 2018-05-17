@@ -18,7 +18,9 @@ class LabController extends Controller
     public function index()
     {
         $labs = Lab::all();
-        return view('admin.lab.index', compact('labs'));
+        $predefinedlab = Lab::predefinedlab()->get();
+        $notdefinedlab = Lab::notdefinedlab()->get();
+        return view('admin.lab.index', compact('labs', 'predefinedlab', 'notdefinedlab'));
     }
 
     /**

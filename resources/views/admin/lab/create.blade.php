@@ -17,8 +17,8 @@
                         <label>ประเภทการทดลอง</label>
                         <select class="form-control" name="is_predefined_lab">
                             <option value="" disabled selected>เลือกประเภทการทดลอง</option>
-                            <option value="1">เตรียมสภาพแวดล้อมให้</option>
-                            <option value="0">ไม่เตรียมสภาพแวดล้อมให้</option>
+                            <option value="1">มีสภาพแวดล้อมเบื้องต้น</option>
+                            <option value="0">อิสระ</option>
                         </select>
                     </div>
                 </div>

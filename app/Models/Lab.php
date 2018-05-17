@@ -26,6 +26,16 @@ class Lab extends Model
         return $query->where('is_published', true);
     }
 
+    public function scopePreDefinedLab($query)
+    {
+    	return $query->where('is_predefined_lab' ,true);
+    }
+
+	public function scopeNotDefinedLab($query)
+	{
+		return $query->where('is_predefined_lab' ,0);
+	}
+
     public function getFormattedMaterialFilesAttribute()
     {
         $formattedFileList = [];
