@@ -1,87 +1,71 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('title', 'รายละเอียดการทดลอง')
 @section('subtitle', 'ข้อมูลการทดลองที่เลือก')
 
 @section('content')
+    <div class="page-header">
+        <h1 class="page-title">
+            @yield('title')
+        </h1>
+    </div>
     <form class="inline" action="{{ route('admin.lab.update', $lab->id) }}" method="post">
         {{ csrf_field() }}
         {{ method_field('patch') }}
-    <div class="row">
-        <div class="col-md-9">
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-flask"></i>ชื่อการทดลอง</h3>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>ชื่อการทดลอง</h4>
+                        <input class="form-control input-lg mb-2" name="title" type="text" value="{{ $lab->title }}">
+                        <div class="text-muted mb-4">สร้างโดย {{ auth()->user()->name }}</div>
+                    </div>
                 </div>
-                <div class="box-body">
-                    <input class="form-control input-lg" name="title" type="text" value="{{ $lab->title }}">
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-gears"></i>การกระทำ</h3>
-                </div>
-                <div class="box-body">
-                    <button type="submit" class="btn btn-block btn-success btn-flat"><i class="fa fa-save"></i>บันทึก</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-9">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-file"></i>รายละเอียดย่อ</h3>
-                        </div>
-                        <div class="box-body">
-                            <textarea name="description" id="description" rows="10" cols="80">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <div class="h2 mb-1">รายละเอียด</div>
+                            <hr>
+                            <textarea name="description" id="description" rows="10" cols="115">
                                 {!! $lab->description !!}
                             </textarea>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-crosshairs"></i>วัตถุประสงค์</h3>
-                        </div>
-                        <div class="box-body">
-                            <textarea name="objective" id="objective" rows="10" cols="80">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <div class="h2 mb-1">วัตถุประสงค์</div>
+                            <hr>
+                            <textarea name="objective" id="objective" rows="10" cols="115">
                                 {!! $lab->objective !!}
                             </textarea>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-map-signs"></i>ขั้นตอนการทดลอง</h3>
-                        </div>
-                        <div class="box-body">
-                            <textarea name="instruction" id="instruction" rows="10" cols="80">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <div class="h2 mb-1">ขั้นตอนการทดลอง</div>
+                            <hr>
+                            <textarea name="instruction" id="instruction" rows="10" cols="115">
                                 {!! $lab->instruction !!}
                             </textarea>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-info-circle"></i>ข้อมูลทั่วไป</h3>
+                <div class="card">
+                    <div class="card-body text-center">
+                        <a href="javascript:void(0)" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-success ml-auto"><i class="fa fa-save"></i>บันทึก</button>
+                    </div>
                 </div>
-                <div class="box-body no-padding">
+            </div>
+            <div class="col-lg-3">
+                <div class="card p-3">
+                    <button type="submit" class="btn btn-success btn-block"><i class="fa fa-save"></i>บันทึก</button>
+                </div>
+                <div class="card p-3">
                     <ul class="list-group">
                         <li class="list-group-item">
                             <div class="lab-detail-list-title">ความยาก</div>
@@ -102,6 +86,9 @@
                     </ul>
                 </div>
             </div>
+        </div>
+
+
         </div>
     </div>
     </form>

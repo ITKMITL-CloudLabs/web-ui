@@ -1,37 +1,46 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('title', 'ห้องทดลอง')
 @section('subtitle', 'รายการห้องทดลองทั้งหมด')
 
 @section('content')
+    <div class="page-header">
+        <h1 class="page-title">
+            @yield('title')
+        </h1>
+    </div>
     <div class="row">
-        @forelse($labs as $lab)
-        <div class="col-md-12">
-            <div class="box box-solid">
-                <div class="box-body">
-                    <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: left; padding: 7px 10px; margin-top: 0;">
-                        {{ $lab->title }}
-                    </h4>
-                    <div class="media">
-                        <div class="media-body">
-                            <div class="clearfix lab-card">
-                                <p class="pull-right">
-                                    <a href="{{ route('lab.show', $lab->id) }}" class="btn btn-success btn-sm ad-click-event">
-                                        <i class="fa fa-sign-in" aria-hidden="true"></i>เข้าสู่ห้องทดลอง
-                                    </a>
-                                </p>
-                                <h4 style="margin-top: 0">รายละเอียดของการทดลอง</h4>
-                                <p>{!! $lab->description !!}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="card">
+            <table class="table card-table table-vcenter">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>หัวข้อ</th>
+                        <th class="text-center" width="200px">ระดับความยาก</th>
+                        <th class="text-center" width="200px">วันที่เผยแพร่</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @forelse($labs as $lab)
+                    <tr>
+                        <td>{{ $loop->iteration }}.</td>
+                        <td>
+                            <a href="{{ route('lab.show', $lab->id) }}">{{ $lab->title }} </a>
+                        </td>
+                        <td class="text-center d-none d-md-table-cell text-nowrap">
+                            <div class="raty" data-score="{{ $lab->difficulty }}" data-name="difficulty" data-readonly="true"></div>
+                        </td>
+                        <td class="text-center d-none d-md-table-cell text-nowrap">
+                            {{ $lab->created_at }}
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td class="text-center text-muted" colspan="4">ไม่มีการทดลอง</td>
+                    </tr>
+                @endforelse
+                </tbody>
+            </table>
         </div>
-        @empty
-            <div class="text-center">
-                <h1 class="text-muted">ไม่มีการทดลอง</h1>
-            </div>
-        @endforelse
     </div>
 @endsection

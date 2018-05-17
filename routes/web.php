@@ -12,22 +12,22 @@
 */
 
 Route::get('/test', function () {
-   return view('lab.lab');
+   return view('lab.lab2');
 });
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+//
+//Route::get('login', function () {
+//    return redirect('/');
+//
+//});
 
-Route::get('login', function () {
-    return redirect('/');
-});
+Route::get('login', 'Auth\LoginController@showLoginForm');
 Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/', 'DashboardController@index')->name('dashboard');
     Route::resource('/lab', 'LabController');
     Route::get('/lab/{lab}/room', 'LabController@getroom')->name('lab.room');
 	Route::post('lab/{lab}/createInstance', 'LabController@createInstance')->name('lab.createInstance');
@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('image', 'ImageController', ['only' => ['index', 'store', 'destroy']]);
         Route::resource('flavor', 'FlavorController', ['only' => ['index', 'store', 'destroy']]);
-
         Route::resource('user', 'UserController');
+        Route::resource('monitor', 'MonitorController', ['only' => ['index']]);
     });
 });

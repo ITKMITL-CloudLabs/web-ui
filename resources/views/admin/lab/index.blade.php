@@ -77,11 +77,10 @@
                             <th style="width: 160px">สร้างเมื่อ</th>
                         </tr>
                         </thead>
-                        <?php $i = 1; ?>
                         <tbody>
                         @forelse($labs as $lab)
                             <tr>
-                                <td>{{ $i++ }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td><a href="{{ route('admin.lab.show', $lab->id) }}">{{ $lab->title }}</a></td>
                                 <td><div class="raty" data-score="{{ $lab->difficulty }}" data-name="difficulty" data-readonly="true"></div></td>
                                 <td>John Doe</td>

@@ -137,6 +137,7 @@ class LabController extends Controller
         });
 
         //Get Public Network
+
         $publicNetwork = $openStack->networkingV2()->getNetwork(env('OS_PUBLIC_NETWORK_ID'));
         $publicNetwork->retrieve();
 
