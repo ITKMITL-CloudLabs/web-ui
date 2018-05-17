@@ -2,8 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="createInstanceModal"><i class="fa fa-plus-square"></i>กำหนด Instance</h4>
+                <h4 class="modal-title" id="createInstanceModal">กำหนด Instance</h4>
             </div>
             <form action="{{ route('admin.lab.createInstance', $lab->id) }}" method="post">
                 {{ csrf_field() }}

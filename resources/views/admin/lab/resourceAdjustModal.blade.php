@@ -2,8 +2,9 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="resourceAdjustModalLabel"><i class="fa fa-pie-chart"></i>กำหนด Resource ในการทดลอง</h4>
+                <h4 class="modal-title" id="resourceAdjustModalLabel">กำหนด Resource ในการทดลอง</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
             </div>
             <form action="{{ route('admin.lab.updateQuota', $lab->id) }}" method="post">
                 {{ csrf_field() }}

@@ -52,12 +52,9 @@
         <div class="col-12 col-sm-12 col-lg-6">
             <div class="card">
                 <div class="card-body p-3 text-center">
-                    <div class="text-right text-green">
-                        6%
-                        <i class="fe fe-chevron-up"></i>
-                    </div>
-                    <div class="h1 m-0">43</div>
-                    <div class="text-muted mb-4">New Tickets</div>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createLabModal">
+                        สร้างการทดลอง
+                    </button>
                 </div>
             </div>
         </div>
