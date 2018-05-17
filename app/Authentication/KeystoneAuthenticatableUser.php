@@ -33,7 +33,6 @@ class KeystoneAuthenticatableUser implements Authenticatable
     public function setProfile(User $user)
     {
         $this->id = $user->id;
-        $this->email = $user->email;
         $this->enabled = $user->enabled;
         $this->description = $user->description;
         $this->links = $user->links;
@@ -54,7 +53,6 @@ class KeystoneAuthenticatableUser implements Authenticatable
         $user->tokenId = $unserializedUser->tokenId;
         $user->tokenExpiredAt = $unserializedUser->tokenExpiredAt;
         $user->id = $unserializedUser->id;
-        $user->email = $unserializedUser->email;
         $user->enabled = $unserializedUser->enabled;
         $user->description = $unserializedUser->description;
         $user->links = $unserializedUser->links;

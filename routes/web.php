@@ -47,5 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('image', 'ImageController', ['only' => ['index', 'store', 'destroy']]);
         Route::resource('flavor', 'FlavorController', ['only' => ['index', 'store', 'destroy']]);
+
+        Route::resource('user', 'UserController');
     });
 });
