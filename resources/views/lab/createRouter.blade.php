@@ -2,7 +2,6 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="createRouterModal"><i class="fa fa-plus-square"></i>สร้าง Router</h4>
             </div>
             <form action="{{ route('lab.createRouter', $lab->id) }}" method="post">

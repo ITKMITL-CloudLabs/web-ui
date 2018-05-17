@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>ยกเลิก</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i>ยกเลิก</button>
                     <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i>บันทึก</button>
                 </div>
             </form>

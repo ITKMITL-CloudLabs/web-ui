@@ -128,6 +128,7 @@
                                 <a href="javascript:void(0)" @if(request()->is('admin*')) class="nav-link active" @else class="nav-link" @endif data-toggle="dropdown"><i class="fe fe-file"></i> Admin Menu</a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                     <a href="{{ route('admin.monitor.index') }}" class="dropdown-item ">Monitor</a>
+                                    <a href="{{ route('admin.user.index') }}" class="dropdown-item ">จัดการผู้ใช้งาน</a>
                                     <a href="{{ route('admin.lab.index') }}" class="dropdown-item ">จัดการแล็ป</a>
                                     <a href="{{ route('admin.image.index') }}" class="dropdown-item ">จัดการ Image</a>
                                     <a href="{{ route('admin.flavor.index') }}" class="dropdown-item ">จัดการเทมเพลท VM</a>
@@ -150,6 +151,7 @@
         </div>
         <div class="my-3 my-md-5">
             <div class="container">
+                @include('layouts.alert')
                 @yield('content')
             </div>
         </div>

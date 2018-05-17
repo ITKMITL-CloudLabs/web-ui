@@ -1,80 +1,77 @@
-@extends('layouts.app')
+@extends('layouts.main')
 
 @section('title', 'ห้องทดลอง')
 @section('subtitle', 'ห้องทดลอง')
 
 @section('content')
+    <div class="page-header">
+        <h1 class="page-title">
+            @yield('title')
+        </h1>
+    </div>
     <div class="row">
-        <div class="col-md-5">
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-desktop"></i>ทรัพยากร</h3>
-                </div>
-                <div class="box-body" style="padding: 20px;">
-                    <div class="row">
-                        <div class="col-xs-6 col-md-3 text-center">
-                            <div style="display:inline;width:90px;height:90px;"><input type="text" class="knob" value="{{ $quota->instances['in_use'] }}" data-max="{{ $quota->instances['limit'] }}" data-width="90" data-height="90" data-fgcolor="#3c8dbc" data-readonly="true" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 18px; line-height: normal; font-family: Arial; text-align: center; color: rgb(60, 141, 188); padding: 0px; -webkit-appearance: none;"></div>
-
-                            <div class="knob-label">
-                                <strong>Instances (เครื่อง)</strong><br>
-                                <small>จำกัด {{ $quota->instances['limit'] }} เครื่อง</small>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-xs-6 col-md-3 text-center">
-                            <div style="display:inline;width:90px;height:90px;"><input type="text" class="knob" value="{{ $quota->cores['in_use'] }}" data-max="{{ $quota->cores['limit'] }}" data-width="90" data-height="90" data-fgcolor="#f56954" data-readonly="true" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 18px; line-height: normal; font-family: Arial; text-align: center; color: rgb(245, 105, 84); padding: 0px; -webkit-appearance: none;"></div>
-
-                            <div class="knob-label">
-                                <strong>vCPUs (Core)</strong><br>
-                                <small>จำกัด {{ $quota->cores['limit'] }} Cores</small>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-xs-6 col-md-3 text-center">
-                            <div style="display:inline;width:90px;height:90px;"><input type="text" class="knob" value="{{ $quota->ram['in_use'] }}" data-max="{{ $quota->ram['limit'] }}" data-width="90" data-height="90" data-fgcolor="#00a65a" data-readonly="true" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 18px; line-height: normal; font-family: Arial; text-align: center; color: rgb(0, 166, 90); padding: 0px; -webkit-appearance: none;"></div>
-
-                            <div class="knob-label">
-                                <strong>Memory (MB)</strong><br>
-                                <small>จำกัด {{ $quota->ram['limit'] }} MB</small>
-                            </div>
-                        </div>
-                        <!-- ./col -->
-                        <div class="col-xs-6 col-md-3 text-center">
-                            <div style="display:inline;width:90px;height:90px;"><input type="text" class="knob" value="0" data-max="{{ $storageQuota->gigabytes }}" data-width="90" data-height="90" data-fgcolor="#00c0ef" data-readonly="true" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 30px; margin-left: -69px; border: 0px; background: none; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 18px; line-height: normal; font-family: Arial; text-align: center; color: rgb(0, 192, 239); padding: 0px; -webkit-appearance: none;"></div>
-
-                            <div class="knob-label">
-                                <strong>Disk Space (GB)</strong><br>
-                                <small>จำกัด {{ $storageQuota->gigabytes }} GB</small>
-                            </div>
-                        </div>
-                        <!-- ./col -->
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="h5"><strong>Instances (เครื่อง)</strong><br><small>จำกัด {{ $quota->instances['limit'] }} เครื่อง</small></div>
+                    <div class="display-4 font-weight-bold mb-4">{{ $quota->instances['in_use'] }}</div>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-green" style="width: {{ $quota->instances['in_use']/$quota->instances['limit'] * 100 }}%"></div>
                     </div>
                 </div>
             </div>
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-map-signs"></i>ขั้นตอนการทดลอง</h3>
-                </div>
-                <div class="box-body" style="height: 500px">
-                    {!! $lab->instruction !!}
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="h5"><strong>vCPUs (Core)</strong><br><small>จำกัด {{ $quota->cores['limit'] }} Cores</small></div>
+                    <div class="display-4 font-weight-bold mb-4">{{ $quota->cores['in_use'] }}</div>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-green" style="width: {{ $quota->cores['in_use']/$quota->cores['limit'] * 100 }}%"></div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-7">
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title"><i class="fa fa-code-fork"></i>Network Topology</h3>
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="h5"><strong>Memory (MB)</strong><br><small>จำกัด {{ $quota->ram['limit'] }} MB</small></div>
+                    <div class="display-4 font-weight-bold mb-4">{{ $quota->ram['in_use'] }} MB</div>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-green" style="width: {{ $quota->ram['in_use']/$quota->ram['limit'] * 100 }}%"></div>
+                    </div>
                 </div>
-                <div class="box-body">
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="h5"> <strong>Disk Space (GB)</strong><br>
+                        <small>จำกัด {{ $storageQuota->gigabytes }} GB</small></div>
+                    <div class="display-4 font-weight-bold mb-4">0 GB</div>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-green" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fa fa-code-fork"></i>Network Topology</h3>
+                </div>
+                <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createInstanceModal"><i class="fa fa-hdd-o"></i>สร้าง Instance</button>
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createSubnetModal"><i class="fa fa-plus"></i>สร้าง Subnet</button>
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createRouterModal"><i class="fa fa-plus"></i>สร้าง Router</button>
+                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#createInstanceModal"><i class="fa fa-hdd-o"></i>สร้าง Instance</button>
+                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#createSubnetModal"><i class="fa fa-plus"></i>สร้าง Subnet</button>
+                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#createRouterModal"><i class="fa fa-plus"></i>สร้าง Router</button>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <form action="{{ route('admin.lab.openConsole', $lab->id) }}" target="_blank">
                                 <div class="row">
                                     <div class="col-md-8">
@@ -201,6 +198,16 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title"><i class="fa fa-map-signs"></i>ขั้นตอนการทดลอง</div>
+                </div>
+                <div class="card-body">
+                    {!! $lab->instruction !!}
                 </div>
             </div>
         </div>

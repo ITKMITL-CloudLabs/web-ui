@@ -13,14 +13,14 @@
         <div class="col-lg-9">
             <div class="card">
                 <div class="card-body">
-                    <div class="h2 mb-1">{{ $lab->title }}</div>
-                    <div class="text-muted mb-4">สร้างโดย {{ auth()->user()->name }}</div>
+                    <div class="h3 mb-1">{{ $lab->title }}</div>
+                    <div class="text-muted mb-4"><i>สร้างโดย {{ auth()->user()->name }}</i></div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-body">
                     <div class="mb-2">
-                        <div class="h2 mb-1">รายละเอียด</div>
+                        <div class="h3 mb-1">รายละเอียด</div>
                         <hr>
                         @if($lab->description)
                             {!! $lab->description !!}
@@ -33,7 +33,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="mb-2">
-                        <div class="h2 mb-1">วัตถุประสงค์</div>
+                        <div class="h3 mb-1">วัตถุประสงค์</div>
                         <hr>
                         @if($lab->objective)
                             {!! $lab->objective !!}
@@ -46,7 +46,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="mb-2">
-                        <div class="h2 mb-1">ขั้นตอนการทดลอง</div>
+                        <div class="h3 mb-1">ขั้นตอนการทดลอง</div>
                         <hr>
                         @if($lab->instruction)
                             {!! $lab->instruction !!}
