@@ -53,15 +53,35 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $userData = $this->validate($request, [
-            'username' => 'required|unique:users',
+            'username' => 'required',
             'password' => 'required|min:6',
             'name'     => 'required',
             'role'     => 'required'
         ]);
 
-        $user = User::create($userData);
+        $identity = resolve('OpenStackApi')->identityV3();
+        $user = $identity->createUser([
+            'defaultProjectId' => env('OS_AUTH_SCOPE_PROJECT_ID'),
+            'domainId'         => env('OS_AUTH_DOMAIN'),
+            'enabled'          => $request->enabled == 1,
+            'description'      => $userData['name'],
+            'name'             => $userData['username'],
+            'password'         => $userData['password']
+        ]);
 
-        return view('admin.user.index');
+        $localUser = new User();
+        $localUser->id = $user->id;
+        $localUser->fill($userData);
+        $localUser->enabled = $request->enabled == 1;
+        $localUser->save();
+
+        $project = $identity->getProject(env('OS_AUTH_SCOPE_PROJECT_ID'));
+        $project->grantUserRole([
+            'userId' => $user->id,
+            'roleId' => env('OS_ADMIN_ROLE_ID')
+        ]);
+
+        return redirect(route('admin.user.index'));
     }
 
     /**
@@ -106,6 +126,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = resolve('OpenStackApi')->identityV3()->getUser($id);
+        $user->retrieve();
+        $user->delete();
+
+        User::destroy($id);
+
+        return redirect(route('admin.user.index'));
     }
 }

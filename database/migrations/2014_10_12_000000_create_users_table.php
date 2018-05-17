@@ -14,11 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('os_user_id')->nullable()->default(null);
-            $table->string('username')->unique();
-            $table->string('password')->nullable()->default(null);
-            $table->rememberToken();
+            $table->string('id');
             $table->enum('role', ['instructor', 'student', 'ta'])->default('student');
             $table->string('name');
             $table->boolean('enabled');
