@@ -123,6 +123,7 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-3 ml-auto">
+                        @if(auth()->user()->is_admin == 1)
                         <ul class="nav nav-tabs border-0 flex-column flex-lg-row justify-content-end">
                             <li class="nav-item">
                                 <a href="javascript:void(0)" @if(request()->is('admin*')) class="nav-link active" @else class="nav-link" @endif data-toggle="dropdown"><i class="fe fe-file"></i> Admin Menu</a>
@@ -135,6 +136,7 @@
                                 </div>
                             </li>
                         </ul>
+                        @endif
                     </div>
                     <div class="col-lg order-lg-first">
                         <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
@@ -172,6 +174,7 @@
 
 <script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/raty/jquery.raty-fa.js') }}"></script>
+<script src="{{ asset('assets/AdminLTE/js/sweetalert2.min.js') }}"></script>
 <script>
     $('.modal').on('shown.bs.modal', function() {
         $(this).find('[autofocus]').focus();

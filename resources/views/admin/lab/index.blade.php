@@ -13,48 +13,27 @@
         </h1>
     </div>
     <div class="row row-cards">
-        <div class="col-6 col-sm-4 col-lg-2">
+        <div class="col-6 col-sm-4 col-lg-4">
             <div class="card">
                 <div class="card-body p-3 text-center">
-                    <div class="text-right text-green">
-                        6%
-                        <i class="fe fe-chevron-up"></i>
-                    </div>
-                    <div class="h1 m-0">43</div>
-                    <div class="text-muted mb-4">New Tickets</div>
+                    <div class="h1 m-1">{{ $labs->count() }}</div>
+                    <div class="text-muted mb-4">การทดลองทั้งหมด</div>
                 </div>
             </div>
         </div>
-        <div class="col-6 col-sm-4 col-lg-2">
+        <div class="col-6 col-sm-4 col-lg-4">
             <div class="card">
                 <div class="card-body p-3 text-center">
-                    <div class="text-right text-green">
-                        6%
-                        <i class="fe fe-chevron-up"></i>
-                    </div>
-                    <div class="h1 m-0">43</div>
-                    <div class="text-muted mb-4">New Tickets</div>
+                    <div class="h1 m-1">{{ $notdefinedlab->count() }}</div>
+                    <div class="text-muted mb-4">อิสระ</div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-sm-4 col-lg-2">
+        <div class="col-12 col-sm-4 col-lg-4">
             <div class="card">
                 <div class="card-body p-3 text-center">
-                    <div class="text-right text-green">
-                        6%
-                        <i class="fe fe-chevron-up"></i>
-                    </div>
-                    <div class="h1 m-0">43</div>
-                    <div class="text-muted mb-4">New Tickets</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-12 col-lg-6">
-            <div class="card">
-                <div class="card-body p-3 text-center">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createLabModal">
-                        สร้างการทดลอง
-                    </button>
+                    <div class="h1 m-1">{{ $predefinedlab->count() }}</div>
+                    <div class="text-muted mb-4">มีสภาพแวดล้อมเริ่มต้น</div>
                 </div>
             </div>
         </div>
@@ -62,6 +41,13 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">รายการการทดลองทั้งหมด</h3>
+                    <div class="card-options">
+                        <div class="form-inline">
+                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#createLabModal">
+                                <i class="fe fe-plus-circle mr-2"></i>สร้างการทดลอง
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover table-outline table-vcenter text-nowrap card-table">

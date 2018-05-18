@@ -66,6 +66,13 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">รายการอิมเมจทั้งหมด</h3>
+                    <div class="card-options">
+                        <div class="form-inline">
+                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#uploadNewImageModal">
+                                <i class="fa fa-plus-square"></i>อัพโหลดอิมเมจใหม่
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover table-outline table-vcenter text-nowrap card-tabl">
@@ -91,7 +98,7 @@
                                     <form action="{{ route('admin.image.destroy', $image->id) }}" method="post">
                                         {{ csrf_field() }}
                                         {{ method_field('delete') }}
-                                        <button class="btn btn-xs btn-danger" onclick="return confirm('ยืนยันการลบอิมเมจนี้?')"><i class="fa fa-trash"></i> ลบอิมเมจ</button>
+                                        <button class="btn btn-danger btn-sm" onclick="return confirm('ยืนยันการลบอิมเมจนี้?')"><i class="fa fa-trash"></i> ลบอิมเมจ</button>
                                     </form>
                                 </td>
                             </tr>
@@ -106,16 +113,6 @@
             </div>
         </div>
     </div>
-    {{--<div class="box box-success">--}}
-        {{--<div class="box-header with-border">--}}
-            {{--<h3 class="box-title">การกระทำ</h3>--}}
-        {{--</div>--}}
-        {{--<div class="box-body">--}}
-            {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadNewImageModal">--}}
-                {{--<i class="fa fa-plus-square"></i>อัพโหลดอิมเมจใหม่--}}
-            {{--</button>--}}
-        {{--</div>--}}
-    {{--</div>--}}
 
     @include('admin.image.create')
 @endsection
