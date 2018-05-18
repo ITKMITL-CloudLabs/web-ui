@@ -2,7 +2,6 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="uploadNewImageModal"><i class="fa fa-plus-square"></i>อัพโหลดอิมเมจระบบใหม่</h4>
             </div>
             <form action="{{ route('admin.image.store') }}" method="post" enctype="multipart/form-data">

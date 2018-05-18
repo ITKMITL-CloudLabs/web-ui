@@ -66,6 +66,13 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">รายการเทมเพลต ทั้งหมด</h3>
+                    <div class="card-options">
+                        <div class="form-inline">
+                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#createFlavorModal">
+                                <i class="fa fa-plus-square"></i>สร้างเทมเพลตใหม่
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover table-outline table-vcenter text-nowrap card-tabl">
@@ -93,7 +100,7 @@
                                     <form class="inline" action="{{ route('admin.flavor.destroy', $flavor->id) }}" method="post">
                                         {{ csrf_field() }}
                                         {{ method_field('delete') }}
-                                        <button id="deleteFlavorBtn" class="btn btn-xs btn-danger">
+                                        <button class="btn btn-danger btn-sm" onclick="return confirm('ยืนยันการลบเทมเพลต VM นี้?')">
                                             <i class="fa fa-trash"></i> ลบเทมเพลตนี้
                                         </button>
                                     </form>
@@ -110,30 +117,11 @@
             </div>
         </div>
     </div>
-    {{--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createFlavorModal">--}}
-        {{--<i class="fa fa-plus-square"></i>สร้างเทมเพลตใหม่--}}
-    {{--</button>--}}
 
 
     @include('admin.flavor.create')
 @endsection
 
 @section('script')
-    <script>
-        $('#deleteFlavorBtn').on('click',function(e){
-            e.preventDefault();
-            var form = $(this).parents('form');
-            swal({
-                title: "ยืนยันการลบ",
-                text: "คุณต้องการที่จะลบเทมเพลตนี้ ?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "ยืนยัน",
-                cancelButtonText: 'ยกเลิก'
-            }).then(function () {
-                form.submit();
-            })
-        });
-    </script>
+
 @endsection
