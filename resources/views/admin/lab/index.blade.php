@@ -56,8 +56,9 @@
                             <th style="width: 10px">#</th>
                             <th>ชื่อการทดลอง</th>
                             <th style="width: 160px">ระดับความยาก</th>
-                            <th style="width: 160px">สร้างโดย</th>
+                            <th style="width: 160px">ประเภทการทดลอง</th>
                             <th style="width: 160px">สร้างเมื่อ</th>
+                            <th style="width: 50px">เผยแพร่</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -66,8 +67,21 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td><a href="{{ route('admin.lab.show', $lab->id) }}">{{ $lab->title }}</a></td>
                                 <td><div class="raty" data-score="{{ $lab->difficulty }}" data-name="difficulty" data-readonly="true"></div></td>
-                                <td>John Doe</td>
+                                <td>
+                                    @if($lab->is_predefined_lab == 1)
+                                        มีสภาพแวดล้อมเริ่มต้น
+                                    @else
+                                        อิสระ
+                                    @endif
+                                </td>
                                 <td>{{ $lab->created_at }}</td>
+                                <td class="text-center">
+                                    @if($lab->is_published == 1)
+                                        <i class="fa fa-check" style="color: green"></i>
+                                    @else
+                                        <i class="fa fa-times" style="color: red"></i>
+                                    @endif
+                                </td>
                             </tr>
                         @empty
                             <tr>

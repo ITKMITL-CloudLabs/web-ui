@@ -52,6 +52,7 @@
                         <th>#</th>
                         <th>หัวข้อ</th>
                         <th class="text-center" width="200px">ระดับความยาก</th>
+                        <th class="text-center" width="170px">ประเภทการทดลอง</th>
                         <th class="text-center" width="200px">วันที่เผยแพร่</th>
                     </tr>
                     </thead>
@@ -64,6 +65,13 @@
                             </td>
                             <td class="text-center d-none d-md-table-cell text-nowrap">
                                 <div class="raty" data-score="{{ $lab->difficulty }}" data-name="difficulty" data-readonly="true"></div>
+                            </td>
+                            <td>
+                                @if($lab->is_predefined_lab == 1)
+                                    มีสภาพแวดล้อมเริ่มต้น
+                                @else
+                                    อิสระ
+                                @endif
                             </td>
                             <td class="text-center d-none d-md-table-cell text-nowrap">
                                 {{ $lab->created_at }}
