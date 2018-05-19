@@ -17,7 +17,11 @@ class LabController extends Controller
     public function index()
     {
         $labs = Lab::published()->get();
-        return view('lab.index', compact('labs'));
+        if (auth()->user()->current_lab_id) {
+	        $currentlab = Lab::findOrFail( auth()->user()->current_lab_id );
+        }
+
+        return view('lab.index', compact('labs', 'currentlab'));
     }
 
     /**
@@ -90,6 +94,10 @@ class LabController extends Controller
 
     public function getroom(Lab $lab)
     {
+    	if (auth()->user()->current_project_id && auth()->user()->current_lab_id != $lab->id)
+    	{
+    	    return redirect(route('lab.show', $lab->id))->with('alert_danger', 'คุณยังมีการทดลองอื่นที่ยังค้างอยู่ ทำให้ไม่สามารถเข้าไปทำการทดลองนี้ได้');
+	    }
 	    $openStackIdentityService = resolve('OpenStackApi')->identityV3();
 		$user = auth()->user();
 	    if (is_null($projectId = $user->current_project_id)) {
@@ -255,5 +263,20 @@ class LabController extends Controller
 		$openStack->networkingV2ExtLayer3()->createRouter($options);
 
 		return redirect(route('lab.room', $lab->id))->with('alert_success', 'สร้าง Router สำเร็จ');
+	}
+
+	public function exitLab(Lab $lab)
+	{
+		$user = auth()->user();
+
+		$identity = resolve('OpenStackApi')->identityV3();
+		$project = $identity->getProject($user->current_project_id);
+		$project->delete();
+
+		$user->current_project_id = null;
+		$user->current_lab_id = null;
+		$user->save();
+
+		return redirect(route('lab.show', $lab->id))->with('alert_success', 'ออกจากการทดลองเรียบร้อย');
 	}
 }

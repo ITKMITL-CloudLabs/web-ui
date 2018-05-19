@@ -15,7 +15,7 @@
         <div class="col-3">
             <div class="card">
                 <div class="card-body p-4 text-center">
-                    <div class="h1 m-0">43</div>
+                    <div class="h1 m-0">{{ \App\Models\User::onlyStudent()->count() }}</div>
                     <div class="text-muted">นักเรียน</div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
         <div class="col-3">
             <div class="card">
                 <div class="card-body p-4 text-center">
-                    <div class="h1 m-0">43</div>
+                    <div class="h1 m-0">{{ \App\Models\User::onlyTA()->count() }}</div>
                     <div class="text-muted">ผู้ช่วยสอน</div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
         <div class="col-3">
             <div class="card">
                 <div class="card-body p-4 text-center">
-                    <div class="h1 m-0">43</div>
+                    <div class="h1 m-0">{{ \App\Models\User::onlyInstructor()->count() }}</div>
                     <div class="text-muted">อาจารย์</div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
         <div class="col-3">
             <div class="card">
                 <div class="card-body p-4 text-center">
-                    <div class="h1 m-0">43</div>
+                    <div class="h1 m-0">{{ $users->count() }}</div>
                     <div class="text-muted">รวมทั้งหมด</div>
                 </div>
             </div>

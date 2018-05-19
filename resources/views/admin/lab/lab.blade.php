@@ -10,6 +10,29 @@
         </h1>
     </div>
     <div class="row">
+        <div class="col-md-6">
+            <div class="page-header">
+                <h2 class="page-title">
+                    {{ $lab->title }}
+                </h2>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" style="">
+                <div class="card-body">
+                    <a href="{{ route('admin.lab.show', $lab->id) }}" class="btn btn-primary btn-block"><i class="fa fa-arrow-left"></i>ย้อนกลับไปหน้าจัดการ</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" style="">
+                <div class="card-body">
+                    <a href="{{ route('admin.lab.terminateLab', $lab->id) }}" class="btn btn-danger btn-block"><i class="fa fa-times"></i>Terminate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-sm-6 col-lg-3">
             <div class="card">
                 <div class="card-body text-center">

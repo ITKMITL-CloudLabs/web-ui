@@ -59,11 +59,9 @@
         </div>
         <div class="col-lg-3 ">
             <div class="card p-3">
-                @if($lab->is_predefined_lab == 1)
-                    <a href="{{ route('lab.room', $lab->id) }}" class="btn btn-primary btn-block">
-                        <i class="fa fa-flask"></i> เข้าสู่การทดลอง
-                    </a>
-                @endif
+                <a href="{{ route('lab.room', $lab->id) }}" class="btn btn-primary btn-block">
+                    <i class="fa fa-flask"></i> เข้าสู่การทดลอง
+                </a>
             </div>
             <!-- Components -->
             <div class="card p-3">

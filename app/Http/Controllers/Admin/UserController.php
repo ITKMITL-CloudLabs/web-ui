@@ -81,7 +81,7 @@ class UserController extends Controller
             'roleId' => env('OS_ADMIN_ROLE_ID')
         ]);
 
-        return redirect(route('admin.user.index'));
+        return redirect(route('admin.user.index'))->with('alert_success', 'สร้างผู้ใช้สำเร็จ');
     }
 
     /**
@@ -103,7 +103,14 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+	    $identity = resolve('OpenStackApi')->identityV3();
+
+    	$user = User::findOrFail($id);
+
+    	$username = $identity->getUser($user->id);
+    	$username->retrieve();
+
+        return view('admin.user.edit', compact('user', 'username'));
     }
 
     /**
@@ -115,7 +122,13 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+	    $user->name = $request->name;
+        $user->role = $request->role;
+        $user->save();
+
+        return redirect(route('admin.user.index'))->with('alert_success', 'แก้ไขข้อมูลผู้ใช้สำเร็จ');
     }
 
     /**

@@ -63,12 +63,12 @@
                     {{ csrf_field() }}
                     {{ method_field('post') }}
                     @if(!$lab->is_published)
-                        <button class="btn btn-success btn-block mb-2">
+                        <button class="btn btn-success btn-block mb-2" onclick="return confirm('ยืนยันการเผยแพร่? คุณต้องการเพยแพร่การทดลองนี้ใช่หรือไม่')">
                             <i class="fa fa-check-circle"></i>เผยแพร่
                         </button>
                     @else
-                        <button class="btn btn-warning btn-block mb-2">
-                            <i class="fa fa-times-circle"></i>เลิกเผยแพร่
+                        <button class="btn btn-warning btn-block mb-2" onclick="return confirm('ยกเลิกการเผยแพร่? คำเตือน! การยกเลิกการเผยแพร่จะทำให้การทดลองของนักศึกษาทั้งหมดถูกทำลาย')">
+                            <i class="fa fa-times-circle"></i>ยกเลิกการเผยแพร่
                         </button>
                     @endif
                 </form>
@@ -78,7 +78,7 @@
                 <form class="inline" action="{{ route('admin.lab.destroy', $lab->id) }}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('delete') }}
-                    <button id="deleteBtn" class="btn btn-danger btn-block" onclick="return confirm('ยืนยันการลบ? คุณต้องการลบการทดลองนี้ใช่หรือไม่')">
+                    <button class="btn btn-danger btn-block" onclick="return confirm('ยืนยันการลบ? คุณต้องการลบการทดลองนี้ใช่หรือไม่')">
                         <i class="fa fa-trash"></i>ลบ
                     </button>
                 </form>
@@ -141,63 +141,6 @@
             </div>
         </div>
     </div>
-        {{--<div class="col-md-3">--}}
-            {{--<div class="box actions-box">--}}
-                {{--<div class="box-header with-border">--}}
-                    {{--<h3 class="box-title"><i class="fa fa-gears"></i>การกระทำ</h3>--}}
-                {{--</div>--}}
-                {{--<div class="box-body text-center">--}}
-
-                {{--</div>--}}
-            {{--</div>--}}
-
-            {{--<div class="box actions-box">--}}
-                {{--<div class="box-header with-border">--}}
-                    {{--<h3 class="box-title"><i class="fa fa-gears"></i>การเตรียมการทดลอง</h3>--}}
-                {{--</div>--}}
-
-            {{--</div>--}}
-
-            {{--<div class="box">--}}
-                {{--<div class="box-header with-border">--}}
-                    {{--<h3 class="box-title"><i class="fa fa-info-circle"></i>ข้อมูลทั่วไป</h3>--}}
-                {{--</div>--}}
-                {{--<div class="box-body no-padding">--}}
-
-                {{--</div>--}}
-            {{--</div>--}}
-
-            {{--<div class="box">--}}
-                {{--<div class="box-header with-border">--}}
-                    {{--<h3 class="box-title"><i class="fa fa-file"></i>ไฟล์ประกอบ</h3>--}}
-                {{--</div>--}}
-                {{--<div class="box-body">--}}
-                    {{--<ul class="lab-material-file-list">--}}
-                        {{--@forelse($lab->formatted_material_files as $file)--}}
-                            {{--<li><a href="{{ $file['url'] }}">{{ $file['name'] }} ({{ number_format(($file['size'] / 1024) / 1024, 2) }} MB)</a></li>--}}
-                        {{--@empty--}}
-                            {{--<li class="empty text-center text-muted">ไม่มีไฟล์ประกอบ</li>--}}
-                        {{--@endforelse--}}
-                    {{--</ul>--}}
-
-                    {{--<hr>--}}
-
-                    {{--<form action="{{ route('admin.lab.uploadMaterial', $lab->id) }}" enctype="multipart/form-data" method="post" class="text-center">--}}
-                        {{--{{ csrf_field() }}--}}
-                        {{--<div class="form-group">--}}
-                            {{--<input type="input" class="form-control" name="name" placeholder="ชื่อไฟล์ (สำหรับแสดงในรายการไฟล์)">--}}
-                        {{--</div>--}}
-                        {{--<div class="form-group">--}}
-                            {{--<input type="file" class="form-control" name="file">--}}
-                        {{--</div>--}}
-                        {{--<div class="form-group">--}}
-                            {{--<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-upload"></i>อัพโหลด</button>--}}
-                        {{--</div>--}}
-                    {{--</form>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    </div>
 
     @include('admin.lab.create')
     @include('admin.lab.resourceAdjustModal')
@@ -205,21 +148,5 @@
 @endsection
 
 @section('script')
-    <script>
-        $('#deleteBtn').on('click',function(e){
-            e.preventDefault();
-            var form = $(this).parents('form');
-            swal({
-                title: "ยืนยันการลบ",
-                text: "คุณต้องการที่จะลบการทดลองนี้ ?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "ยืนยัน",
-                cancelButtonText: 'ยกเลิก'
-            }).then(function () {
-                form.submit();
-            })
-        });
-    </script>
+
 @endsection

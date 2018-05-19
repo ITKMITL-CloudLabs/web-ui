@@ -10,6 +10,22 @@
         </h1>
     </div>
     <div class="row">
+        <div class="col-md-9">
+            <div class="page-header">
+                <h2 class="page-title">
+                    {{ $lab->title }}
+                </h2>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" style="">
+                <div class="card-body">
+                    <a href="{{ route('lab.exitLab', $lab->id) }}" class="btn btn-danger btn-block"><i class="fa fa-sign-out"></i>ออกจากการทดลอง</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-sm-6 col-lg-3">
             <div class="card">
                 <div class="card-body text-center">
@@ -313,54 +329,4 @@
     <script src="http://cdn.bootcss.com/hogan.js/3.0.2/hogan.min.js"></script>
     <script src="{{ asset('assets/topology/graph.js') }}"></script>
 
-    <script src="{{ asset('assets/jquery-knob/js/jquery.knob.js') }}"></script>
-    <script>
-        $(function () {
-            $(".knob").knob({
-                draw: function () {
-
-                    // "tron" case
-                    if (this.$.data('skin') == 'tron') {
-
-                        var a = this.angle(this.cv)  // Angle
-                            , sa = this.startAngle          // Previous start angle
-                            , sat = this.startAngle         // Start angle
-                            , ea                            // Previous end angle
-                            , eat = sat + a                 // End angle
-                            , r = true;
-
-                        this.g.lineWidth = this.lineWidth;
-
-                        this.o.cursor
-                        && (sat = eat - 0.3)
-                        && (eat = eat + 0.3);
-
-                        if (this.o.displayPrevious) {
-                            ea = this.startAngle + this.angle(this.value);
-                            this.o.cursor
-                            && (sa = ea - 0.3)
-                            && (ea = ea + 0.3);
-                            this.g.beginPath();
-                            this.g.strokeStyle = this.previousColor;
-                            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
-                            this.g.stroke();
-                        }
-
-                        this.g.beginPath();
-                        this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
-                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
-                        this.g.stroke();
-
-                        this.g.lineWidth = 2;
-                        this.g.beginPath();
-                        this.g.strokeStyle = this.o.fgColor;
-                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
-                        this.g.stroke();
-
-                        return false;
-                    }
-                }
-            });
-        });
-    </script>
 @endsection

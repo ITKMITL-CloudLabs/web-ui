@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('lab/{lab}/createInstance', 'LabController@createInstance')->name('lab.createInstance');
 	Route::post('lab/{lab}/createSubnet', 'LabController@createSubnet')->name('lab.createSubnet');
 	Route::post('lab/{lab}/createRouter', 'LabController@createRouter')->name('lab.createRouter');
+	Route::get('lab/{lab}/exit', 'LabController@exitLab')->name('lab.exitLab');
 
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
         Route::resource('lab', 'LabController');
@@ -44,6 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::patch('lab/{lab}/updateQuota', 'LabController@updateQuota')->name('lab.updateQuota');
         Route::post('lab/{lab}/uploadMaterial', 'LabController@uploadMaterial')->name('lab.uploadMaterial');
         Route::get('lab/{lab}/openConsole', 'LabController@openConsole')->name('lab.openConsole');
+	    Route::get('lab/{lab}/terminate', 'LabController@terminateLab')->name('lab.terminateLab');
 
         Route::resource('image', 'ImageController', ['only' => ['index', 'store', 'destroy']]);
         Route::resource('flavor', 'FlavorController', ['only' => ['index', 'store', 'destroy']]);

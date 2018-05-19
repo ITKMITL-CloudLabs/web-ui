@@ -90,8 +90,28 @@ class LabController extends Controller
      */
     public function destroy(Lab $lab)
     {
+    	if ($lab->project_id) {
+    		$identity = resolve('OpenStackApi')->identityV3();
+		    $project = $identity->getProject($lab->project_id);
+		    $project->delete();
+	    }
+
         $lab->delete();
+
         return redirect(route('admin.lab.index'))->with('alert_success', 'ห้องทดลองได้ถูกลบแล้ว');
+    }
+
+    public function terminateLab(Lab $lab)
+    {
+	    $identity = resolve('OpenStackApi')->identityV3();
+	    $project = $identity->getProject($lab->project_id);
+	    $project->delete();
+
+	    $lab->project_id = null;
+	    $lab->save();
+
+	    return redirect(route('admin.lab.show', $lab->id))->with('alert_success', 'ห้องทดลองได้ถูกทำลายแล้ว');
+
     }
 
     public function togglePublishStatus(Lab $lab)
