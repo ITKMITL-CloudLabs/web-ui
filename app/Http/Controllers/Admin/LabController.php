@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Extensions\HotTemplateGenerator;
 use App\Models\Lab;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -354,5 +355,10 @@ class LabController extends Controller
         $console = $server->getSpiceConsole();
 
         return redirect($console['url']);
+    }
+
+    public function generateHotTemplate(Lab $lab)
+    {
+        return new HotTemplateGenerator($lab->project_id);
     }
 }
