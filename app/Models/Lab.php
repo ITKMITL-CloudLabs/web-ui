@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,6 +20,10 @@ class Lab extends Model
     protected $casts = [
         'quota' => 'object',
         'material_files' => 'array'
+    ];
+
+    protected $dates = [
+        'created_at', 'updated_at', 'hot_template_created_at'
     ];
 
     public function scopePublished($query)
@@ -54,5 +59,11 @@ class Lab extends Model
     public function users()
     {
     	return $this->hasMany(User::class);
+    }
+
+    public function setHotTemplateAttribute($value)
+    {
+        $this->attributes['hot_template'] = $value;
+        $this->attributes['hot_template_created_at'] = Carbon::now();
     }
 }

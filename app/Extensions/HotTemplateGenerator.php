@@ -45,8 +45,11 @@ EOD;
 
         $this->fetchTopology();
         $this->generateHotTemplate();
+    }
 
-        dd($this->template);
+    public function getTemplate()
+    {
+        return $this->template;
     }
 
     private function fetchTopology()
@@ -80,15 +83,18 @@ EOD;
 
             $networks = [];
             foreach ($instance->addresses as $networkName => $address) {
-                $networks[] = "{fixed_ip: {$address[0]['addr']}, subnet: { get_resource: {$networkName} }}";
+                $networks[] = [
+                    'fixed_ip' => $address[0]['addr'],
+                    'subnet' => "{ get_resource: {$networkName} }"
+                ];
             }
 
             $this->template .= "  {$name}:\n";
             $this->template .= "    type: {$type}\n";
             $this->template .= "    properties:\n";
             $this->template .= "      flavor: {$flavor}\n";
-            $this->template .= "      block_device_mapping_v2: [.json_encode(['snapshot_id' => $image]).]\n";
-            $this->template .= "      networks: ".json_encode($networks)."\n\n";
+            $this->template .= "      block_device_mapping_v2: [".json_encode(['snapshot_id' => $image])."]\n";
+            $this->template .= "      networks: ".str_replace('"}', '}', str_replace('"{', '{', json_encode($networks)))."\n\n";
         }
     }
 
