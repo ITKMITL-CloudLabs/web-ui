@@ -339,6 +339,15 @@ class LabController extends Controller
 	    $openStack = clone resolve('OpenStackApi');
 	    $openStack->setProjectScope($lab->project_id);
 
+	    $options = [
+		    'name' => $request->name,
+		    'networkId' => $request->networkId,
+		    'externalGatewayInfo' => [
+			    'networkId' => $request->networkId,
+			    'enableSnat' => true
+		    ]
+	    ];
+
 	    $openStack->networkingV2ExtLayer3()->createRouter($options);
 
 	    return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'สร้าง Router สำเร็จ');
