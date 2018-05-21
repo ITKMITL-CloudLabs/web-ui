@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Extensions\HotTemplateGenerator;
 use App\Models\Lab;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -97,6 +98,18 @@ class LabController extends Controller
 		    $project->delete();
 	    }
 
+	    $labactives = User::where('current_lab_id', $lab->id)->get();
+		if ($labactives) {
+			foreach ( $labactives as $labactive ) {
+				$project = $identity->getProject( $labactive->current_project_id );
+				$project->delete();
+				$user                     = User::findOrFail( $labactive->id );
+				$user->current_project_id = null;
+				$user->current_lab_id     = null;
+				$user->save();
+			}
+		}
+
         $lab->delete();
 
         return redirect(route('admin.lab.index'))->with('alert_success', 'ห้องทดลองได้ถูกลบแล้ว');
@@ -104,14 +117,40 @@ class LabController extends Controller
 
     public function terminateLab(Lab $lab)
     {
+
 	    $identity = resolve('OpenStackApi')->identityV3();
 	    $project = $identity->getProject($lab->project_id);
 	    $project->delete();
+
+	    $labactives = User::where('current_lab_id', $lab->id)->get();
+
+	    foreach ($labactives as $labactive){
+		    $project = $identity->getProject($labactive->current_project_id);
+		    $project->delete();
+		    $user = User::findOrFail($labactive->id);
+		    $user->current_project_id = null;
+		    $user->current_lab_id = null;
+		    $user->save();
+	    }
 
 	    $lab->project_id = null;
 	    $lab->save();
 
 	    return redirect(route('admin.lab.show', $lab->id))->with('alert_success', 'ห้องทดลองได้ถูกทำลายแล้ว');
+
+    }
+
+    public function terminateLabStudent($projectId)
+    {
+    	$user = User::where('current_project_id', $projectId)->first();
+	    $identity = resolve('OpenStackApi')->identityV3();
+	    $project = $identity->getProject($projectId);
+	    $project->delete();
+	    $user->current_project_id = null;
+	    $user->current_lab_id = null;
+	    $user->save();
+
+	    return redirect(route('admin.activelab'))->with('alert_success', 'ห้องทดลองได้ถูกยุบแล้ว');
 
     }
 
@@ -360,5 +399,108 @@ class LabController extends Controller
     public function generateHotTemplate(Lab $lab)
     {
         return new HotTemplateGenerator($lab->project_id);
+    }
+
+    public function labActive()
+    {
+    	$labs = User::whereNotNull('current_lab_id')->with('currentLab')->get();
+
+    	return view('admin.lab.labrun', compact('labs'));
+    }
+
+    public function observeLab(Lab $lab, $projectId)
+    {
+	    $openStackIdentityService = resolve('OpenStackApi')->identityV3();
+
+	    $project = $openStackIdentityService->getProject($projectId);
+	    $project->retrieve();
+
+	    $openStack = clone resolve('OpenStackApi');
+	    $openStack->setProjectScope($projectId);
+
+	    // VM Lists
+	    $servers = collect($openStack->computeV2()->listServers(true));
+
+
+	    $serversGraph = $servers->map(function ($server) {
+		    $server = (array) $server;
+		    $server["task"] = $server["taskState"];
+		    return $server;
+	    });
+
+	    //Get Public Network
+
+	    $publicNetwork = $openStack->networkingV2()->getNetwork(env('OS_PUBLIC_NETWORK_ID'));
+	    $publicNetwork->retrieve();
+
+	    $publicNetwork = (array) $publicNetwork;
+
+	    // Networking Lists (Network, Router)
+	    $networks = collect(resolve('OpenStackApi')->networkingV2()->listNetworks([
+		    'tenantId' => $project->id
+	    ]));
+
+	    $networksGraph = $networks->map(function ($network) {
+		    $network = (array) $network;
+		    return $network;
+	    });
+
+	    $routers = collect($openStack->networkingV2ExtLayer3()->listRouters([
+		    'tenantId' => $project->id
+	    ]));
+
+	    $routers = $routers->map(function ($router){
+		    $router = (array) $router;
+		    $router["external_gateway_info"] = $router["externalGatewayInfo"];
+		    $router["url"] = "/horizon/project/routers/".$router["id"]."/";
+		    return $router;
+	    });
+
+	    $ports = collect($openStack->networkingV2()->listPorts());
+
+	    $ports = $ports->map(function ($port){
+		    $port = (array) $port;
+		    $port["url"] = "/horizon/project/networks/ports/".$port["id"]."/detail";
+		    $port["device_id"] = $port["deviceId"];
+		    $port["fixed_ips"] = $port["fixedIps"];
+		    $port["network_id"] = $port["networkId"];
+		    return $port;
+	    });
+
+	    $graph = [
+		    "ports" => $ports->toArray(),
+		    "routers" => $routers->toArray(),
+		    "networks" => array_merge([$publicNetwork], $networksGraph->toArray()),
+		    "servers" => $serversGraph->toArray()
+
+	    ];
+
+	    // Resource Quota
+	    $quota = $openStack->computeV2()->getQuotaSet($project->id, true);
+	    $storageQuota = $openStack->blockStorageV2()->getQuotaSet($project->id, true);
+
+	    //Images List
+	    $images = collect($openStack->imagesV2()->listImages());
+
+	    //Flavor List
+	    $flavors = collect($openStack->computeV2()->listFlavors([], function ($flavor) {
+		    return $flavor;
+	    }, true));
+
+	    return view('admin.lab.lab', compact('lab','project', 'servers', 'networks', 'quota', 'storageQuota', 'routers', 'images', 'flavors', 'graph', 'projectId'));
+    }
+
+    public function terminateInstance(Lab $lab, $instanceId)
+    {
+	    $openStack = clone resolve('OpenStackApi');
+	    $openStack->setProjectScope($lab->project_id);
+
+	    $server = $openStack->computeV2()->getServer([
+		    'id' => $instanceId
+	    ]);
+
+	    $server->delete();
+
+	    return redirect('admin.lab.lab', $lab->id)->with('alert_success', 'ลบ Instance สำเร็จ');
     }
 }

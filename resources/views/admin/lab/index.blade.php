@@ -58,7 +58,7 @@
                             <th style="width: 160px">ระดับความยาก</th>
                             <th style="width: 160px">ประเภทการทดลอง</th>
                             <th style="width: 160px">สร้างเมื่อ</th>
-                            <th style="width: 50px">เผยแพร่</th>
+                            <th style="width: 40px">เผยแพร่</th>
                         </tr>
                         </thead>
                         <tbody>

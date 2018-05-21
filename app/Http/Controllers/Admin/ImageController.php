@@ -18,7 +18,7 @@ class ImageController extends Controller
     {
         $images = resolve('OpenStackApi')->imagesV2()->listImages();
 
-        return view('admin.image.index', compact('images'));
+        return view('admin.image.index', compact('images', 'amountofimages'));
     }
 
     /**

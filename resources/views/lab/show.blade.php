@@ -60,7 +60,7 @@
         <div class="col-lg-3 ">
             <div class="card p-3">
                 <a href="{{ route('lab.room', $lab->id) }}" class="btn btn-primary btn-block">
-                    <i class="fa fa-flask"></i> เข้าสู่การทดลอง
+                    <i class="fa fa-sign-in"></i> เข้าสู่การทดลอง
                 </a>
             </div>
             <!-- Components -->

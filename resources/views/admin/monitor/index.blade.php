@@ -64,7 +64,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $laboperation->currentLab->title }}</td>
-                                <td>เร็วๆ นี้</td>
+                                <td>-</td>
                             </tr>
                             @empty
                                 <tr>
@@ -93,7 +93,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $lab->title }}</td>
-                                <td>เร็วๆ นี้</td>
+                                <td>-</td>
                             </tr>
                         @empty
                             <tr>

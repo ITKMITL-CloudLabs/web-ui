@@ -71,7 +71,9 @@ class UserController extends Controller
 
         $localUser = new User();
         $localUser->id = $user->id;
-        $localUser->fill($userData);
+        $localUser->name = $user->name;
+        $localUser->description = $user->description;
+        $localUser->role = $userData['role'];
         $localUser->enabled = $request->enabled == 1;
         $localUser->save();
 
@@ -80,6 +82,10 @@ class UserController extends Controller
             'userId' => $user->id,
             'roleId' => env('OS_ADMIN_ROLE_ID')
         ]);
+
+        //Add User to Group
+	    $group = $identity->getGroup(env('OS_ADMIN_GROUP_ID'));
+	    $group->addUser(['userId' => $user->id]);
 
         return redirect(route('admin.user.index'))->with('alert_success', 'สร้างผู้ใช้สำเร็จ');
     }
@@ -124,8 +130,13 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-	    $user->name = $request->name;
+	    $identity = resolve('OpenStackApi')->identityV3();
+	    $userFromOs = $identity->getUser($user->id);
+	    $userFromOs->description = $request->name;
+	    $userFromOs->update();
+
         $user->role = $request->role;
+        $user->description = $request->name;
         $user->save();
 
         return redirect(route('admin.user.index'))->with('alert_success', 'แก้ไขข้อมูลผู้ใช้สำเร็จ');

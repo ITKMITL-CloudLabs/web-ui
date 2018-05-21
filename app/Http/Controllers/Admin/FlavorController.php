@@ -18,7 +18,7 @@ class FlavorController extends Controller
                 return $flavor;
             }, true);
 
-        return view('admin.flavor.index', compact('flavors'));
+        return view('admin.flavor.index', compact('flavors', 'counter'));
     }
 
     /**

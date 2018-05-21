@@ -81,8 +81,8 @@
                         @forelse($users as $user)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $user->description }}</td>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ $user->username }}</td>
                                 <td class="text-center">
                                     <i class="fe @if($user->current_lab_id) fe-check-circle text-success @else fe-circle text-muted @endif"></i>
                                 </td>

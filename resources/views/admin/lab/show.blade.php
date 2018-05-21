@@ -78,7 +78,7 @@
                 <form class="inline" action="{{ route('admin.lab.destroy', $lab->id) }}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('delete') }}
-                    <button class="btn btn-danger btn-block" onclick="return confirm('ยืนยันการลบ? คุณต้องการลบการทดลองนี้ใช่หรือไม่')">
+                    <button class="btn btn-danger btn-block" onclick="return confirm('คำเตือน! การกด ลบ จะทำให้การทดลองของนักศึกษาถูกทำลายด้วย คุณต้องการลบการทดลองนี้ใช่หรือไม่')">
                         <i class="fa fa-trash"></i>ลบ
                     </button>
                 </form>

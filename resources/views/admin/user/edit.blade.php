@@ -67,7 +67,7 @@
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">ชื่อบัญชี</label>
-                                    <input type="text" name="name" class="form-control @if($errors->has('name')) is-invalid @endif" placeholder="ชื่อ-สกุล / ชื่อที่ต้องการให้แสดงในระบบ" value="{{ $user->name }}">
+                                    <input type="text" name="name" class="form-control @if($errors->has('name')) is-invalid @endif" placeholder="ชื่อ-สกุล / ชื่อที่ต้องการให้แสดงในระบบ" value="{{ $user->description }}">
                                     @if($errors->has('name'))
                                         <div class="invalid-feedback">{{ $errors->first('name') }}</div>
                                     @endif

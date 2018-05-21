@@ -20,14 +20,18 @@
         <div class="col-md-3">
             <div class="card" style="">
                 <div class="card-body">
-                    <a href="{{ route('admin.lab.show', $lab->id) }}" class="btn btn-primary btn-block"><i class="fa fa-arrow-left"></i>ย้อนกลับไปหน้าจัดการ</a>
+                    @if(request()->is('admin/observe/*'))
+                        <a href="{{ route('admin.terminatelabstudent', $projectId) }}" class="btn btn-warning btn-block" onclick="return confirm('คุณต้องการจะ ยุบการทดลองนี้ หรือไม่? ')"><i class="fa fa-times"></i>ยุบห้องทดลองนี้</a>
+                    @else
+                        <a href="{{ route('admin.lab.show', $lab->id) }}" class="btn btn-primary btn-block"><i class="fa fa-arrow-left"></i>ย้อนกลับไปหน้าจัดการ</a>
+                    @endif
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card" style="">
                 <div class="card-body">
-                    <a href="{{ route('admin.lab.terminateLab', $lab->id) }}" class="btn btn-danger btn-block"><i class="fa fa-times"></i>Terminate</a>
+                    <a href="{{ route('admin.lab.terminateLab', $lab->id) }}" class="btn btn-danger btn-block" onclick="return confirm('คำเตือน! การกด ยุบการทดลองทั้งหมด จะทำให้การทดลองของนักศึกษาถูกทำลายด้วย คุณต้องการจะ ยุบการทดลองทั้งหมด หรือไม่? ')"><i class="fa fa-times"></i>ยุบการทดลองทั้งหมด</a>
                 </div>
             </div>
         </div>
@@ -220,6 +224,37 @@
                                 </svg>
                             </div>
                         </div>
+                    </div>
+                    <h5>Instance List</h5>
+                    <div class="table-responsive">
+                        <table class="table card-table table-striped table-vcenter">
+                            <thead>
+                                <tr>
+                                    <th width="20px">ลำดับ</th>
+                                    <th>ชื่อ Instance</th>
+                                    <th width="60px">สถานะ</th>
+                                    <th width="270px">การกระทำ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($servers as $server)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $server->name }}</td>
+                                        <td>{{ $server->vmState }}</td>
+                                        <td class="text-center">
+                                            <a href="#" class="btn btn-pill btn-danger btn-sm">Stop</a>
+                                            <a href="#" class="btn btn-pill btn-success btn-sm">Start</a>
+                                            <a href="#" class="btn btn-pill btn-secondary btn-sm">Delete</a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted">ไม่มี Instance</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
