@@ -35,6 +35,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('lab/{lab}/createRouter', 'LabController@createRouter')->name('lab.createRouter');
 	Route::get('lab/{lab}/exit', 'LabController@exitLab')->name('lab.exitLab');
 	Route::get('lab/{lab}/project/{projectId}/deleteInstance/{instanceId}', 'LabController@terminateInstance')->name('terminateInstance');
+	Route::get('lab/{lab}/project/{projectId}/startInstance/{instanceId}', 'LabController@startInstance')->name('startInstance');
+	Route::get('lab/{lab}/project/{projectId}/stopInstance/{instanceId}', 'LabController@stopInstance')->name('stopInstance');
+	Route::get('lab/{lab}/project/{projectId}/rebootInstance/{instanceId}', 'LabController@rebootInstance')->name('rebootInstance');
 
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
         Route::resource('lab', 'LabController');
