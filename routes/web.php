@@ -51,6 +51,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('activelab', 'LabController@labActive')->name('activelab');
         Route::get('lab/terminate/{projectId}', 'LabController@terminateLabStudent')->name('terminatelabstudent');
         Route::get('lab/{lab}/deleteInstance/{instanceId}', 'LabController@terminateInstance')->name('terminateInstance');
+	    Route::get('lab/{lab}/rebootInstance/{instanceId}', 'LabController@rebootInstance')->name('rebootInstance');
+	    Route::get('lab/{lab}/stopInstance/{instanceId}', 'LabController@stopInstance')->name('stopInstance');
+	    Route::get('lab/{lab}/startInstance/{instanceId}', 'LabController@startInstance')->name('startInstance');
 
         Route::resource('image', 'ImageController', ['only' => ['index', 'store', 'destroy']]);
         Route::resource('flavor', 'FlavorController', ['only' => ['index', 'store', 'destroy']]);

@@ -334,6 +334,16 @@ class LabController extends Controller
         return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'สร้าง Router สำเร็จ');
     }
 
+    public function addInterfaceRouter(Lab $lab)
+    {
+	    $openStack = clone resolve('OpenStackApi');
+	    $openStack->setProjectScope($lab->project_id);
+
+	    $openStack->networkingV2ExtLayer3()->createRouter($options);
+
+	    return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'สร้าง Router สำเร็จ');
+    }
+
     public function updateQuota(Lab $lab, Request $request)
     {
         $openStack = clone resolve('OpenStackApi');
@@ -503,4 +513,55 @@ class LabController extends Controller
 
 	    return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'ลบ Instance สำเร็จ');
     }
+
+    public function rebootInstance(Lab $lab, $instanceId)
+    {
+	    $openStack = clone resolve('OpenStackApi');
+	    $openStack->setProjectScope($lab->project_id);
+
+	    $server = $openStack->computeV2()->getServer([
+		    'id' => $instanceId
+	    ]);
+
+	    $server->reboot();
+
+	    return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'Reboot Instance สำเร็จ');
+    }
+
+	public function stopInstance(Lab $lab, $instanceId)
+	{
+		$openStack = clone resolve('OpenStackApi');
+		$openStack->setProjectScope($lab->project_id);
+
+		$server = $openStack->computeV2()->getServer([
+			'id' => $instanceId
+		]);
+
+		$server->retrieve();
+
+		if ($server->vmState == 'active')
+		{
+			$server->stop();
+		}
+
+		return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'Stop Instance สำเร็จ');
+	}
+
+	public function startInstance(Lab $lab, $instanceId)
+	{
+		$openStack = clone resolve('OpenStackApi');
+		$openStack->setProjectScope($lab->project_id);
+
+		$server = $openStack->computeV2()->getServer([
+			'id' => $instanceId
+		]);
+		$server->retrieve();
+
+		if ($server->vmState == 'stopped')
+		{
+			$server->start();
+		}
+
+		return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'Start Instance สำเร็จ');
+	}
 }

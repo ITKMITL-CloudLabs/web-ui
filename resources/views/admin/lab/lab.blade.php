@@ -233,7 +233,7 @@
                                     <th width="20px">ลำดับ</th>
                                     <th>ชื่อ Instance</th>
                                     <th width="60px">สถานะ</th>
-                                    <th width="270px">การกระทำ</th>
+                                    <th width="500px" class="text-center">การกระทำ</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -243,8 +243,9 @@
                                         <td>{{ $server->name }}</td>
                                         <td>{{ $server->vmState }}</td>
                                         <td class="text-center">
-                                            <a href="#" class="btn btn-pill btn-danger btn-sm">หยุด</a>
-                                            <a href="#" class="btn btn-pill btn-success btn-sm">เริ่ม</a>
+                                            <a href="{{ route('admin.stopInstance', [$lab->id, $server->id]) }}" class="btn btn-pill btn-danger btn-sm"><i class="fa fa-stop"></i>หยุด</a>
+                                            <a href="{{ route('admin.startInstance', [$lab->id, $server->id]) }}" class="btn btn-pill btn-success btn-sm"><i class="fa fa-play"></i>เริ่ม</a>
+                                            <a href="{{ route('admin.rebootInstance', [$lab->id, $server->id]) }}" class="btn btn-pill btn-primary btn-sm"><i class="fa fa-refresh"></i>รีบูต</a>
                                             <a href="{{ route('admin.terminateInstance', [$lab->id, $server->id]) }}" class="btn btn-pill btn-warning btn-sm" onclick="return confirm('คุณต้องการจะลบ Instance นี้หรือไม่? ')"><i class="fa fa-trash"></i>ลบ Instance</a>
                                         </td>
                                     </tr>
