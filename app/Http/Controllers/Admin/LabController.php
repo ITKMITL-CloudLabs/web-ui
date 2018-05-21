@@ -501,6 +501,6 @@ class LabController extends Controller
 
 	    $server->delete();
 
-	    return redirect('admin.lab.lab', $lab->id)->with('alert_success', 'ลบ Instance สำเร็จ');
+	    return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'ลบ Instance สำเร็จ');
     }
 }

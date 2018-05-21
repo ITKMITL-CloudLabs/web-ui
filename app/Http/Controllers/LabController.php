@@ -279,4 +279,18 @@ class LabController extends Controller
 
 		return redirect(route('lab.show', $lab->id))->with('alert_success', 'ออกจากการทดลองเรียบร้อย');
 	}
+
+	public function terminateInstance(Lab $lab, $projectId, $instanceId)
+	{
+		$openStack = clone resolve('OpenStackApi');
+		$openStack->setProjectScope($projectId);
+
+		$server = $openStack->computeV2()->getServer([
+			'id' => $instanceId
+		]);
+
+		$server->delete();
+
+		return redirect(route('lab.room', $lab->id))->with('alert_success', 'ลบ Instance สำเร็จ');
+	}
 }

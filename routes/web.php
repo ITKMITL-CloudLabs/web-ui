@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('lab/{lab}/createSubnet', 'LabController@createSubnet')->name('lab.createSubnet');
 	Route::post('lab/{lab}/createRouter', 'LabController@createRouter')->name('lab.createRouter');
 	Route::get('lab/{lab}/exit', 'LabController@exitLab')->name('lab.exitLab');
+	Route::get('lab/{lab}/project/{projectId}/deleteInstance/{instanceId}', 'LabController@terminateInstance')->name('terminateInstance');
 
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
         Route::resource('lab', 'LabController');
@@ -49,7 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('lab/{lab}/generateHotTemplate', 'LabController@generateHotTemplate')->name('lab.generateHotTemplate');
         Route::get('activelab', 'LabController@labActive')->name('activelab');
         Route::get('lab/terminate/{projectId}', 'LabController@terminateLabStudent')->name('terminatelabstudent');
-        Route::get('lab/{$lab}/deleteInstance/{$instanceId}', 'LabController@terminateInstance')->name('terminateInstance');
+        Route::get('lab/{lab}/deleteInstance/{instanceId}', 'LabController@terminateInstance')->name('terminateInstance');
 
         Route::resource('image', 'ImageController', ['only' => ['index', 'store', 'destroy']]);
         Route::resource('flavor', 'FlavorController', ['only' => ['index', 'store', 'destroy']]);

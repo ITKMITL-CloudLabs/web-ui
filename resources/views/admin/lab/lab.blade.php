@@ -243,14 +243,14 @@
                                         <td>{{ $server->name }}</td>
                                         <td>{{ $server->vmState }}</td>
                                         <td class="text-center">
-                                            <a href="#" class="btn btn-pill btn-danger btn-sm">Stop</a>
-                                            <a href="#" class="btn btn-pill btn-success btn-sm">Start</a>
-                                            <a href="#" class="btn btn-pill btn-secondary btn-sm">Delete</a>
+                                            <a href="#" class="btn btn-pill btn-danger btn-sm">หยุด</a>
+                                            <a href="#" class="btn btn-pill btn-success btn-sm">เริ่ม</a>
+                                            <a href="{{ route('admin.terminateInstance', [$lab->id, $server->id]) }}" class="btn btn-pill btn-warning btn-sm" onclick="return confirm('คุณต้องการจะลบ Instance นี้หรือไม่? ')"><i class="fa fa-trash"></i>ลบ Instance</a>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="3" class="text-center text-muted">ไม่มี Instance</td>
+                                        <td colspan="4" class="text-center text-muted">ไม่มี Instance</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -303,11 +303,6 @@
           @{{/console_id}}
 
         </div>
-        @{{#type}}
-        <div class="cell delete">
-          <button class="delete-device btn btn-danger btn-xs @{{type}}" data-type="@{{type}}"  data-device-id="@{{id}}">@{{delete_label}}</button>
-        </div>
-        @{{/type}}
         </div>
       </div>
     </div>
