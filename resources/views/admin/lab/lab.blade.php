@@ -32,6 +32,13 @@
             <div class="card" style="">
                 <div class="card-body">
                     <a href="{{ route('admin.lab.terminateLab', $lab->id) }}" class="btn btn-danger btn-block" onclick="return confirm('คำเตือน! การกด ยุบการทดลองทั้งหมด จะทำให้การทดลองของนักศึกษาถูกทำลายด้วย คุณต้องการจะ ยุบการทดลองทั้งหมด หรือไม่? ')"><i class="fa fa-times"></i>ยุบการทดลองทั้งหมด</a>
+
+                    <div class="text-center mb-2">
+                        <a href="{{ route('admin.lab.generateHotTemplate', $lab->id) }}" class="btn btn-success btn-block"><i class="fa fa-fire"></i>บันทึก Topology เป็น Template</a>
+                        <small class="text-muted">บันทึกล่าสุด: {{ $lab->hot_template_created_at }} (<a href="{{ route('admin.lab.showHotTemplate', $lab->id) }}">แสดง</a>)</small>
+                    </div>
+
+                    <a href="{{ route('admin.lab.terminateLab', $lab->id) }}" class="btn btn-danger btn-block"><i class="fa fa-times"></i>Start Over</a>
                 </div>
             </div>
         </div>

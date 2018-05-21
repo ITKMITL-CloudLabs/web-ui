@@ -39,6 +39,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('lab/{lab}/project/{projectId}/stopInstance/{instanceId}', 'LabController@stopInstance')->name('stopInstance');
 	Route::get('lab/{lab}/project/{projectId}/rebootInstance/{instanceId}', 'LabController@rebootInstance')->name('rebootInstance');
 
+    Route::get('a', 'LabController@createLabFromHotTemplate')->name('lab.createLabFromHotTemplate');
+
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
         Route::resource('lab', 'LabController');
         Route::post('lab/{lab}/togglePublishStatus', 'LabController@togglePublishStatus')->name('lab.togglePublishStatus');
@@ -53,6 +55,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('lab/{lab}/generateHotTemplate', 'LabController@generateHotTemplate')->name('lab.generateHotTemplate');
         Route::get('activelab', 'LabController@labActive')->name('activelab');
         Route::get('lab/terminate/{projectId}', 'LabController@terminateLabStudent')->name('terminatelabstudent');
+        Route::get('lab/{$lab}/deleteInstance/{$instanceId}', 'LabController@terminateInstance')->name('terminateInstance');
+        Route::get('lab/{lab}/showHotTemplate', 'LabController@showHotTemplate')->name('lab.showHotTemplate');
         Route::get('lab/{lab}/deleteInstance/{instanceId}', 'LabController@terminateInstance')->name('terminateInstance');
 	    Route::get('lab/{lab}/rebootInstance/{instanceId}', 'LabController@rebootInstance')->name('rebootInstance');
 	    Route::get('lab/{lab}/stopInstance/{instanceId}', 'LabController@stopInstance')->name('stopInstance');

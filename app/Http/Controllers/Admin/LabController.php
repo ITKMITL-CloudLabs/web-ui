@@ -6,6 +6,8 @@ use App\Extensions\HotTemplateGenerator;
 use App\Models\Lab;
 use App\Models\User;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use OpenStack\OpenStack;
@@ -267,20 +269,36 @@ class LabController extends Controller
 
         $compute = $openStack->computeV2();
 
+        $flavor = $compute->getFlavor(['id' => $request->flavorId]);
+        $flavor->retrieve();
+
         $options = [
             // Required
             'name'     => $request->name,
-            'imageId'  => $request->imageId,
+//            'imageId'  => $request->imageId,
             'flavorId' => $request->flavorId,
 
             // Required if multiple network is defined
             'networks'  => [
                 ['uuid' => $request->networkId]
             ],
+
+            'blockDeviceMapping' => [
+                [
+                    'bootIndex' => 0,
+                    'sourceType' => 'image',
+                    'uuid' => $request->imageId,
+                    'volumeSize' => $flavor->disk,
+                    'destinationType' => 'volume',
+                    'deleteOnTermination' => true
+                ]
+            ]
         ];
 
         // Create the server
-        $compute->createServer($options);
+        $server = $compute->createServer($options);
+
+        $server->retrieve();
 
         return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'สร้าง Instance สำเร็จ');
     }
@@ -417,7 +435,16 @@ class LabController extends Controller
 
     public function generateHotTemplate(Lab $lab)
     {
-        return new HotTemplateGenerator($lab->project_id);
+        $template = new HotTemplateGenerator($lab->project_id);
+        $lab->hot_template = $template->getTemplate();
+        $lab->save();
+
+        return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'การสร้าง Template สำเร็จ');
+    }
+
+    public function showHotTemplate(Lab $lab)
+    {
+        dd($lab->hot_template);
     }
 
     public function labActive()

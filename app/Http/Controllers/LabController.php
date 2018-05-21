@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Lab;
 use App\Models\User;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
 
 class LabController extends Controller
@@ -94,16 +96,12 @@ class LabController extends Controller
 
     public function getroom(Lab $lab)
     {
-    	if (auth()->user()->current_project_id && auth()->user()->current_lab_id != $lab->id)
-    	{
-    	    return redirect(route('lab.show', $lab->id))->with('alert_danger', 'คุณยังมีการทดลองอื่นที่ยังค้างอยู่ ทำให้ไม่สามารถเข้าไปทำการทดลองนี้ได้');
-	    }
 	    $openStackIdentityService = resolve('OpenStackApi')->identityV3();
 		$user = auth()->user();
 	    if (is_null($projectId = $user->current_project_id)) {
 		    $project = $openStackIdentityService->createProject( [
 			    'name'        => "{$lab->id}_" . Carbon::now()->format( 'Y_m_d_His' ) . "_lab",
-			    'description' => "A Lab Template of ID #{$lab->id}",
+			    'description' => "A Lab Room of Lab ID #{$lab->id}",
 			    'enabled'     => true
 		    ] );
 
@@ -112,9 +110,36 @@ class LabController extends Controller
 			    'roleId'  => env( 'OS_ADMIN_ROLE_ID' )
 		    ] );
 
+            $quota = resolve('OpenStackApi')->computeV2()->getQuotaSet($project->id, true);
+            $quota->retrieve();
+            $storageQuota = resolve('OpenStackApi')->blockStorageV2()->getQuotaSet($project->id, true);
+            $storageQuota->retrieve();
+
+            $quota->instances = (int) $lab->quota->instances;
+            $quota->cores = (int) $lab->quota->vcpus;
+            $quota->ram = (int) $lab->quota->memory;
+            $storageQuota->gigabytes = (int) $lab->quota->disk;
+
+            $quota->update();
+            $storageQuota->update();
+
 		    $user->current_project_id = $project->id;
 		    $user->current_lab_id = $lab->id;
 		    $user->save();
+
+            $identity = resolve('OpenStackApi')->identityV3();
+            $userFromOs = $identity->getUser($user->id);
+            $userFromOs->defaultProjectId = $project->id;
+            $userFromOs->update();
+
+		    if ($lab->is_predefined_lab) {
+                $this->deployHotTemplate($lab->hot_template, $project->id);
+
+                // HARDCODE
+                $user->current_project_id = "fbcbfdb0267b47b7b06d3487e63eb128";
+                $user->save();
+            }
+
 	    } else {
 		    $project = $openStackIdentityService->getProject($projectId);
 		    $project->retrieve();
@@ -265,17 +290,37 @@ class LabController extends Controller
 		return redirect(route('lab.room', $lab->id))->with('alert_success', 'สร้าง Router สำเร็จ');
 	}
 
-	public function exitLab(Lab $lab)
-	{
-		$user = auth()->user();
+    public function exitLab(Lab $lab) {
+        $user = auth()->user();
 
-		$identity = resolve('OpenStackApi')->identityV3();
-		$project = $identity->getProject($user->current_project_id);
-		$project->delete();
+        $identity = resolve('OpenStackApi')->identityV3();
+        $project = $identity->getProject($user->current_project_id);
+        $project->delete();
 
-		$user->current_project_id = null;
-		$user->current_lab_id = null;
-		$user->save();
+        $user->current_project_id = null;
+        $user->current_lab_id = null;
+        $user->save();
+
+        return redirect(route('lab.show', $lab->id))->with('alert_success', 'ออกจากการทดลองเรียบร้อย');
+    }
+
+    public function deployHotTemplate($template, $projectId)
+    {
+        $client = new Client();
+        try {
+            $client->request('POST', "https://192.168.1.103:8004/v1/{$projectId}/stacks", [
+                'headers' => [
+                    'X-Auth-Token' => auth()->user()->token
+                ],
+                'verify' => false,
+                'json' => [
+                    'stack_name' => 'stack_'.$projectId,
+                    'template' => $template
+                ]
+            ]);
+        } catch (GuzzleException $e) {
+            dd($e->getResponse()->getBody()->getContents());
+        }
 
 		return redirect(route('lab.show', $lab->id))->with('alert_success', 'ออกจากการทดลองเรียบร้อย');
 	}
