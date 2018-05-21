@@ -129,7 +129,23 @@
 
 <script src="{{ asset('assets/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/raty/jquery.raty-fa.js') }}"></script>
+<script>
+    $('.modal').on('shown.bs.modal', function() {
+        $(this).find('[autofocus]').focus();
+    });
 
+    $('.raty').raty({
+        score: function() {
+            return $(this).attr('data-score');
+        },
+        scoreName: function() {
+            return $(this).attr('data-name');
+        },
+        readOnly: function() {
+            return $(this).attr('data-readonly') == 'true';
+        }
+    })
+</script>
 @yield('script')
 
 </body>

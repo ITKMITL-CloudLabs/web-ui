@@ -321,5 +321,72 @@ class LabController extends Controller
         } catch (GuzzleException $e) {
             dd($e->getResponse()->getBody()->getContents());
         }
-    }
+
+		return redirect(route('lab.show', $lab->id))->with('alert_success', 'ออกจากการทดลองเรียบร้อย');
+	}
+
+	public function terminateInstance(Lab $lab, $projectId, $instanceId)
+	{
+		$openStack = clone resolve('OpenStackApi');
+		$openStack->setProjectScope($projectId);
+
+		$server = $openStack->computeV2()->getServer([
+			'id' => $instanceId
+		]);
+
+		$server->delete();
+
+		return redirect(route('lab.room', $lab->id))->with('alert_success', 'ลบ Instance สำเร็จ');
+	}
+
+	public function rebootInstance(Lab $lab, $projectId, $instanceId)
+	{
+		$openStack = clone resolve('OpenStackApi');
+		$openStack->setProjectScope($projectId);
+
+		$server = $openStack->computeV2()->getServer([
+			'id' => $instanceId
+		]);
+
+		$server->reboot();
+
+		return redirect(route('lab.room', $lab->id))->with('alert_success', 'Reboot Instance สำเร็จ');
+	}
+
+	public function stopInstance(Lab $lab,  $projectId, $instanceId)
+	{
+		$openStack = clone resolve('OpenStackApi');
+		$openStack->setProjectScope($projectId);
+
+		$server = $openStack->computeV2()->getServer([
+			'id' => $instanceId
+		]);
+
+		$server->retrieve();
+
+		if ($server->vmState == 'active')
+		{
+			$server->stop();
+		}
+
+		return redirect(route('lab.room', $lab->id))->with('alert_success', 'Stop Instance สำเร็จ');
+	}
+
+	public function startInstance(Lab $lab, $projectId, $instanceId)
+	{
+		$openStack = clone resolve('OpenStackApi');
+		$openStack->setProjectScope($projectId);
+
+		$server = $openStack->computeV2()->getServer([
+			'id' => $instanceId
+		]);
+		$server->retrieve();
+
+		if ($server->vmState == 'stopped')
+		{
+			$server->start();
+		}
+
+		return redirect(route('lab.room', $lab->id))->with('alert_success', 'Start Instance สำเร็จ');
+	}
 }
