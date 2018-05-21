@@ -31,10 +31,16 @@
         <div class="col-md-3">
             <div class="card" style="">
                 <div class="card-body">
-                    <div class="text-center">
+                    @if(!request()->is('admin/observe/*'))
+                    <div class="text-center mb-2">
                         <a href="{{ route('admin.lab.generateHotTemplate', $lab->id) }}" class="btn btn-success btn-block"><i class="fa fa-fire"></i>บันทึก Topology เป็น Template</a>
                         <small class="text-muted">บันทึกล่าสุด: {{ $lab->hot_template_created_at }} (<a href="{{ route('admin.lab.showHotTemplate', $lab->id) }}">แสดง</a>)</small>
                     </div>
+                    @endif
+
+                    <a href="{{ route('admin.lab.terminateLab', $lab->id) }}" class="btn btn-danger btn-block" onclick="return confirm('คำเตือน! การกด ยุบการทดลองทั้งหมด จะทำให้การทดลองของนักศึกษาถูกทำลายด้วย คุณต้องการจะ ยุบการทดลองทั้งหมด หรือไม่? ')"><i class="fa fa-times"></i>ยุบการทดลองทั้งหมด</a>
+
+                    <a href="{{ route('admin.lab.terminateLab', $lab->id) }}" class="btn btn-danger btn-block"><i class="fa fa-times"></i>Terminate</a>
                 </div>
             </div>
         </div>

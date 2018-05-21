@@ -37,7 +37,7 @@
         <div class="col-sm-6 col-lg-4">
             <div class="card">
                 <div class="card-body text-center">
-                    <div class="h5">VCPUs Free</div>
+                    <div class="h5">vCPUs Free</div>
                     <div class="display-4 font-weight-bold mb-4">{{ $monitor->vcpus - $monitor->vcpus_used }}</div>
                     <div class="progress progress-sm">
                         <div class="progress-bar bg-green" style="width: {{ (($monitor->vcpus - $monitor->vcpus_used) / $monitor->vcpus) * 100 }}%"></div>
@@ -45,7 +45,23 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body p-3 text-center">
+                    <div class="h1 m-0">{{ $monitor->running_vms }}</div>
+                    <div class="text-muted">Running VMs</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body p-3 text-center">
+                    <div class="h1 m-0">{{ $monitor->memory_mb_used }} MB</div>
+                    <div class="text-muted">Memory Used</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">การทดลองที่กำลังดำเนินอยู่</div>
@@ -53,24 +69,26 @@
                 <div class="table-responsive">
                     <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
                         <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>ชื่อการทดลอง</th>
-                                <th width="30px">การกระทำ</th>
-                            </tr>
+                        <tr>
+                            <th width="20">#</th>
+                            <th>ชื่อการทดลอง</th>
+                            <th>เจ้าของห้องทดลอง</th>
+                            <th width="30px">การกระทำ</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @forelse($laboperations as $laboperation)
+                        @forelse($laboperations as $laboperation)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $laboperation->currentLab->title }}</td>
-                                <td>-</td>
+                                <td>{{ $laboperation->description }}</td>
+                                <td><a href="{{ route('admin.observeLab', [$laboperation->currentLab->id, $laboperation->current_project_id]) }}" class="btn btn-pill btn-success btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Observe</a></td>
                             </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="2">ไม่มีการทดลองที่กำลังดำเนินการอยู่</td>
-                                </tr>
-                            @endforelse
+                        @empty
+                            <tr>
+                                <td colspan="3">ไม่มีการทดลองที่กำลังดำเนินการอยู่</td>
+                            </tr>
+                        @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -83,7 +101,7 @@
                     <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
                         <thead>
                         <tr>
-                            <th>#</th>
+                            <th width="20">#</th>
                             <th>ชื่อการทดลอง</th>
                             <th width="30px">การกระทำ</th>
                         </tr>
@@ -97,35 +115,11 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="2">ไม่มีการทดลองที่กำลังดำเนินการอยู่</td>
+                                <td colspan="3">ไม่มีการทดลองที่กำลังดำเนินการอยู่</td>
                             </tr>
                         @endforelse
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-sm-4 col-lg-2">
-            <div class="card">
-                <div class="card-body p-3 text-center">
-                    <div class="h1 m-0">{{ $monitor->running_vms }}</div>
-                    <div class="text-muted mb-4">Running VMs</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-sm-4 col-lg-2">
-            <div class="card">
-                <div class="card-body p-3 text-center">
-                    <div class="h1 m-0">{{ $monitor->disk_available_least }}</div>
-                    <div class="text-muted mb-4">Disk Least</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 col-sm-4 col-lg-2">
-            <div class="card">
-                <div class="card-body p-3 text-center">
-                    <div class="h1 m-0">{{ $monitor->memory_mb_used }} MB</div>
-                    <div class="text-muted mb-4">Memory Used</div>
                 </div>
             </div>
         </div>
