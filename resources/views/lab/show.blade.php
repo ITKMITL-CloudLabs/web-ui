@@ -13,8 +13,8 @@
         <div class="col-lg-9">
             <div class="card">
                 <div class="card-body">
+                    <label class="text-muted">การทดลอง</label>
                     <div class="h2 mb-1">{{ $lab->title }}</div>
-                    <div class="text-muted mb-4">สร้างโดย {{ auth()->user()->name }}</div>
                 </div>
             </div>
             <div class="card">
