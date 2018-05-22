@@ -7,10 +7,10 @@
             <form action="{{ route('admin.lab.createSubnet', $lab->id) }}" method="post">
                 {{ csrf_field() }}
                 <div class="modal-body">
-                    {{--<div class="form-group required">--}}
-                        {{--<label>ชื่อ Network</label>--}}
-                        {{--<input type="text" name="networkname" class="form-control" autofocus>--}}
-                    {{--</div>--}}
+                    <div class="form-group required">
+                        <label>ชื่อ Subnet</label>
+                        <input type="text" name="subnetname" class="form-control" autofocus>
+                    </div>
                     <div class="form-group required">
                         <label>Network Address (ex. 192.168.1.0/24)</label>
                         <input type="text" name="networkaddress" class="form-control">

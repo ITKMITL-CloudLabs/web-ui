@@ -99,11 +99,13 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-5">
+                            @if(request()->is('admin/lab/*'))
                             <div class="btn-group">
                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#createInstanceModal"><i class="fa fa-hdd-o"></i>สร้าง Instance</button>
                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#createSubnetModal"><i class="fa fa-plus"></i>สร้าง Subnet</button>
                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#createRouterModal"><i class="fa fa-plus"></i>สร้าง Router</button>
                             </div>
+                            @endif
                         </div>
                         <div class="col-md-7">
                             <form action="{{ route('admin.lab.openConsole', $lab->id) }}" target="_blank">
