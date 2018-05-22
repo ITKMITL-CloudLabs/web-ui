@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('lab/{lab}/project/{projectId}/startInstance/{instanceId}', 'LabController@startInstance')->name('startInstance');
 	Route::get('lab/{lab}/project/{projectId}/stopInstance/{instanceId}', 'LabController@stopInstance')->name('stopInstance');
 	Route::get('lab/{lab}/project/{projectId}/rebootInstance/{instanceId}', 'LabController@rebootInstance')->name('rebootInstance');
+    Route::get('lab/{lab}/project/{projectId}/deleteSubnet/{subnetId}', 'LabController@deleteSubnet')->name('deleteSubnet');
 
     Route::get('a', 'LabController@createLabFromHotTemplate')->name('lab.createLabFromHotTemplate');
 
@@ -61,6 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
 	    Route::get('lab/{lab}/rebootInstance/{instanceId}', 'LabController@rebootInstance')->name('rebootInstance');
 	    Route::get('lab/{lab}/stopInstance/{instanceId}', 'LabController@stopInstance')->name('stopInstance');
 	    Route::get('lab/{lab}/startInstance/{instanceId}', 'LabController@startInstance')->name('startInstance');
+	    Route::get('lab/{lab}/deleteSubnet/{subnetId}', 'LabController@deleteSubnet')->name('deleteSubnet');
 
         Route::resource('image', 'ImageController', ['only' => ['index', 'store', 'destroy']]);
         Route::resource('flavor', 'FlavorController', ['only' => ['index', 'store', 'destroy']]);

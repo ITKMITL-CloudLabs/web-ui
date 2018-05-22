@@ -8,8 +8,8 @@
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group required">
-                        <label>ชื่อ Network</label>
-                        <input type="text" name="networkname" class="form-control" autofocus>
+                        <label>ชื่อ Subnet</label>
+                        <input type="text" name="subnetname" class="form-control">
                     </div>
                     <div class="form-group required">
                         <label>Network Address (ex. 192.168.1.0/24)</label>

@@ -264,6 +264,38 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <h5>Subnet List</h5>
+                    <div class="table-responsive">
+                        <table class="table card-table table-striped table-vcenter">
+                            <thead>
+                            <tr>
+                                <th width="20px">ลำดับ</th>
+                                <th>ชื่อ Subnet</th>
+                                <th>CIDR</th>
+                                <th>Gateway</th>
+                                <th width="500px" class="text-center">การกระทำ</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @forelse($subnets as $subnet)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $subnet->name }}</td>
+                                    <td>{{ $subnet->cidr }}</td>
+                                    <td>{{ $subnet->gatewayIp }}</td>
+                                    <td class="text-center">
+                                        <a href="{{ route('admin.deleteSubnet', [$lab->id, $subnet->id]) }}" class="btn btn-pill btn-danger btn-sm"><i class="fa fa-trash"></i>ลบ Subnet</a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted">ไม่มี Instance</td>
+                                </tr>
+                            @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

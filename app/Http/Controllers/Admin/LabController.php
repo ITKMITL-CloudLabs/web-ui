@@ -259,7 +259,29 @@ class LabController extends Controller
             return $flavor;
         }, true));
 
-        return view('admin.lab.lab', compact('lab','project', 'servers', 'networks', 'quota', 'storageQuota', 'routers', 'images', 'flavors', 'graph'));
+        $subnets = [];
+        foreach ($networks as $network) {
+
+            $networking = $openStack->networkingV2();
+            $subnet = $networking->getSubnet($network->subnets[0]);
+            $subnet->retrieve();
+
+            $subnets[] = $subnet;
+        }
+
+        return view('admin.lab.lab', compact('lab','project', 'servers', 'networks', 'quota', 'storageQuota', 'routers', 'images', 'flavors', 'graph', 'subnets'));
+    }
+
+    public function deleteSubnet(Lab $lab, $subnetId)
+    {
+        $networking = resolve('OpenStackApi')->networkingV2();
+        $subnet = $networking->getSubnet($subnetId);
+        $subnet->retrieve();
+
+        $network = $networking->getNetwork($subnet->networkId);
+        $network->delete();
+
+        return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'การลบ Subnet สำเร็จ');
     }
 
     public function createInstance(Lab $lab, Request $request)
