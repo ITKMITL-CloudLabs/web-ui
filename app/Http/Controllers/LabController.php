@@ -275,14 +275,14 @@ class LabController extends Controller
 		$networking = $openStack->networkingV2();
 
 		$options = [
-			'name'         => $request->networkname
+			'name'         => $request->subnetname
 		];
 
 		// Create the network
 		$network = $networking->createNetwork($options);
 
 		$optionSubnet = [
-			'name'      => $request->networkname,
+			'name'      => $request->subnetname,
 			'networkId' => $network->id,
 			'ipVersion' => 4,
 			'cidr'      => $request->networkaddress,

@@ -333,7 +333,7 @@ class LabController extends Controller
         $networking = $openStack->networkingV2();
 
         $options = [
-            'name'         => $request->networkname,
+            'name'         => $request->subnetname,
             'adminStateUp' => true,
         ];
 
@@ -341,7 +341,7 @@ class LabController extends Controller
         $network = $networking->createNetwork($options);
 
         $optionSubnet = [
-            'name'      => $request->networkname,
+            'name'      => $request->subnetname,
             'networkId' => $network->id,
             'ipVersion' => 4,
             'cidr'      => $request->networkaddress,
@@ -540,7 +540,17 @@ class LabController extends Controller
 		    return $flavor;
 	    }, true));
 
-	    return view('admin.lab.lab', compact('lab','project', 'servers', 'networks', 'quota', 'storageQuota', 'routers', 'images', 'flavors', 'graph', 'projectId'));
+        $subnets = [];
+        foreach ($networks as $network) {
+
+            $networking = $openStack->networkingV2();
+            $subnet = $networking->getSubnet($network->subnets[0]);
+            $subnet->retrieve();
+
+            $subnets[] = $subnet;
+        }
+
+	    return view('admin.lab.lab', compact('lab','project', 'servers', 'networks', 'quota', 'storageQuota', 'routers', 'images', 'flavors', 'graph', 'projectId', 'subnets'));
     }
 
     public function terminateInstance(Lab $lab, $instanceId)
