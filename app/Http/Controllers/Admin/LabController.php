@@ -369,28 +369,13 @@ class LabController extends Controller
             ]
         ];
 
-        $openStack->networkingV2ExtLayer3()->createRouter($options);
+        $router = $openStack->networkingV2ExtLayer3()->createRouter($options);
+
+        $router->addInterface([
+        	'subnetId' => $request->subnetId
+        ]);
 
         return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'สร้าง Router สำเร็จ');
-    }
-
-    public function addInterfaceRouter(Lab $lab)
-    {
-	    $openStack = clone resolve('OpenStackApi');
-	    $openStack->setProjectScope($lab->project_id);
-
-	    $options = [
-		    'name' => $request->name,
-		    'networkId' => $request->networkId,
-		    'externalGatewayInfo' => [
-			    'networkId' => $request->networkId,
-			    'enableSnat' => true
-		    ]
-	    ];
-
-	    $openStack->networkingV2ExtLayer3()->createRouter($options);
-
-	    return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'สร้าง Router สำเร็จ');
     }
 
     public function updateQuota(Lab $lab, Request $request)
