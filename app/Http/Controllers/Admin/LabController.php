@@ -319,7 +319,7 @@ class LabController extends Controller
         $network = $networking->createNetwork($options);
 
         $optionSubnet = [
-            'name'      => $request->subnetname,
+            'name'      => $request->networkname,
             'networkId' => $network->id,
             'ipVersion' => 4,
             'cidr'      => $request->networkaddress,
