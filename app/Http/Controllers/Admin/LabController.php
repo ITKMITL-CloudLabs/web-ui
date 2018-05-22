@@ -333,7 +333,7 @@ class LabController extends Controller
         $networking = $openStack->networkingV2();
 
         $options = [
-            'name'         => $request->subnetname,
+            'name'         => $request->networkname,
             'adminStateUp' => true,
         ];
 
@@ -341,7 +341,7 @@ class LabController extends Controller
         $network = $networking->createNetwork($options);
 
         $optionSubnet = [
-            'name'      => $request->subnetname,
+            'name'      => $request->networkname,
             'networkId' => $network->id,
             'ipVersion' => 4,
             'cidr'      => $request->networkaddress,
