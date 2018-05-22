@@ -63,6 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
 	    Route::get('lab/{lab}/stopInstance/{instanceId}', 'LabController@stopInstance')->name('stopInstance');
 	    Route::get('lab/{lab}/startInstance/{instanceId}', 'LabController@startInstance')->name('startInstance');
 	    Route::get('lab/{lab}/deleteSubnet/{subnetId}', 'LabController@deleteSubnet')->name('deleteSubnet');
+	    Route::get('lab/{lab}/deleteRouter/{routerId}', 'LabController@deleteRouter')->name('deleteRouter');
 
         Route::resource('image', 'ImageController', ['only' => ['index', 'store', 'destroy']]);
         Route::resource('flavor', 'FlavorController', ['only' => ['index', 'store', 'destroy']]);

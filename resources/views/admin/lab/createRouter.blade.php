@@ -12,12 +12,22 @@
                         <input type="text" name="name" class="form-control" autofocus>
                     </div>
                     <div class="form-group required">
-                        <label>เลือก Network</label>
+                        <label>เลือก Network External</label>
                         <select class="form-control" name="networkId">
                             <option value="" disabled selected>เลือก Network</option>
                             <option value="{{ env('OS_PUBLIC_NETWORK_ID') }}">Public</option>
                             @foreach($networks as $network)
                                 <option value="{{ $network->id }}">{{ $network->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group required">
+                        <label>เลือก Network Internal</label>
+                        <select class="form-control" name="subnetId">
+                            <option value="" disabled selected>เลือก Network</option>
+                            <option value="{{ env('OS_PUBLIC_NETWORK_ID') }}">Public</option>
+                            @foreach($subnets as $subnet)
+                                <option value="{{ $subnet->id }}">{{ $subnet->name }}</option>
                             @endforeach
                         </select>
                     </div>

@@ -309,6 +309,12 @@ class LabController extends Controller
 
 		$openStack->networkingV2ExtLayer3()->createRouter($options);
 
+		$router = $openStack->networkingV2ExtLayer3()->createRouter($options);
+
+		$router->addInterface([
+			'subnetId' => $request->subnetId
+		]);
+
 		return redirect(route('lab.room', $lab->id))->with('alert_success', 'สร้าง Router สำเร็จ');
 	}
 

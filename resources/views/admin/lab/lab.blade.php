@@ -290,7 +290,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center text-muted">ไม่มี Instance</td>
+                                    <td colspan="4" class="text-center text-muted">ไม่มี Subnet</td>
                                 </tr>
                             @endforelse
                             </tbody>

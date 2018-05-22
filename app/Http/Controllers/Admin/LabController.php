@@ -378,6 +378,31 @@ class LabController extends Controller
         return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'สร้าง Router สำเร็จ');
     }
 
+	public function deleteRouter(Lab $lab, $routerId)
+	{
+		$openStack = clone resolve('OpenStackApi');
+		$openStack->setProjectScope($lab->project_id);
+
+		$router = $openStack->networkingV2ExtLayer3()->getRouter($routerId);
+		$router->retrieve();
+
+		$getPorts = $openStack->networkingV2()->listPorts([
+			'deviceId' => $router->id,
+			'device_owner' => 'network:router_interface'
+		]);
+
+		$ports = iterator_to_array($getPorts);
+
+		foreach ($ports as $port) {
+			$router->removeInterface( [
+				'portId' => $port->id
+			] );
+			$router->delete();
+		}
+
+		return redirect(route('admin.lab.prepare', $lab->id))->with('alert_success', 'ลบ Router สำเร็จ');
+	}
+
     public function updateQuota(Lab $lab, Request $request)
     {
         $openStack = clone resolve('OpenStackApi');
